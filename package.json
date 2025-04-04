@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon",
+    "start": "node app.js",
+    "dev": "nodemon",
     "forward": "ngrok http --url=talented-albacore-utterly.ngrok-free.app 3000",
-    "start": "node app.js"
+    "build": "npx @tailwindcss/cli -i ./public/css/input.css -o ./public/css/output.css --watch"
   },
   "dependencies": {
+    "@tailwindcss/cli": "^4.1.2",
     "axios": "^1.8.4",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
@@ -21,6 +23,7 @@
     "multer": "^1.4.5-lts.2",
     "nodemailer": "^6.10.0",
     "pg": "^8.14.1",
+    "tailwindcss": "^4.1.2",
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {

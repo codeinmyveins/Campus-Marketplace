@@ -33,7 +33,7 @@ app.use(express.json());
 
 // Sample route
 app.get('/', (req, res) => {
-    res.send('Welcome to the Campus Connect Project API!');
+    res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 app.get("/surprise", (req, res) => {
@@ -48,7 +48,7 @@ const start = async () => {
 
     try {
         app.listen(PORT, "0.0.0.0", () => {
-            console.log(`Server listening on port ${PORT}...`);
+            console.log(`Server listening on port http://localhost:${PORT}...`);
         });
     } catch (error) {
         console.log(error)

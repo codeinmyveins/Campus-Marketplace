@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Connect - A Student's Marketplace</title>
+    <link rel="stylesheet" href="./css/output.css" />
+    <link
+      rel="shortcut icon"
+      href="./assets/high-school.png"
+      type="image/x-icon"
+    />
+    <script>
+      // Function to toggle the mobile menu
+      function toggleMenu() {
+        document.getElementById("mobileMenu").classList.toggle("hidden");
+      }
+    </script>
+  </head>
+
+  <body class="box-border">
+    <!-- Header & Navigation -->
+    <header>
+      <nav
+        class="z-10 bg-[var(--color2)] text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24"
+      >
+        <!-- Logo -->
+        <div class="logo-icon">
+          <h1 class="font-bold font-serif text-2xl uppercase">
+            Campus Connect
+          </h1>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+          class="md:hidden text-2xl focus:outline-none"
+          onclick="toggleMenu()"
+        >
+          ☰
+        </button>
+
+        <!-- Navigation Links (Desktop) -->
+        <div
+          class="hidden md:flex flex-row items-center space-x-10 capitalize font-semibold"
+        >
+          <ul class="flex space-x-10">
+            <li>
+              <a
+                href="./index.html"
+                class="inline-block py-2 hover:scale-110 duration-300"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a href="#" class="inline-block py-2 hover:scale-110 duration-300"
+                >About</a
+              >
+            </li>
+            <li>
+              <a href="#" class="inline-block py-2 hover:scale-110 duration-300"
+                >Market</a
+              >
+            </li>
+            <li>
+              <a href="#" class="inline-block py-2 hover:scale-110 duration-300"
+                >Contact</a
+              >
+            </li>
+          </ul>
+          <!-- Login/Signup (Desktop) -->
+          <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
+            <li>
+              <a
+                href="#"
+                class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
+                >Login</a
+              >
+            </li>
+            <li>
+              <a
+                href="./signup1.html"
+                class="bg-[#152c2e] text-[#f2f2f2] py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
+                >Sign Up</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Mobile Navigation Menu -->
+      <div
+        id="mobileMenu"
+        class="md:hidden flex-col items-center bg-[var(--color2)] p-5 hidden"
+      >
+        <ul class="space-y-4 text-center">
+          <li>
+            <a href="#" class="block py-2 hover:scale-110 duration-300">Home</a>
+          </li>
+          <li>
+            <a href="#" class="block py-2 hover:scale-110 duration-300"
+              >About</a
+            >
+          </li>
+          <li>
+            <a href="#" class="block py-2 hover:scale-110 duration-300"
+              >Market</a
+            >
+          </li>
+          <li>
+            <a href="#" class="block py-2 hover:scale-110 duration-300"
+              >Contact</a
+            >
+          </li>
+        </ul>
+        <!-- Login/Signup (Mobile) -->
+        <ul class="flex flex-col gap-5 mt-5 text-center">
+          <li>
+            <a
+              href="#"
+              class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
+              >Login</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="bg-[#152c2e] text-[#f2f2f2] py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
+              >Sign Up</a
+            >
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Hero Section (Full Landing Page) -->
+    <section
+      class="bg-[var(--color2)] flex flex-col-reverse md:flex-row items-center justify-between p-10 md:p-20 min-h-screen gap-12"
+    >
+      <!-- Left Text Content -->
+      <div class="md:w-1/2 space-y-6 text-center md:text-left">
+        <h2 class="text-4xl md:text-5xl font-extrabold leading-tight">
+          Welcome To The Student's Marketplace.
+          <br />Buy, Sell, Borrow Or Lend Items With Your Campus Mates.
+        </h2>
+        <p class="text-gray-700 text-lg">
+          Discover a new way to trade essentials within your campus, making
+          buying and selling easier than ever.
+        </p>
+        <a
+          href="#"
+          class="bg-teal-600 text-white px-6 py-3 rounded-lg inline-block text-lg hover:bg-teal-700 transition"
+          >Shop Now</a
+        >
+      </div>
+
+      <!-- Right Image -->
+      <div class="md:w-1/2 flex justify-center">
+        <img
+          src="./assets/hero.png"
+          alt="Campus Connect Illustration"
+          class="w-[80%] max-w-md md:max-w-lg lg:max-w-xl"
+        />
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="bg-[var(--color2)] py-16 px-4">
+      <div
+        class="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-12"
+      >
+        <!-- Left (Image) -->
+        <div class="flex justify-center lg:w-1/2">
+          <img
+            src="./assets/about2.png"
+            class="max-w-full h-auto object-contain"
+            alt="About Campus Connect"
+          />
+        </div>
+        <!-- Right (Text) -->
+        <div class="text-center lg:text-left lg:w-1/2">
+          <h2
+            class="text-4xl md:text-5xl font-bold text-[#152c2e] leading-tight"
+          >
+            About <span class="text-teal-600">Campus Connect</span>
+          </h2>
+          <p class="mt-4 text-lg text-gray-800">
+            Campus Connect is a student's marketplace where you can buy, sell,
+            borrow, or lend items within your campus.
+          </p>
+          <p class="mt-2 text-lg text-gray-800">
+            Whether you need books, gadgets, or other essentials, this platform
+            connects you with campus mates to exchange what you need, safely and
+            conveniently.
+          </p>
+          <button
+            class="mt-6 px-6 py-3 font-bold rounded-xl bg-teal-600 text-white hover:bg-teal-700 transition"
+          >
+            Learn More
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- FEATURES SECTION -->
+    <section class="bg-[var(--color1)] py-16 px-4">
+      <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-4xl md:text-5xl font-bold text-[#152c2e] leading-tight">
+          Why Choose <span class="text-[var(--color2)]">Campus Connect?</span>
+        </h2>
+        <p class="mt-4 text-lg text-[var(--color3)] max-w-3xl mx-auto">
+          We make campus trading easy, secure, and student-friendly. Explore the
+          benefits!
+        </p>
+      </div>
+
+      <!-- Features Grid -->
+      <div
+        class="max-w-6xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+      >
+        <!-- Feature 1 -->
+        <div
+          class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
+        >
+          <img
+            src="./assets/secure.png"
+            alt="Secure Transactions"
+            class="w-64 h-64"
+          />
+          <h3 class="mt-4 text-xl font-bold text-[#152c2e]">Safe & Secure</h3>
+          <p class="text-gray-700 text-center mt-2">
+            Trade with verified campus users in a secure environment.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div
+          class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
+        >
+          <img src="./assets/easy.png" alt="Easy to Use" class="w-64 h-64" />
+          <h3 class="mt-4 text-xl font-bold text-[#152c2e]">Easy to Use</h3>
+          <p class="text-gray-700 text-center mt-2">
+            Post listings or find deals in just a few clicks.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div
+          class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
+        >
+          <img
+            src="./assets/affordable.png"
+            alt="Affordable Deals"
+            class="w-64 h-64"
+          />
+          <h3 class="mt-4 text-xl font-bold text-[#152c2e]">
+            Affordable Deals
+          </h3>
+          <p class="text-gray-700 text-center mt-2">
+            Buy & sell items at student-friendly prices.
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div
+          class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
+        >
+          <img
+            src="./assets/community.png"
+            alt="Campus Community"
+            class="w-64 h-64"
+          />
+          <h3 class="mt-4 text-xl font-bold text-[#152c2e]">
+            Campus Community
+          </h3>
+          <p class="text-gray-700 text-center mt-2">
+            Engage with students from your own campus network.
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div
+          class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
+        >
+          <img
+            src="./assets/convenience.png"
+            alt="Convenience"
+            class="w-64 h-64"
+          />
+          <h3 class="mt-4 text-xl font-bold text-[#152c2e]">Convenience</h3>
+          <p class="text-gray-700 text-center mt-2">
+            Easily access items without the hassle of external platforms.
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div
+          class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
+        >
+          <img
+            src="./assets/sustainability.png"
+            alt="Sustainability"
+            class="w-64 h-64"
+          />
+          <h3 class="mt-4 text-xl font-bold text-[#152c2e]">Sustainability</h3>
+          <p class="text-gray-700 text-center mt-2">
+            Reduce waste by reusing and recycling items within your campus.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- HOW IT WORKS SECTION -->
+    <section class="bg-[var(--color1)] py-16 px-4">
+      <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-4xl md:text-5xl font-bold text-[#152c2e] leading-tight">
+          How <span class="text-[var(--color2)]">Campus Connect</span> Works?
+        </h2>
+        <p class="mt-4 text-lg text-gray-900 max-w-3xl mx-auto">
+          Follow these simple steps to buy, sell, and trade with your campus
+          community.
+        </p>
+      </div>
+
+      <!-- TIMELINE CONTAINER -->
+      <div class="max-w-5xl mx-auto mt-12 relative">
+        <!-- Vertical Line -->
+        <div
+          class="hidden md:block absolute left-1/2 top-0 h-full w-1 bg-teal-500 transform -translate-x-1/2"
+        ></div>
+
+        <!-- Steps Wrapper -->
+        <div class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-10">
+          <!-- Step 1 -->
+          <div class="relative flex md:flex-row-reverse md:items-start">
+            <div
+              class="w-12 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
+            >
+              1
+            </div>
+            <div class="ml-6 md:mr-6 md:pr-12 text-left md:text-right">
+              <h3 class="text-xl font-bold text-[#152c2e]">Sign Up</h3>
+              <p class="text-gray-900 mt-2">
+                Create your free account using your campus email for
+                verification.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="relative flex md:items-start">
+            <div
+              class="w-12 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
+            >
+              2
+            </div>
+            <div class="ml-6 md:ml-6 md:pl-12">
+              <h3 class="text-xl font-bold text-[#152c2e]">Browse Listings</h3>
+              <p class="text-gray-900 mt-2">
+                Explore listings from fellow students and find what you need.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="relative flex md:flex-row-reverse md:items-start">
+            <div
+              class="w-12 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
+            >
+              3
+            </div>
+            <div class="ml-6 md:mr-6 md:pr-12 text-left md:text-right">
+              <h3 class="text-xl font-bold text-[#152c2e]">Post a Listing</h3>
+              <p class="text-gray-900 mt-2">
+                Sell or trade your books, gadgets, and more with just a few
+                clicks.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="relative flex md:items-start">
+            <div
+              class="w-12 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
+            >
+              4
+            </div>
+            <div class="ml-6 md:ml-6 md:pl-12">
+              <h3 class="text-xl font-bold text-[#152c2e]">
+                Connect with Buyers/Sellers
+              </h3>
+              <p class="text-gray-900 mt-2">
+                Chat securely with other students and finalize your deals.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="relative flex md:flex-row-reverse md:items-start">
+            <div
+              class="w-12 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
+            >
+              5
+            </div>
+            <div class="ml-6 md:mr-6 md:pr-12 text-left md:text-right">
+              <h3 class="text-xl font-bold text-[#152c2e]">Make the Deal</h3>
+              <p class="text-gray-900 mt-2">
+                Meet up on campus, exchange items, and enjoy a hassle-free
+                transaction.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 6 -->
+          <div class="relative flex md:items-start">
+            <div
+              class="w-16 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
+            >
+              6
+            </div>
+            <div class="ml-6 md:ml-6 md:pl-12">
+              <h3 class="text-xl font-bold text-[#152c2e]">Enjoy & Repeat</h3>
+              <p class="text-gray-900 mt-2">
+                Use Campus Connect anytime for buying, selling, or trading items
+                easily!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- FEATURED LISTINGS SECTION -->
+    <section class="bg-[var(--color2)] py-16 px-4">
+      <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-4xl md:text-5xl font-bold text-[#152c2e] leading-tight">
+          Featured <span class="text-[var(--color1)]">Listings</span>
+        </h2>
+        <p class="mt-4 text-lg text-gray-700 max-w-3xl mx-auto">
+          Browse some of the top items available for sale or borrowing in your
+          campus community.
+        </p>
+      </div>
+
+      <!-- Listings Grid -->
+      <div
+        class="max-w-5xl mx-auto mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
+      >
+        <!-- Listing 1 - Drafting Set -->
+        <div class="bg-[#f2f2f2] shadow-lg rounded-xl p-6 flex flex-col">
+          <img
+            src="./assets/drafter.jpg"
+            alt="Drafting Set"
+            class="w-full h-48 object-cover rounded-lg"
+          />
+          <div class="mt-4 flex-grow">
+            <h3 class="text-xl font-bold text-[#152c2e]">Drafting set</h3>
+            <p class="text-gray-600 mt-1">
+              Complete kit with scale, compass, and technical pens.
+            </p>
+          </div>
+          <div class="mt-4 flex items-center justify-between">
+            <p class="font-semibold text-teal-600 text-lg">$10</p>
+            <button
+              class="bg-teal-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-transform duration-300 hover:scale-105"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+
+        <!-- Listing 2 - Scientific Calculator -->
+        <div class="bg-[#f2f2f2] shadow-lg rounded-xl p-6 flex flex-col">
+          <img
+            src="./assets/casio.jpg"
+            alt="Scientific Calculator"
+            class="w-full h-48 object-cover rounded-lg"
+          />
+          <div class="mt-4 flex-grow">
+            <h3 class="text-xl font-bold text-[#152c2e]">
+              Scientific Calculator
+            </h3>
+            <p class="text-gray-600 mt-1">
+              Casio FX-991EX, perfect for engineering and math students.
+            </p>
+          </div>
+          <div class="mt-4 flex items-center justify-between">
+            <p class="font-semibold text-teal-600 text-lg">$15</p>
+            <button
+              class="bg-teal-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-transform duration-300 hover:scale-105"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+
+        <!-- Listing 3 - Engineering Mechanics Book -->
+        <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col">
+          <img
+            src="./assets/book.jpg"
+            alt="Engineering Mechanics Book"
+            class="w-full h-48 object-cover rounded-lg"
+          />
+          <div class="mt-4 flex-grow">
+            <h3 class="text-xl font-bold text-[#152c2e]">
+              Engineering Mechanics
+            </h3>
+            <p class="text-gray-600 mt-1">
+              Essential textbook for mechanical and civil students.
+            </p>
+          </div>
+          <div class="mt-4 flex items-center justify-between">
+            <p class="font-semibold text-teal-600 text-lg">Free</p>
+            <button
+              class="bg-teal-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-transform duration-300 hover:scale-105"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- CTA SECTION -->
+    <section
+      class="bg-[var(--color2)] text--[var(--color3)] py-16 px-6 text-center"
+    >
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold leading-tight">
+          Join <span class="text-[var(--color1)]">Campus Connect</span> Today!
+        </h2>
+        <p class="mt-4 text-lg">
+          Start buying, selling, and trading with your campus community
+          effortlessly.
+        </p>
+        <a
+          href="#"
+          class="inline-block mt-6 bg-[var(--color1)] text-[var(--color2)] font-bold py-3 px-6 rounded-full text-lg shadow-lg transition-all duration-300 hover:bg-[var(--color3)]"
+        >
+          Get Started
+        </a>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="bg-[#152c2e] text-white py-16 px-6">
+      <div class="max-w-5xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold">Get in Touch</h2>
+        <p class="mt-2 text-lg text-gray-300">
+          Have any questions? We're here to help!
+        </p>
+      </div>
+
+      <div
+        class="max-w-4xl mx-auto mt-10 grid gap-8 md:grid-cols-2 items-center"
+      >
+        <!-- Contact Details -->
+        <div class="text-left space-y-5">
+          <p class="flex items-center gap-3 text-gray-300">
+            📍 <span>Campus Connect, Your University</span>
+          </p>
+          <p class="flex items-center gap-3 text-gray-300">
+            ✉️ <span>support@campusconnect.com</span>
+          </p>
+          <p class="flex items-center gap-3 text-gray-300">
+            📞 <span>+123 456 7890</span>
+          </p>
+        </div>
+
+        <!-- Contact Form -->
+        <form class="bg-[#1e3a3a] p-6 shadow-lg rounded-lg space-y-4">
+          <input
+            type="text"
+            placeholder="Your Name"
+            class="w-full p-3 bg-transparent border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color2)]"
+          />
+          <input
+            type="email"
+            placeholder="Your Email"
+            class="w-full p-3 bg-transparent border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color2)]"
+          />
+          <textarea
+            placeholder="Your Message"
+            rows="4"
+            class="resize-none w-full p-3 bg-transparent border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color2)]"
+          ></textarea>
+          <button
+            type="submit"
+            class="w-full bg-[var(--color2)] text-[var(--color3)] py-3 rounded-lg font-bold transition-all duration-300 hover:bg-[var(--color1)] hover:text-[var(--color5)]"
+          >
+            Send Message
+          </button>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>
