@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - Step 2 | Campus Connect</title>
+    <link rel="stylesheet" href="./styles/output.css" />
+    <link rel="stylesheet" href="./styles/signup2.css" />
+  </head>
+
+  <body class="bg-[var(--color2)] min-h-screen flex flex-col pt-20 md:pt-24">
+    <!-- Header & Navigation -->
+    <header>
+      <nav
+        class="fixed top-0 left-0 right-0 z-50 bg-[var(--color2)] text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md"
+      >
+        <!-- Logo -->
+        <div class="flex items-center space-x-3 logo-icon">
+          <img
+            src="./assets/icons/Campus Marketplace Logo.svg"
+            alt="Campus Logo"
+            class="w-10 h-10 object-contain mb-3.5"
+          />
+          <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
+            Campus Marketplace
+          </h1>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+          class="md:hidden text-3xl focus:outline-none"
+          onclick="toggleMenu()"
+        >
+          ☰
+        </button>
+
+        <!-- Navigation Links (Desktop) -->
+        <div
+          class="hidden md:flex flex-row items-center space-x-10 capitalize font-semibold"
+        >
+          <ul class="flex space-x-10">
+            <li>
+              <a
+                href="./index.html"
+                class="inline-block py-2 hover:scale-110 duration-300"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="#about"
+                class="inline-block py-2 hover:scale-110 duration-300"
+                >About</a
+              >
+            </li>
+            <li>
+              <a
+                href="#market"
+                class="inline-block py-2 hover:scale-110 duration-300"
+                >Market</a
+              >
+            </li>
+            <li>
+              <a
+                href="#contact"
+                class="inline-block py-2 hover:scale-110 duration-300"
+                >Contact</a
+              >
+            </li>
+          </ul>
+
+          <!-- Login/Signup (Desktop) -->
+          <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
+            <li>
+              <a
+                href="#"
+                class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
+                >Login</a
+              >
+            </li>
+            <li>
+              <a
+                href="./signup1.html"
+                class="bg-[#152c2e] text-[#f2f2f2] py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
+                >Sign Up</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Mobile Navigation Menu -->
+      <div
+        id="mobileMenu"
+        class="md:hidden flex-col items-center bg-[var(--color2)] p-5 hidden"
+      >
+        <ul class="space-y-4 text-center">
+          <li>
+            <a href="#" class="block py-2 hover:scale-110 duration-300">Home</a>
+          </li>
+          <li>
+            <a href="#about" class="block py-2 hover:scale-110 duration-300"
+              >About</a
+            >
+          </li>
+          <li>
+            <a href="#market" class="block py-2 hover:scale-110 duration-300"
+              >Market</a
+            >
+          </li>
+          <li>
+            <a href="#contact" class="block py-2 hover:scale-110 duration-300"
+              >Contact</a
+            >
+          </li>
+        </ul>
+        <!-- Login/Signup (Mobile) -->
+        <ul class="flex flex-col gap-5 mt-5 text-center">
+          <li>
+            <a
+              href="#"
+              class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
+              >Login</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="bg-[#152c2e] text-[#f2f2f2] py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
+              >Sign Up</a
+            >
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Sign-Up Form -->
+    <div class="flex flex-1 items-center justify-center px-4 relative">
+      <!-- <img src="./src/assets/trumpet.png" alt="Left Illustration" class="hidden md:block left-img" /> -->
+      <!-- Left Illustration -->
+      <!-- <img
+      src="./public/assets/images/trumpet.png"
+      alt="Person Blowing Horn"
+      class="hidden md:block left-img w-40 lg:w-56 xl:w-64 absolute left-[-6rem] lg:left-[8rem]"
+    /> -->
+
+      <img
+        src="./assets/images/trumpet.png"
+        alt="Person Blowing Horn"
+        class="hidden md:block left-img absolute left-[2rem]"
+      />
+
+      <div
+        class="bg-[var(--color3)] shadow-lg rounded-3xl p-8 w-full max-w-md mx-auto"
+      >
+        <h2 class="text-2xl font-bold text-[var(--color2)] text-center">
+          Complete Your Profile
+        </h2>
+
+        <form id="signupForm" class="mt-6 space-y-4">
+          <!-- Full Name -->
+          <div>
+            <label class="block text-[var(--color2)] font-medium"
+              >Full Name</label
+            >
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              required
+              class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none"
+            />
+            <p class="text-red-500 text-sm hidden" id="fullNameError">
+              Please enter a valid name.
+            </p>
+          </div>
+
+          <!-- Date of Birth -->
+          <div class="text-[var(--color2)]">
+            <label class="block text-[var(--color2)] font-medium"
+              >Date of Birth</label
+            >
+            <input
+              type="date"
+              id="dob"
+              name="dob"
+              required
+              class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none"
+            />
+            <p class="text-red-500 text-sm hidden" id="dobError">
+              You must be at least 16 years old.
+            </p>
+          </div>
+
+          <!-- Gender -->
+          <div class="relative">
+            <label class="block text-[var(--color2)] font-medium">Gender</label>
+            <div class="relative">
+              <select
+                id="gender"
+                name="gender"
+                required
+                class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 pr-10 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none appearance-none"
+              >
+                <option value="" class="bg-[var(--color3)]">
+                  Select Gender
+                </option>
+                <option value="male" class="bg-[var(--color3)]">Male</option>
+                <option value="female" class="bg-[var(--color3)]">
+                  Female
+                </option>
+                <option value="other" class="bg-[var(--color3)]">Other</option>
+              </select>
+              <!-- Custom Dropdown Icon -->
+              <span
+                class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]"
+              >
+                ▼
+              </span>
+            </div>
+            <p class="text-red-500 text-sm hidden" id="genderError">
+              Please select a gender.
+            </p>
+          </div>
+
+          <!-- Country -->
+          <div class="relative">
+            <label class="block text-[var(--color2)] font-medium"
+              >Country</label
+            >
+            <div class="relative">
+              <select
+                id="country"
+                name="country"
+                required
+                class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 pr-10 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none appearance-none"
+              >
+                <option value="">Select Country</option>
+                <!-- Dynamic country options will be injected here by JS -->
+              </select>
+              <!-- Custom Dropdown Icon -->
+              <span
+                class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]"
+              >
+                ▼
+              </span>
+            </div>
+            <p class="text-red-500 text-sm hidden" id="countryError">
+              Please select a country.
+            </p>
+          </div>
+
+          <!-- College -->
+          <div class="relative">
+            <label class="block text-[var(--color2)] font-medium"
+              >College</label
+            >
+            <div class="relative">
+              <select
+                id="college"
+                name="college"
+                required
+                class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 pr-10 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none appearance-none"
+              >
+                <option value="">Select College</option>
+                <option value="mit">
+                  Massachusetts Institute of Technology (MIT)
+                </option>
+                <option value="stanford">Stanford University</option>
+                <option value="harvard">Harvard University</option>
+                <option value="oxford">University of Oxford</option>
+                <option value="cambridge">University of Cambridge</option>
+                <option value="other">Other</option>
+              </select>
+              <!-- Custom Dropdown Icon -->
+              <span
+                class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]"
+              >
+                ▼
+              </span>
+            </div>
+            <p class="text-red-500 text-sm hidden" id="collegeError">
+              Please select a college.
+            </p>
+          </div>
+
+          <!-- Error message placeholder -->
+          <p
+            id="errorMsg"
+            class="text-red-600 text-center font-medium hidden"
+          ></p>
+          <!-- Continue Button -->
+
+          <!-- Continue Button -->
+          <button
+            type="submit"
+            class="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition font-medium"
+          >
+            Sign - Up
+          </button>
+        </form>
+
+        <!-- <p class="mt-4 text-center text-[var(--color2)]">
+          Already have an account?
+          <a href="login.html" class="text-teal-500 font-medium hover:underline">Login</a>
+        </p> -->
+      </div>
+
+      <!-- <img src="./public/assets/images/trumpet.png" alt="Right Illustration" class="hidden md:block right-img" />
+    </div> -->
+
+      <img
+        src="./assets/images/trumpet.png"
+        alt="Person Blowing Horn"
+        class="hidden md:block right-img absolute right-[2rem] transform scale-x-[-1]"
+      />
+    </div>
+    <!-- Validation Script -->
+    <script src="./js/axios.min.js"></script>
+    <script src="./js/signup2.js"></script>
+  </body>
+</html>
