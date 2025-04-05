@@ -5,34 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Campus Marketplace - A Student's Marketplace</title>
-    <link rel="stylesheet" href="./css/output.css" />
+    <link rel="stylesheet" href="./styles/output.css" />
+    <link rel="stylesheet" href="./styles/index.css" />
     <link
       rel="shortcut icon"
       href="./assets/icons/Campus Marketplace Logo.svg"
       type="image/x-icon"
     />
-    <style>
-      .scroll-fade {
-  opacity: 0;
-  transition: opacity 0.9s ease-out;
-}
-
-.scroll-fade.visible {
-  opacity: 1;
-}
-
-.join-animate {
-  opacity: 0;
-  transform: translateY(60px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.join-animate.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-    </style>
   </head>
 
   <body class="box-border pt-20 md:pt-24 bg-[var(--color2)]">
@@ -163,85 +142,88 @@
 
     <!-- Hero Section (Full Landing Page) -->
     <section
-  class="bg-[var(--color2)] flex flex-col-reverse md:flex-row items-center justify-between px-6 pt-12 pb-6 sm:px-10 sm:pt-16 sm:pb-8 md:px-20 md:pt-20 md:pb-12 min-h-[75vh] gap-3 sm:gap-6 md:gap-8"
->
-  <!-- Left Text Content -->
-  <div
-    class="md:w-1/2 space-y-3 sm:space-y-5 md:space-y-6 text-center md:text-left opacity-0 translate-y-10 transition-all duration-700 ease-out"
-    id="left-content"
-  >
-    <h2 class="text-2xl sm:text-3xl md:text-5xl font-extrabold leading-tight">
-      Welcome To The Student's Marketplace.
-      <br />
-      Buy, Sell, Borrow Or Lend Items With Your Campus Mates.
-    </h2>
-    <p class="text-gray-700 text-base sm:text-lg">
-      Discover a new way to trade essentials within your campus, making
-      buying and selling easier than ever.
-    </p>
-    <a
-      href="#"
-      class="bg-teal-600 text-white px-6 py-3 rounded-lg inline-block text-lg hover:bg-teal-700 transition"
-      >Get Started</a
+      class="bg-[var(--color2)] flex flex-col-reverse md:flex-row items-center justify-between px-6 pt-12 pb-6 sm:px-10 sm:pt-16 sm:pb-8 md:px-20 md:pt-20 md:pb-12 min-h-[75vh] gap-3 sm:gap-6 md:gap-8"
     >
-  </div>
-
-  <!-- Right Image -->
-  <div
-    class="md:w-1/2 flex justify-center opacity-0 translate-y-10 transition-all duration-700 ease-out"
-    id="right-image"
-  >
-    <img
-      src="./assets/images/hero.png"
-      alt="Campus Marketplace Illustration"
-      class="w-[80%] sm:w-[85%] md:w-[90%] lg:w-[95%] max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl object-contain"
-    />
-  </div>
-</section>
-
-   <!-- About Section -->
-<section id="about" class="bg-[var(--color2)] py-20 px-4">
-  <div
-    class="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-12"
-  >
-    <!-- Left (Image) -->
-    <div
-      class="flex justify-center lg:w-1/2 opacity-0 translate-y-10 transition-all duration-700 ease-out"
-      id="about-img"
-    >
-      <img
-        src="./assets/images/about.png"
-        class="max-w-full h-auto object-contain"
-        alt="About Campus Marketplace"
-      />
-    </div>
-
-    <!-- Right (Text) -->
-    <div
-      class="text-center lg:text-left lg:w-1/2 opacity-0 translate-y-10 transition-all duration-700 ease-out"
-      id="about-text"
-    >
-      <h2 class="text-4xl md:text-5xl font-bold text-[#152c2e] leading-tight">
-        About <span class="text-teal-600">Campus Marketplace</span>
-      </h2>
-      <p class="mt-4 text-lg text-gray-800">
-        Campus Marketplace is a student's marketplace where you can buy,
-        sell, borrow, or lend items within your campus.
-      </p>
-      <p class="mt-2 text-lg text-gray-800">
-        Whether you need books, gadgets, or other essentials, this platform
-        Marketplaces you with campus mates to exchange what you need, safely
-        and conveniently.
-      </p>
-      <button
-        class="mt-6 px-6 py-3 font-bold rounded-xl bg-teal-600 text-white hover:bg-teal-700 transition"
+      <!-- Left Text Content -->
+      <div
+        class="md:w-1/2 space-y-3 sm:space-y-5 md:space-y-6 text-center md:text-left opacity-0 translate-y-10 transition-all duration-700 ease-out"
+        id="left-content"
       >
-        Learn More
-      </button>
-    </div>
-  </div>
-</section>
+        <h2
+          class="text-2xl sm:text-3xl md:text-5xl font-extrabold leading-tight"
+        >
+          Welcome To The Student's Marketplace.
+          <br />
+          Buy, Sell, Borrow Or Lend Items With Your Campus Mates.
+        </h2>
+        <p class="text-gray-700 text-base sm:text-lg">
+          Discover a new way to trade essentials within your campus, making
+          buying and selling easier than ever.
+        </p>
+        <a
+          href="#"
+          class="bg-teal-600 text-white px-6 py-3 rounded-lg inline-block text-lg hover:bg-teal-700 transition"
+          >Get Started</a
+        >
+      </div>
 
+      <!-- Right Image -->
+      <div
+        class="md:w-1/2 flex justify-center opacity-0 translate-y-10 transition-all duration-700 ease-out"
+        id="right-image"
+      >
+        <img
+          src="./assets/images/hero.png"
+          alt="Campus Marketplace Illustration"
+          class="w-[80%] sm:w-[85%] md:w-[90%] lg:w-[95%] max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl object-contain"
+        />
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-[var(--color2)] py-20 px-4">
+      <div
+        class="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-12"
+      >
+        <!-- Left (Image) -->
+        <div
+          class="flex justify-center lg:w-1/2 opacity-0 translate-y-10 transition-all duration-700 ease-out"
+          id="about-img"
+        >
+          <img
+            src="./assets/images/about.png"
+            class="max-w-full h-auto object-contain"
+            alt="About Campus Marketplace"
+          />
+        </div>
+
+        <!-- Right (Text) -->
+        <div
+          class="text-center lg:text-left lg:w-1/2 opacity-0 translate-y-10 transition-all duration-700 ease-out"
+          id="about-text"
+        >
+          <h2
+            class="text-4xl md:text-5xl font-bold text-[#152c2e] leading-tight"
+          >
+            About <span class="text-teal-600">Campus Marketplace</span>
+          </h2>
+          <p class="mt-4 text-lg text-gray-800">
+            Campus Marketplace is a student's marketplace where you can buy,
+            sell, borrow, or lend items within your campus.
+          </p>
+          <p class="mt-2 text-lg text-gray-800">
+            Whether you need books, gadgets, or other essentials, this platform
+            Marketplaces you with campus mates to exchange what you need, safely
+            and conveniently.
+          </p>
+          <button
+            class="mt-6 px-6 py-3 font-bold rounded-xl bg-teal-600 text-white hover:bg-teal-700 transition"
+          >
+            Learn More
+          </button>
+        </div>
+      </div>
+    </section>
 
     <!-- FEATURES SECTION -->
     <section class="bg-[var(--color1)] py-16 px-4">
@@ -279,7 +261,11 @@
         <div
           class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
         >
-          <img src="./assets/images/easy.png" alt="Easy to Use" class="w-64 h-64" />
+          <img
+            src="./assets/images/easy.png"
+            alt="Easy to Use"
+            class="w-64 h-64"
+          />
           <h3 class="mt-4 text-xl font-bold text-[#152c2e]">Easy to Use</h3>
           <p class="text-gray-700 text-center mt-2">
             Post listings or find deals in just a few clicks.
@@ -375,7 +361,9 @@
         <!-- Steps Wrapper -->
         <div class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-10">
           <!-- Step 1 -->
-          <div class="relative flex md:flex-row-reverse md:items-start scroll-fade">
+          <div
+            class="relative flex md:flex-row-reverse md:items-start scroll-fade"
+          >
             <div
               class="w-12 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
             >
@@ -406,7 +394,9 @@
           </div>
 
           <!-- Step 3 -->
-          <div class="relative flex md:flex-row-reverse md:items-start scroll-fade">
+          <div
+            class="relative flex md:flex-row-reverse md:items-start scroll-fade"
+          >
             <div
               class="w-12 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
             >
@@ -439,7 +429,9 @@
           </div>
 
           <!-- Step 5 -->
-          <div class="relative flex md:flex-row-reverse md:items-start scroll-fade">
+          <div
+            class="relative flex md:flex-row-reverse md:items-start scroll-fade"
+          >
             <div
               class="w-12 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
             >
@@ -490,7 +482,9 @@
         class="max-w-5xl mx-auto mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
       >
         <!-- Listing 1 - Drafting Set -->
-        <div class="bg-[#f2f2f2] shadow-lg rounded-xl p-6 flex flex-col scroll-fade">
+        <div
+          class="bg-[#f2f2f2] shadow-lg rounded-xl p-6 flex flex-col scroll-fade"
+        >
           <img
             src="./assets/images/drafter.jpg"
             alt="Drafting Set"
@@ -513,7 +507,9 @@
         </div>
 
         <!-- Listing 2 - Scientific Calculator -->
-        <div class="bg-[#f2f2f2] shadow-lg rounded-xl p-6 flex flex-col scroll-fade">
+        <div
+          class="bg-[#f2f2f2] shadow-lg rounded-xl p-6 flex flex-col scroll-fade"
+        >
           <img
             src="./assets/images/casio.jpg"
             alt="Scientific Calculator"
@@ -538,7 +534,9 @@
         </div>
 
         <!-- Listing 3 - Engineering Mechanics Book -->
-        <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col scroll-fade">
+        <div
+          class="bg-white shadow-lg rounded-xl p-6 flex flex-col scroll-fade"
+        >
           <img
             src="./assets/images/book.jpg"
             alt="Engineering Mechanics Book"
@@ -587,7 +585,10 @@
     </section>
 
     <!-- CONTACT SECTION -->
-    <section id="contact" class="bg-[#152c2e] text-white py-16 px-6 scroll-fade">
+    <section
+      id="contact"
+      class="bg-[#152c2e] text-white py-16 px-6 scroll-fade"
+    >
       <div class="max-w-5xl mx-auto text-center">
         <h2 class="text-3xl md:text-4xl font-bold">Get in Touch</h2>
         <p class="mt-2 text-lg text-gray-300">
@@ -637,80 +638,6 @@
         </form>
       </div>
     </section>
-    <script>
-      // Function to toggle the mobile menu
-      function toggleMenu() {
-        document.getElementById("mobileMenu").classList.toggle("hidden");
-      }
-// scroll animation for the hero section
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.remove("opacity-0", "translate-y-10");
-          entry.target.classList.add("opacity-100", "translate-y-0");
-          observer.unobserve(entry.target); // optional: animate once
-        }
-      });
-    },
-    {
-      threshold: 0.7, // trigger when 20% is visible
-    }
-  );
-
-  observer.observe(document.getElementById("left-content"));
-  observer.observe(document.getElementById("right-image"));
-
-  // scroll animation for about section
-  const observer2 = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.remove("opacity-0", "translate-y-10");
-          entry.target.classList.add("opacity-100", "translate-y-0");
-          observer2.unobserve(entry.target); // animate only once
-        }
-      });
-    },
-    {
-      threshold:0.7,
-    }
-  );
-// scroll animation for the fade animation elements in all sections
-  observer2.observe(document.getElementById("left-content")); // Hero Left
-  observer2.observe(document.getElementById("right-image"));   // Hero Right
-  observer2.observe(document.getElementById("about-img"));     // About Image
-  observer2.observe(document.getElementById("about-text"));    // About Text
-
-  const fadeElements = document.querySelectorAll(".scroll-fade");
-
-  const showOnScroll = () => {
-    fadeElements.forEach((el) => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top <= window.innerHeight - 100) {
-        el.classList.add("visible");
-      }
-    });
-  };
-
-  window.addEventListener("scroll", showOnScroll);
-  window.addEventListener("load", showOnScroll);
-
-// CTA animation
-
- const animatedItems = document.querySelectorAll(".join-animate");
-
-  function animateOnScroll() {
-    animatedItems.forEach((el) => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top <= window.innerHeight - 100) {
-        el.classList.add("visible");
-      }
-    });
-  }
-
-  window.addEventListener("scroll", animateOnScroll);
-  window.addEventListener("load", animateOnScroll);
-    </script>
+    <script src="./js/index.js"></script>
   </body>
 </html>

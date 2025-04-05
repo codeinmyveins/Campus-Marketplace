@@ -4,68 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up | Campus Connect</title>
-    <link rel="stylesheet" href="./css/output.css" />
-    <style>
-      /* ✅ Fix for Tablet Screens */
-      @media (max-width: 1024px) {
-        .left-img {
-          left: 1rem; /* Adjust to prevent half visibility */
-        }
-        .right-img {
-          right: 1rem; /* Prevent overlapping */
-        }
-      }
-
-      /* ✅ Fix for Smaller Tablets (iPad Mini, Nest Hub) */
-      @media (max-width: 900px) {
-        .left-img {
-          left: 1rem;
-          max-width: 150px;
-        }
-        .right-img {
-          right: 1rem;
-          max-width: 150px;
-        }
-      }
-
-      /* ✅ Fix for Small Tablets and Large Phones */
-      @media (max-width: 768px) {
-        .left-img {
-          left: 0;
-          max-width: 120px;
-        }
-        .right-img {
-          right: 0;
-          max-width: 120px;
-        }
-      }
-
-      /* ✅ Hide Completely on Mobile Screens */
-      @media (max-width: 640px) {
-        .left-img,
-        .right-img {
-          display: none;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="./styles/output.css" />
+    <link rel="stylesheet" href="./styles/signup1.css" />
   </head>
 
-  <body class="bg-[var(--color2)] min-h-screen flex flex-col">
-    <!-- Header & Navigation -->
-    <header>
+  <body class="bg-[var(--color2)] min-h-screen flex flex-col pt-20 md:pt-24">
+     <!-- Header & Navigation -->
+     <header>
       <nav
-        class="z-10 bg-[var(--color2)] text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24"
+        class="fixed top-0 left-0 right-0 z-50 bg-[var(--color2)] text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md"
       >
         <!-- Logo -->
-        <div class="logo-icon">
-          <h1 class="font-bold font-serif text-2xl uppercase">
-            Campus Connect
+        <div class="flex items-center space-x-3 logo-icon">
+          <img
+            src="./assets/icons/Campus Marketplace Logo.svg"
+            alt="Campus Logo"
+            class="w-10 h-10 object-contain mb-3.5"
+          />
+          <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
+            Campus Marketplace
           </h1>
         </div>
 
         <!-- Mobile Menu Button -->
         <button
-          class="md:hidden text-2xl focus:outline-none"
+          class="md:hidden text-3xl focus:outline-none"
           onclick="toggleMenu()"
         >
           ☰
@@ -84,34 +47,41 @@
               >
             </li>
             <li>
-              <a href="#" class="inline-block py-2 hover:scale-110 duration-300"
+              <a
+                href="#about"
+                class="inline-block py-2 hover:scale-110 duration-300"
                 >About</a
               >
             </li>
             <li>
-              <a href="#" class="inline-block py-2 hover:scale-110 duration-300"
+              <a
+                href="#market"
+                class="inline-block py-2 hover:scale-110 duration-300"
                 >Market</a
               >
             </li>
             <li>
-              <a href="#" class="inline-block py-2 hover:scale-110 duration-300"
+              <a
+                href="#contact"
+                class="inline-block py-2 hover:scale-110 duration-300"
                 >Contact</a
               >
             </li>
           </ul>
+
           <!-- Login/Signup (Desktop) -->
           <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
             <li>
               <a
                 href="#"
-                class="bg-[#152c2e] text-[#f2f2f2] py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
+                class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
                 >Login</a
               >
             </li>
             <li>
               <a
-                href="#"
-                class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
+                href="./signup1.html"
+                class="bg-[#152c2e] text-[#f2f2f2] py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
                 >Sign Up</a
               >
             </li>
@@ -126,24 +96,20 @@
       >
         <ul class="space-y-4 text-center">
           <li>
-            <a
-              href="./index.html"
-              class="block py-2 hover:scale-110 duration-300"
-              >Home</a
-            >
+            <a href="#" class="block py-2 hover:scale-110 duration-300">Home</a>
           </li>
           <li>
-            <a href="#" class="block py-2 hover:scale-110 duration-300"
+            <a href="#about" class="block py-2 hover:scale-110 duration-300"
               >About</a
             >
           </li>
           <li>
-            <a href="#" class="block py-2 hover:scale-110 duration-300"
+            <a href="#market" class="block py-2 hover:scale-110 duration-300"
               >Market</a
             >
           </li>
           <li>
-            <a href="#" class="block py-2 hover:scale-110 duration-300"
+            <a href="#contact" class="block py-2 hover:scale-110 duration-300"
               >Contact</a
             >
           </li>
@@ -167,7 +133,6 @@
         </ul>
       </div>
     </header>
-
     <!-- Signup Form Container -->
     <div class="flex flex-1 items-center justify-center px-4">
       <!-- Left Illustration -->
@@ -254,6 +219,9 @@
             >
           </div>
 
+          <!-- Error message placeholder -->
+          <p id="errorMsg" class="text-red-600 text-center font-medium hidden"></p>
+
           <!-- Continue Button -->
           <button
             type="submit"
@@ -281,80 +249,6 @@
       />
     </div>
     <!-- JavaScript for Toggle Functionality -->
-    <script>
-      // Function to toggle the mobile menu
-      function toggleMenu() {
-        document.getElementById("mobileMenu").classList.toggle("hidden");
-      }
-      function toggleVisibility(inputId, toggleId) {
-        let passwordField = document.getElementById(inputId);
-        let toggleIcon = document.getElementById(toggleId);
-
-        if (passwordField.type === "password") {
-          passwordField.type = "text";
-          toggleIcon.textContent = "👀"; // Show open eye when visible
-        } else {
-          passwordField.type = "password";
-          toggleIcon.textContent = "👁️"; // Show closed eye when hidden
-        }
-      }
-
-      document
-        .getElementById("togglePassword")
-        .addEventListener("click", function () {
-          toggleVisibility("password", "togglePassword");
-        });
-
-      document
-        .getElementById("toggleConfirmPassword")
-        .addEventListener("click", function () {
-          toggleVisibility("confirmPassword", "toggleConfirmPassword");
-        });
-
-      document
-        .querySelector("form")
-        .addEventListener("submit", function (event) {
-          event.preventDefault(); // Prevent form submission if validation fails
-
-          let username = document
-            .querySelector("input[type='text']")
-            .value.trim();
-          let email = document
-            .querySelector("input[type='email']")
-            .value.trim();
-          let password = document.getElementById("password").value;
-          let confirmPassword =
-            document.getElementById("confirmPassword").value;
-
-          // Username Validation (Only lowercase letters and numbers)
-          let usernameRegex = /^[a-z0-9]+$/;
-          if (!usernameRegex.test(username)) {
-            alert("Username must contain only lowercase letters and numbers.");
-            return;
-          }
-
-          // Email Validation
-          let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-          if (!emailRegex.test(email)) {
-            alert("Please enter a valid email address.");
-            return;
-          }
-
-          // Password Validation (Minimum 6 characters)
-          if (password.length < 6) {
-            alert("Password must be at least 6 characters long.");
-            return;
-          }
-
-          // Confirm Password Validation
-          if (password !== confirmPassword) {
-            alert("Passwords do not match.");
-            return;
-          }
-
-          // If all validations pass, allow form submission
-          event.target.submit();
-        });
-    </script>
+    <script src="./js/signup1.js"></script>
   </body>
 </html>
