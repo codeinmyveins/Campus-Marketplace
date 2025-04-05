@@ -8,14 +8,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const fullName = document.getElementById("fullName");
     const dob = document.getElementById("dob");
     const gender = document.getElementById("gender");
-    const countryCodeDOM = document.getElementById("country"); // select tag
+    const countryCodeDOM = document.getElementById("country");
     const college = document.querySelector("select[name='college']");
+    const phoneInput = document.getElementById("phone");
     const errorMsg = document.getElementById("errorMsg");
 
     // Individual Error Elements
     const fullNameError = document.getElementById("fullNameError");
     const dobError = document.getElementById("dobError");
     const genderError = document.getElementById("genderError");
+    const phoneError = document.getElementById("phoneError");
 
     // Validate full name (at least 3 characters)
     const isValidName = name => /^[A-Za-z ]{3,}$/.test(name.trim());
@@ -31,6 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 today.getDate() >= birthDate.getDate());
         return age >= 16 || (age === 16 && hasHadBirthday);
     };
+
+    // Validate phone number (10 to 15 digits)
+    const isValidPhone = phone => /^[0-9]{10,15}$/.test(phone.trim());
 
     // Handle Form Submission
     form.addEventListener("submit", e => {
@@ -63,6 +68,14 @@ document.addEventListener("DOMContentLoaded", () => {
             genderError.classList.add("hidden");
         }
 
+        // Phone Validation
+        if (!isValidPhone(phoneInput.value)) {
+            phoneError.classList.remove("hidden");
+            isValid = false;
+        } else {
+            phoneError.classList.add("hidden");
+        }
+
         // Country and College required
         if (!countryCodeDOM.value || !college.value) {
             errorMsg.innerText = "Please select both country and college.";
@@ -74,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (isValid) {
             errorMsg.classList.add("hidden");
             // alert("✅ Form submitted successfully!");
-            // Submit via AJAX or redirect here
+            // You can submit via AJAX or redirect here
         }
     });
 

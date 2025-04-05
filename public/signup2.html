@@ -136,14 +136,6 @@
 
     <!-- Sign-Up Form -->
     <div class="flex flex-1 items-center justify-center px-4 relative">
-      <!-- <img src="./src/assets/trumpet.png" alt="Left Illustration" class="hidden md:block left-img" /> -->
-      <!-- Left Illustration -->
-      <!-- <img
-      src="./public/assets/images/trumpet.png"
-      alt="Person Blowing Horn"
-      class="hidden md:block left-img w-40 lg:w-56 xl:w-64 absolute left-[-6rem] lg:left-[8rem]"
-    /> -->
-
       <img
         src="./assets/images/trumpet.png"
         alt="Person Blowing Horn"
@@ -223,6 +215,25 @@
             </p>
           </div>
 
+          <!-- Phone Number -->
+          <div>
+            <label class="block text-[var(--color2)] font-medium"
+              >Phone Number</label
+            >
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              required
+              pattern="[0-9]{10,15}"
+              placeholder="Phone Number"
+              class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none"
+            />
+            <p class="text-red-500 text-sm hidden" id="phoneError">
+              Please enter a valid phone number.
+            </p>
+          </div>
+
           <!-- Country -->
           <div class="relative">
             <label class="block text-[var(--color2)] font-medium"
@@ -289,7 +300,6 @@
             id="errorMsg"
             class="text-red-600 text-center font-medium hidden"
           ></p>
-          <!-- Continue Button -->
 
           <!-- Continue Button -->
           <button
@@ -300,14 +310,10 @@
           </button>
         </form>
 
-        <!-- <p class="mt-4 text-center text-[var(--color2)]">
-          Already have an account?
-          <a href="login.html" class="text-teal-500 font-medium hover:underline">Login</a>
-        </p> -->
+      
       </div>
 
-      <!-- <img src="./public/assets/images/trumpet.png" alt="Right Illustration" class="hidden md:block right-img" />
-    </div> -->
+
 
       <img
         src="./assets/images/trumpet.png"
