@@ -91,6 +91,9 @@
           <p class="text-sm text-[var(--color2)]">
             Resend OTP in <span id="timer" class="font-semibold">04:59</span>
           </p>
+          <!-- 🌟 Message Box -->
+          <p id="statusMessage" class="text-sm mt-2 font-medium"></p>
+
           <button
             type="button"
             id="resendBtn"
@@ -99,6 +102,7 @@
           >
             Resend OTP
           </button>
+
           <button
             type="button"
             id="changeEmailBtn"
@@ -120,7 +124,6 @@
       id="emailPopup"
       class="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[var(--color5)] text-[var(--color3)] p-6 rounded-xl shadow-lg w-[90%] max-w-md hidden transition duration-300 scale-95"
     >
-
       <!-- Wrap heading and close button inside a flex container -->
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-semibold">Change Email</h3>

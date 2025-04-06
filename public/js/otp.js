@@ -8,12 +8,30 @@ const closePopupBtn = document.getElementById("closePopupBtn");
 const newEmailInput = document.getElementById("newEmail");
 const updateEmailBtn = document.getElementById("updateEmailBtn");
 const currentEmailEl = document.getElementById("currentEmail");
+const statusMessage = document.getElementById("statusMessage");
 
 // 📨 Load Previous Email or Default
 let currentEmail = localStorage.getItem("userEmail") || "student@example.com";
 currentEmailEl.textContent = currentEmail;
 
 let timerInterval = null;
+
+// ✨ Show inline message (success / error / info)
+function showMessage(text, type = "info") {
+  statusMessage.textContent = text;
+  statusMessage.className = `text-sm mt-2 font-medium ${
+    type === "success"
+      ? "text-green-600"
+      : type === "error"
+      ? "text-red-600"
+      : "text-[var(--color2)]"
+  }`;
+
+  // Auto-clear after 5 seconds
+  setTimeout(() => {
+    statusMessage.textContent = "";
+  }, 7000);
+}
 
 // 🔢 OTP Input Logic
 inputs.forEach((input, index) => {
@@ -44,7 +62,7 @@ function startTimer(duration) {
 
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
-      alert("⏰ OTP has expired. Please request a new one.");
+      showMessage("⏰ OTP has expired. Please request a new one.", "error");
 
       // Enable resend button
       resendBtn.disabled = false;
@@ -64,7 +82,7 @@ startTimer(299);
 
 // 🔁 Resend OTP
 resendBtn.addEventListener("click", () => {
-  alert("OTP resent to " + currentEmail);
+  showMessage(`📩 OTP resent to ${currentEmail}`, "success");
   resendBtn.disabled = true;
   resendBtn.classList.add("opacity-50", "cursor-not-allowed");
   startTimer(299);
@@ -84,6 +102,7 @@ function closePopup() {
 
   setTimeout(() => {
     emailPopup.classList.add("hidden");
+    newEmailInput.value = "";
   }, 300); // match CSS transition
 }
 
@@ -96,7 +115,7 @@ updateEmailBtn.addEventListener("click", () => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!emailRegex.test(email)) {
-    alert("Please enter a valid email.");
+    showMessage("⚠️ Please enter a valid email address.", "error");
     return;
   }
 
@@ -104,7 +123,7 @@ updateEmailBtn.addEventListener("click", () => {
   currentEmailEl.textContent = currentEmail;
   localStorage.setItem("userEmail", currentEmail);
 
-  alert(`OTP sent to ${email}`);
+  showMessage(`✅ OTP sent to ${email}`, "success");
   closePopup(); // Close the modal
   newEmailInput.value = "";
   resendBtn.disabled = true;
