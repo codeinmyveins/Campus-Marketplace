@@ -1,5 +1,6 @@
 # PostgreSQL Database
 *.sql
+!db/init.sql
 *.db
 *.dump
 pgdata/
