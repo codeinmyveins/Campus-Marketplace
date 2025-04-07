@@ -2,6 +2,18 @@
 function toggleMenu() {
     document.getElementById("mobileMenu").classList.toggle("hidden");
 }
+// Auto-close menu on link click (only on mobile)
+document.addEventListener("DOMContentLoaded", function () {
+    const links = document.querySelectorAll("#mobileMenu a");
+    links.forEach(link => {
+        link.addEventListener("click", () => {
+            const menu = document.getElementById("mobileMenu");
+            if (!menu.classList.contains("hidden")) {
+                menu.classList.add("hidden");
+            }
+        });
+    });
+});
 
 // Toggle password visibility
 function toggleVisibility(inputId, toggleId) {
@@ -72,13 +84,13 @@ document.querySelector("#signup1-form").addEventListener("submit", async functio
     // All validations passed
     // errorMsg.textContent = "";
     // errorMsg.classList.add("hidden");
-    
+
     // Proceed with form submission
     errorMsg.textContent = "Loading...";
     errorMsg.classList.remove("hidden");
-    
+
     try {
-        const {data} = await axios.post("/api/auth/register", {
+        const { data } = await axios.post("/api/auth/register", {
             username,
             email,
             password,
@@ -91,9 +103,9 @@ document.querySelector("#signup1-form").addEventListener("submit", async functio
         showError(error.response.data.msg);
     }
     // Auto-clear after 5 seconds
-  setTimeout(() => {
-    errorMsg.textContent = "";
-  }, 7000);
+    setTimeout(() => {
+        errorMsg.textContent = "";
+    }, 7000);
 });
 
 // Utility function to display errors

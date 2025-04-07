@@ -15,15 +15,17 @@
         class="fixed top-0 left-0 right-0 z-50 bg-[var(--color2)] text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md"
       >
         <!-- Logo -->
-        <div class="flex items-center space-x-3 logo-icon">
-          <img
-            src="./assets/icons/Campus Marketplace Logo.svg"
-            alt="Campus Logo"
-            class="w-10 h-10 object-contain mb-3.5"
-          />
-          <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
-            Campus Marketplace
-          </h1>
+        <div class="flex items-center logo-icon">
+          <a href="./index.html" class="flex items-center space-x-3">
+            <img
+              src="./assets/icons/Campus Marketplace Logo.svg"
+              alt="Campus Logo"
+              class="w-10 h-10 object-contain mb-3.5"
+            />
+            <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
+              Campus Marketplace
+            </h1>
+          </a>
         </div>
 
         <!-- Mobile Menu Button -->
@@ -92,47 +94,57 @@
 
       <!-- Mobile Navigation Menu -->
       <div
-        id="mobileMenu"
-        class="md:hidden flex-col items-center bg-[var(--color2)] p-5 hidden"
-      >
-        <ul class="space-y-4 text-center">
-          <li>
-            <a href="./index.html" class="block py-2 hover:scale-110 duration-300">Home</a>
-          </li>
-          <li>
-            <a href="./index.html#about" class="block py-2 hover:scale-110 duration-300"
-              >About</a
-            >
-          </li>
-          <li>
-            <a href="./index.html#market" class="block py-2 hover:scale-110 duration-300"
-              >Market</a
-            >
-          </li>
-          <li>
-            <a href="./index.html#contact" class="block py-2 hover:scale-110 duration-300"
-              >Contact</a
-            >
-          </li>
-        </ul>
-        <!-- Login/Signup (Mobile) -->
-        <ul class="flex flex-col gap-5 mt-5 text-center">
-          <!-- <li>
-            <a
-              href="#"
-              class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
-              >Login</a
-            >
-          </li> -->
-          <li>
-            <a
-              href="./signup1.html"
-              class="bg-[#152c2e] text-[#f2f2f2] py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
-              >Sign Up</a
-            >
-          </li>
-        </ul>
-      </div>
+      id="mobileMenu"
+      class="select-none fixed top-[66px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl"
+    >
+      <ul class="space-y-6 text-center">
+        <li>
+          <a
+            href="./index.html"
+            class="block py-2 hover:scale-110 duration-300"
+            >Home</a
+          >
+        </li>
+        <li>
+          <a
+            href="./index.html#about"
+            class="block py-2 hover:scale-110 duration-300"
+            >About</a
+          >
+        </li>
+        <li>
+          <a
+            href="./index.html#market"
+            class="block py-2 hover:scale-110 duration-300"
+            >Market</a
+          >
+        </li>
+        <li>
+          <a
+            href="./index.html#contact"
+            class="block py-2 hover:scale-110 duration-300"
+            >Contact</a
+          >
+        </li>
+      </ul>
+
+      <ul class="flex flex-col gap-5 mt-8 text-center">
+        <!-- <li>
+          <a
+            href="./login.html"
+            class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
+            >Login</a
+          >
+        </li> -->
+        <li>
+          <a
+            href="./signup1.html"
+            class="bg-[#152c2e] text-[#f2f2f2] py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
+            >Sign Up</a
+          >
+        </li>
+      </ul>
+    </div>
     </header>
     <!-- Signup Form Container -->
     <div class="flex flex-1 items-center justify-center px-4">
@@ -179,7 +191,7 @@
             />
             <span
               id="togglePassword"
-              class="absolute right-3 top-8 cursor-pointer text-[var(--color2)]"
+              class="select-none absolute right-3 top-8 cursor-pointer text-[var(--color2)]"
             >👁️</span>
           </div>
         

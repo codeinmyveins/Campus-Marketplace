@@ -15,15 +15,17 @@
         class="fixed top-0 left-0 right-0 z-50 bg-[var(--color2)] text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md"
       >
         <!-- Logo -->
-        <div class="flex items-center space-x-3 logo-icon">
-          <img
-            src="./assets/icons/Campus Marketplace Logo.svg"
-            alt="Campus Logo"
-            class="w-10 h-10 object-contain mb-3.5"
-          />
-          <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
-            Campus Marketplace
-          </h1>
+        <div class="flex items-center logo-icon">
+          <a href="./index.html" class="flex items-center space-x-3">
+            <img
+              src="./assets/icons/Campus Marketplace Logo.svg"
+              alt="Campus Logo"
+              class="w-10 h-10 object-contain mb-3.5"
+            />
+            <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
+              Campus Marketplace
+            </h1>
+          </a>
         </div>
 
         <!-- Mobile Menu Button -->
@@ -92,44 +94,54 @@
       <!-- Mobile Navigation Menu -->
       <div
         id="mobileMenu"
-        class="md:hidden flex-col items-center bg-[var(--color2)] p-5 hidden"
+        class="select-none fixed top-[66px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl"
       >
-        <ul class="space-y-4 text-center">
+        <ul class="space-y-6 text-center">
           <li>
-            <a href="#" class="block py-2 hover:scale-110 duration-300">Home</a>
+            <a
+              href="./index.html"
+              class="block py-2 hover:scale-110 duration-300"
+              >Home</a
+            >
           </li>
           <li>
-            <a href="#about" class="block py-2 hover:scale-110 duration-300"
+            <a
+              href="./index.html#about"
+              class="block py-2 hover:scale-110 duration-300"
               >About</a
             >
           </li>
           <li>
-            <a href="#market" class="block py-2 hover:scale-110 duration-300"
+            <a
+              href="./index.html#market"
+              class="block py-2 hover:scale-110 duration-300"
               >Market</a
             >
           </li>
           <li>
-            <a href="#contact" class="block py-2 hover:scale-110 duration-300"
+            <a
+              href="./index.html#contact"
+              class="block py-2 hover:scale-110 duration-300"
               >Contact</a
             >
           </li>
         </ul>
-        <!-- Login/Signup (Mobile) -->
-        <ul class="flex flex-col gap-5 mt-5 text-center">
+
+        <ul class="flex flex-col gap-5 mt-8 text-center">
           <li>
             <a
-              href="#"
+              href="./login.html"
               class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
               >Login</a
             >
           </li>
-          <li>
+          <!-- <li>
             <a
-              href="#"
+              href="./signup1.html"
               class="bg-[#152c2e] text-[#f2f2f2] py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
               >Sign Up</a
             >
-          </li>
+          </li> -->
         </ul>
       </div>
     </header>
@@ -287,54 +299,53 @@
             </p>
           </div>
 
-          
           <!-- Country -->
           <div class="relative">
             <label class="block text-[var(--color2)] font-medium"
-            >Country</label
+              >Country</label
             >
             <div class="relative">
               <select
-              id="country"
-              name="country"
-              required
-              class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 pr-10 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none appearance-none"
+                id="country"
+                name="country"
+                required
+                class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 pr-10 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none appearance-none"
               >
-              <option value="">Select Country</option>
-              <!-- Dynamic country options will be injected here by JS -->
-            </select>
-            <!-- Custom Dropdown Icon -->
-            <span
-            class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]"
+                <option value="">Select Country</option>
+                <!-- Dynamic country options will be injected here by JS -->
+              </select>
+              <!-- Custom Dropdown Icon -->
+              <span
+                class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]"
+              >
+                ▼
+              </span>
+            </div>
+            <p class="text-red-500 text-sm hidden" id="countryError">
+              Please select a country.
+            </p>
+          </div>
+
+          <!-- Phone Number -->
+          <div>
+            <label class="block text-[var(--color2)] font-medium"
+              >Phone Number</label
             >
-            ▼
-          </span>
-        </div>
-        <p class="text-red-500 text-sm hidden" id="countryError">
-          Please select a country.
-        </p>
-      </div>
-      
-      <!-- Phone Number -->
-      <div>
-        <label class="block text-[var(--color2)] font-medium"
-          >Phone Number</label
-        >
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          required
-          pattern="[0-9]{10,15}"
-          placeholder="Phone Number"
-          class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none"
-        />
-        <p class="text-red-500 text-sm hidden" id="phoneError">
-          Please enter a valid phone number.
-        </p>
-      </div>
-      
-      <!-- College -->
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              required
+              pattern="[0-9]{10,15}"
+              placeholder="Phone Number"
+              class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none"
+            />
+            <p class="text-red-500 text-sm hidden" id="phoneError">
+              Please enter a valid phone number.
+            </p>
+          </div>
+
+          <!-- College -->
           <div class="relative">
             <label class="block text-[var(--color2)] font-medium"
               >College</label
