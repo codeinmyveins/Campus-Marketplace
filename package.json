@@ -6,12 +6,14 @@
     "start": "node app.js",
     "dev": "nodemon",
     "forward": "ngrok http --url=talented-albacore-utterly.ngrok-free.app 3000",
+    "forward2": "ngrok http --url=well-natural-satyr.ngrok-free.app 3000",
     "build": "npx @tailwindcss/cli -i ./public/styles/input.css -o ./public/styles/output.css --watch"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.2",
     "axios": "^1.8.4",
     "bcryptjs": "^3.0.2",
+    "clientjs": "^0.2.1",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.7",
