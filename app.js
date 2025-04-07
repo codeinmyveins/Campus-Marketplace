@@ -4,12 +4,17 @@ require('express-async-errors');
 const express = require('express');
 const path = require('path');
 const fs = require("fs");
+const pool = require("./db/database");
+const cookieParser = require('cookie-parser');
 
 // security 
 // const helmet = require("helmet");
 const cors = require("cors");
 const xss = require("xss-clean");
 // const rateLimiter = require("express-rate-limit");
+
+//routers
+const authRoutes = require("./routes/auth");
 
 //middleware
 const notFound = require("./middleware/not-found");
@@ -28,8 +33,10 @@ app.use(xss());
 
 // Public frontend
 app.use(express.static(path.join(__dirname, "./public")));
-// Middleware to parse JSON
 app.use(express.json());
+app.use(cookieParser());
+
+app.use("/api/auth", authRoutes);
 
 // Sample route
 app.get('/', (req, res) => {
@@ -47,6 +54,7 @@ app.use(errorHandlerMiddleware);
 const start = async () => {
 
     try {
+        await pool.query(fs.readFileSync("./db/init.sql").toString());
         app.listen(PORT, "0.0.0.0", () => {
             console.log(`Server listening on port http://localhost:${PORT}...`);
         });
