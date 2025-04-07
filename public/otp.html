@@ -22,7 +22,7 @@
       </p>
 
       <!-- ✅ OTP Form -->
-      <form id="otpForm" action="/verify-otp" method="POST" class="mt-4">
+      <form id="otpForm" class="mt-4">
         <div class="flex justify-center gap-2">
           <input
             type="text"
@@ -92,7 +92,7 @@
             Resend OTP in <span id="timer" class="font-semibold">04:59</span>
           </p>
           <!-- 🌟 Message Box -->
-          <p id="statusMessage" class="text-sm mt-2 font-medium"></p>
+          <p id="errorMsg" class="hidden text-sm mt-2 font-medium"></p>
 
           <button
             type="button"
@@ -150,6 +150,7 @@
       </button>
     </div>
 
+    <script src="./js/axios.min.js"></script>
     <!-- 🔧 OTP JavaScript -->
     <script src="./js/otp.js"></script>
   </body>

@@ -9,9 +9,13 @@ const newEmailInput = document.getElementById("newEmail");
 const updateEmailBtn = document.getElementById("updateEmailBtn");
 const currentEmailEl = document.getElementById("currentEmail");
 const statusMessage = document.getElementById("statusMessage");
+const otpForm = document.getElementById("otpForm");
+const errorMsg = document.getElementById("errorMsg");
+
+const candidateEmail = new URLSearchParams(window.location.search).get("email");
 
 // 📨 Load Previous Email or Default
-let currentEmail = localStorage.getItem("userEmail") || "student@example.com";
+let currentEmail = candidateEmail || "student@example.com";
 currentEmailEl.textContent = currentEmail;
 
 let timerInterval = null;
@@ -19,13 +23,12 @@ let timerInterval = null;
 // ✨ Show inline message (success / error / info)
 function showMessage(text, type = "info") {
   statusMessage.textContent = text;
-  statusMessage.className = `text-sm mt-2 font-medium ${
-    type === "success"
+  statusMessage.className = `text-sm mt-2 font-medium ${type === "success"
       ? "text-green-600"
       : type === "error"
-      ? "text-red-600"
-      : "text-[var(--color2)]"
-  }`;
+        ? "text-red-600"
+        : "text-[var(--color2)]"
+    }`;
 
   // Auto-clear after 5 seconds
   setTimeout(() => {
@@ -133,3 +136,48 @@ updateEmailBtn.addEventListener("click", () => {
 
 // 🔃 Autofocus first OTP input
 inputs[0].focus();
+
+
+otpForm.addEventListener("submit", async (e) => {
+
+  e.preventDefault();
+  let otp = "";
+  for (let i = 0; i < 6; i++) {
+    otp += inputs[i.toString()].value;
+  }
+
+  if (!/^[0-9]{6}$/.test(otp)) {
+    showError("Please enter a valid email address.");
+    return;
+  }
+
+  try {
+    const { data } = await axios.post("/api/auth/verify-email", {
+      otp,
+    });
+
+    errorMsg.textContent = data.msg;
+    window.location.href = "./signup2.html";
+    
+  } catch (error) {
+    console.error(error)
+    if (error.status === 401){
+      alert(error.response.data.msg);
+      window.location.href = "./signup1.html";
+      return;
+    }
+    showError(error.response.data.msg);
+  }
+  // Auto-clear after 5 seconds
+  setTimeout(() => {
+    errorMsg.textContent = "";
+  }, 7000);
+
+});
+
+// Utility function to display errors
+function showError(message) {
+  const errorMsg = document.getElementById("errorMsg");
+  errorMsg.textContent = message;
+  errorMsg.classList.remove("hidden");
+}
