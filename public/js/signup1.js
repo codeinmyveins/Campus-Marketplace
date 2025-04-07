@@ -58,26 +58,26 @@ document.querySelector("#signup1-form").addEventListener("submit", async functio
     // Username Validation
     let usernameRegex = /^[a-zA-Z0-9_]+$/;
     if (!usernameRegex.test(username)) {
-        showError("Username must contain only lowercase letters and numbers.");
+        showError("Username can only contain letters, numbers, and underscores.","error");
         return;
     }
 
     // Email Validation
     let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
-        showError("Please enter a valid email address.");
+        showError("Please enter a valid email address.","error");
         return;
     }
 
     // Password Validation
     if (password.length < 8) {
-        showError("Password must be at least 6 characters long.");
+        showError("Password must be at least 8 characters long.","error");
         return;
     }
 
     // Confirm Password Match
     if (password !== confirmPassword) {
-        showError("Passwords do not match.");
+        showError("Passwords do not match.","error");
         return;
     }
 
@@ -86,8 +86,10 @@ document.querySelector("#signup1-form").addEventListener("submit", async functio
     // errorMsg.classList.add("hidden");
 
     // Proceed with form submission
-    errorMsg.textContent = "Loading...";
+    showError("Loading...", "neutral");
     errorMsg.classList.remove("hidden");
+    const submitBtn = document.querySelector("#signup1-form button[type='submit']");
+    submitBtn.disabled = true;
 
     try {
         const { data } = await axios.post("/api/auth/register", {
@@ -100,20 +102,37 @@ document.querySelector("#signup1-form").addEventListener("submit", async functio
 
 
     } catch (error) {
-        showError(error.response.data.msg);
+        showError(error.response?.data?.msg || "Something went wrong. Please try again.");
     }
-    // Auto-clear after 5 seconds
-    setTimeout(() => {
-        errorMsg.textContent = "";
-    }, 7000);
+    
+   // Auto-clears error msg & Re-enable button after 7 seconds
+   setTimeout(() => {
+    errorMsg.textContent = "";
+    errorMsg.classList.add("hidden"); // <— hide the message
+    errorMsg.classList.remove("text-green-500", "text-red-500", "text-white");
+    submitBtn.disabled = false;
+}, 7000);
+
+
 });
 
 // Utility function to display errors
-function showError(message) {
+function showError(message, type = "error") {
     const errorMsg = document.getElementById("errorMsg");
+    errorMsg.classList.remove("hidden", "text-green-500", "text-red-500", "text-white");
+
+    if (type === "success") {
+        errorMsg.classList.add("text-green-500");
+    } else if (type === "neutral") {
+        errorMsg.classList.add("text-white");
+    } else {
+        errorMsg.classList.add("text-red-500");
+    }
+
     errorMsg.textContent = message;
-    errorMsg.classList.remove("hidden");
 }
+
+
 
 // Utility function to display errors
 // function showError(message) {
