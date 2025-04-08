@@ -2,6 +2,9 @@ require("dotenv").config();
 const CustomAPIError = require("../errors/custom-api");
 const { StatusCodes } = require("http-status-codes");
 const pool = require("../db/database");
+const { getCountryCallingCode } = require("libphonenumber-js");
+
+const { validateUserInfo } = require("../validator");
 
 const getCurrentUser = async (req, res) => {
 
@@ -46,12 +49,104 @@ const getUser = async (req, res) => {
 
 const editUser = async (req, res) => {
 
-    // const { error } = validateUserInfo(req.body)
-    // if (error) {
-    //     throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
-    // }
+    const { error } = validateUserInfo(req.body);
+    if (error) {
+        throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
+    }
+
+    const { userId } = req.user;
+    const { username, full_name, college_name, gender, dob, phone, country_code, bio } = req.body;
+    const patched = {};
+
+    if (phone) {
+        patched.phone = phone;
+    }
+    if (country_code) {
+        patched.country_code = country_code;
+    }
+    if (username) {
+        patched.username = username;
+    }
+    if (full_name) {
+        patched.full_name = full_name;
+    }
+    if (college_name) {
+        patched.college_name = college_name;
+    }
+    if (gender) {
+        patched.gender = gender;
+    }
+    if (dob) {
+        patched.dob = dob;
+    }
+    if (bio) {
+        patched.bio = bio;
+    }
+
+    if (Object.keys(patched) === 0) {
+        throw new CustomAPIError("Please provide the fields", StatusCodes.BAD_REQUEST);
+    }
+
+    if (!(phone && country_code) && (phone || country_code)) {
+        const { rows: users } = await pool.query("SELECT country_code, phone FROM users WHERE id = $1", [userId]);
+        if (phone) {
+            patched.country_code = users[0].country_code;
+        }
+        if (country_code) {
+            patched.phone = users[0].phone.split(" ")[1];
+        }
+    }
+
+    let completePhone = undefined;
+    if (phone || country_code) {
+        try {
+            completePhone = "+" + getCountryCallingCode(patched.country_code) + " " + patched.phone;
+        } catch (error) {
+            throw new CustomAPIError("Invalid country code", StatusCodes.BAD_REQUEST);
+        }
+    }
+    if (completePhone) {
+        patched.phone = completePhone;
+    }
+
+    if (username || completePhone) {
+        // unique check in users with same username or email check
+        const {rows: existingUsers} = await pool.query("SELECT username, email FROM users WHERE (username = $1 OR phone = $2)",
+            [username, completePhone]
+        );
+        const { rows: existingPreUsers } = await pool.query("SELECT username, email FROM pre_users WHERE (username = $1 OR phone = $2) AND status = 'verified' AND NOT id = $3",
+            [username, completePhone, userId]
+        );
+    
+        let takenFields = [null, null];
+        for (let user of [...existingUsers, ...existingPreUsers]) {
+            if (user.username === username) takenFields[0] = "Username";
+            if (user.phone === completePhone) takenFields[1] = "Phone";
+        }
+        takenFields = takenFields.filter(e => e)
+    
+        if (takenFields.length > 0) {
+            throw new CustomAPIError(
+                `The following field(s) are already taken: ${takenFields.join(", ")}`,
+                StatusCodes.CONFLICT);
+        }
+    }
+
+    const inputKeys = Object.keys(patched);
+    const columnName = inputKeys.map((key, index) => `${key} = $${index+1}`).join(", ");
+    const values = [...inputKeys.map((k) => patched[k]), userId];
+
+    const { rowCount } = await pool.query("UPDATE users SET " + columnName +
+        " WHERE id = $" + (values.length).toString(),
+        values
+    );
+    if (rowCount < 1) {
+        throw new CustomAPIError(`Internal server error, please try again`, StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+    
+    res.status(StatusCodes.OK).json({ msg: "Changes saved successfully", patched: inputKeys });
 
 }
 
 
-module.exports = { getUser, getCurrentUser };
+module.exports = { getUser, getCurrentUser, editUser };
