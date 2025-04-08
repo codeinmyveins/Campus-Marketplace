@@ -3,6 +3,8 @@ const CustomAPIError = require("../errors/custom-api");
 const { StatusCodes } = require("http-status-codes");
 const pool = require("../db/database");
 const { getCountryCallingCode } = require("libphonenumber-js");
+const fs = require("fs");
+const path = require("path");
 
 const { validateUserInfo } = require("../validator");
 
@@ -149,4 +151,33 @@ const editUser = async (req, res) => {
 }
 
 
-module.exports = { getUser, getCurrentUser, editUser };
+const putAvatarImage = async (req, res) => {
+
+    if (!req.file) {
+        throw new CustomAPIError("No avatar image file uploaded", StatusCodes.BAD_REQUEST);
+    }
+
+    const { userId } = req.user;
+
+    // await pool.query("UPDATE users SET avatar_url = $1 WHERE id = $2",
+    //     [null, userId]);
+    const {rows: users} = await pool.query("SELECT avatar_url FROM users WHERE id = $1",
+        [userId]);
+    const old_path = users[0].avatar_url;
+    
+    await pool.query("UPDATE users SET avatar_url = $1 WHERE id = $2",
+        [req.file.path, userId]);
+    
+    if (old_path !== null) {
+        fs.unlink(path.join(__dirname, "../", old_path), (err) => {
+            if (err) console.error(err);
+        });
+    }
+    
+    res.status(StatusCodes.CREATED).json({
+        msg: "Avatar image uploaded successfully",
+        url: req.file.path
+    });
+}
+
+module.exports = { getUser, getCurrentUser, editUser, putAvatarImage };

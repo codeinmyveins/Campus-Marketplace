@@ -16,7 +16,7 @@ const auth = async (req, res, next) => {
     if (!token) {
         throw new CustomAPIError("Authentication invalid", StatusCodes.UNAUTHORIZED);
     }
-    var payload;
+    let payload;
     try {
         payload = jwt.verify(token, process.env.JWT_SECRET);
     } catch (error) {
@@ -24,15 +24,15 @@ const auth = async (req, res, next) => {
             throw new accessTokenExpiredError();
         }
         throw new CustomAPIError("Authentication Invalid", StatusCodes.UNAUTHORIZED);
-    } finally {
-        const { sub, rol, sid } = payload;
-        if (rol === "reverify_required") {
-            throw new refevifyRequiredError();
-        }
-        if (!sub || !rol || !sid || !["user", "admin"].includes(rol))
-            throw new CustomAPIError("Authentication Invalid.", StatusCodes.UNAUTHORIZED);
-        req.user = { userId: sub, role: rol, sid };
     }
+    const { sub, rol, sid } = payload;
+    if (rol === "reverify_required") {
+        throw new refevifyRequiredError();
+    }
+    if (!sub || !rol || !sid || !["user", "admin"].includes(rol))
+        throw new CustomAPIError("Authentication Invalid.", StatusCodes.UNAUTHORIZED);
+    req.user = { userId: sub, role: rol, sid };
+
     next();
 }
 
@@ -51,17 +51,17 @@ const preUserAuth = async (req, res, next) => {
     if (!token) {
         throw new CustomAPIError("Authentication invalid", StatusCodes.UNAUTHORIZED);
     }
-    var payload;
+    let payload;
     try {
         payload = jwt.verify(token, process.env.JWT_SECRET);
     } catch (error) {
         throw new CustomAPIError("Authentication Invalid.", StatusCodes.UNAUTHORIZED);
-    } finally{
-        const { sub, rol, oid } = payload;
-        if (!sub || !rol)
-            throw new CustomAPIError("Authentication Invalid", StatusCodes.UNAUTHORIZED);
-        req.user = { userId: sub, role: rol, otpId: oid };
     }
+    const { sub, rol, oid } = payload;
+    if (!sub || !rol)
+        throw new CustomAPIError("Authentication Invalid", StatusCodes.UNAUTHORIZED);
+    req.user = { userId: sub, role: rol, otpId: oid };
+    
     next();
 }
 

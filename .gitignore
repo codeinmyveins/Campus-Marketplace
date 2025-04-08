@@ -6,6 +6,9 @@
 pgdata/
 data/
 
+# File Storage
+uploads/
+
 # Logs
 logs
 *.log
