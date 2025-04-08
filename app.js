@@ -15,6 +15,7 @@ const xss = require("xss-clean");
 
 //routers
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/users");
 
 //middleware
 const notFound = require("./middleware/not-found");
@@ -37,6 +38,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 // Sample route
 app.get('/', (req, res) => {

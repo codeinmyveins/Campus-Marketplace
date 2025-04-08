@@ -1,6 +1,7 @@
 require("dotenv").config();
 const CustomAPIError = require("../errors/custom-api");
 const accessTokenExpiredError = require("../errors/accessToeknExpiredError");
+const refevifyRequiredError = require("../errors/refevifyRequiredError");
 const { StatusCodes } = require("http-status-codes");
 const jwt = require("jsonwebtoken");
 
@@ -25,7 +26,10 @@ const auth = async (req, res, next) => {
         throw new CustomAPIError("Authentication Invalid", StatusCodes.UNAUTHORIZED);
     } finally {
         const { sub, rol, sid } = payload;
-        if (!sub || !rol || !sid || !["reverify_required", "user", "admin"].includes(role))
+        if (rol === "reverify_required") {
+            throw new refevifyRequiredError();
+        }
+        if (!sub || !rol || !sid || !["user", "admin"].includes(rol))
             throw new CustomAPIError("Authentication Invalid.", StatusCodes.UNAUTHORIZED);
         req.user = { userId: sub, role: rol, sid };
     }
