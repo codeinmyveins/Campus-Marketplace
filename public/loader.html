@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Connect | Loading</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #011627; /* dark teal */
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      text-align: center;
+    }
+
+    .spinner {
+      border: 12px solid rgba(13, 60, 70, 0.4);
+      border-top: 12px solid #1db9c3;
+      border-radius: 50%;
+      width: 90px;
+      height: 90px;
+      animation: spin 1s linear infinite;
+      box-shadow: inset 0 0 12px rgba(29, 185, 195, 0.4);
+      z-index: 2;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loading-text {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #a3dbe3;
+      z-index: 2;
+    }
+
+    .rain {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+
+    .raindrop {
+  position: absolute;
+  top: -20px; /* keep them off screen initially */
+  width: 2px;
+  height: 15px;
+  background-color: #1db9c3;
+  opacity: 0;
+  animation: fall linear infinite;
+  transform: rotate(-20deg);
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(-20deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(100vh) rotate(-20deg);
+    opacity: 0.6;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Rain effect -->
+  <div class="rain" id="rain"></div>
+
+  <!-- Spinner -->
+  <div class="spinner"></div>
+  <p class="loading-text">Gathering bytes from the clouds...</p>
+
+  <script>
+    const rainContainer = document.getElementById('rain');
+    const dropCount = 100;
+
+    for (let i = 0; i < dropCount; i++) {
+      const drop = document.createElement('div');
+      drop.classList.add('raindrop');
+      drop.style.left = `${Math.random() * 100}%`;
+      drop.style.animationDuration = `${2 + Math.random() * 1}s`;
+      drop.style.animationDelay = `${Math.random() * 5}s`;
+      rainContainer.appendChild(drop);
+    }
+  </script>
+
+</body>
+</html>

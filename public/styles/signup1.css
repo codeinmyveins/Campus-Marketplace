@@ -1,0 +1,41 @@
+/* ✅ Fix for Tablet Screens */
+@media (max-width: 1024px) {
+  .left-img {
+    left: 1rem; /* Adjust to prevent half visibility */
+  }
+  .right-img {
+    right: 1rem; /* Prevent overlapping */
+  }
+}
+
+/* ✅ Fix for Smaller Tablets (iPad Mini, Nest Hub) */
+@media (max-width: 900px) {
+  .left-img {
+    left: 1rem;
+    max-width: 150px;
+  }
+  .right-img {
+    right: 1rem;
+    max-width: 150px;
+  }
+}
+
+/* ✅ Fix for Small Tablets and Large Phones */
+@media (max-width: 768px) {
+  .left-img {
+    left: 0;
+    max-width: 120px;
+  }
+  .right-img {
+    right: 0;
+    max-width: 120px;
+  }
+}
+
+/* ✅ Hide Completely on Mobile Screens */
+@media (max-width: 640px) {
+  .left-img,
+  .right-img {
+    display: none;
+  }
+}

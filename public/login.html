@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Campus Connect</title>
+    <link rel="stylesheet" href="./styles/output.css" />
+    <link rel="stylesheet" href="./styles/signup1.css" />
+  </head>
+
+  <body class="bg-[var(--color2)] min-h-screen flex flex-col pt-20 md:pt-24">
+     <!-- Header & Navigation -->
+     <header>
+      <nav
+        class="fixed top-0 left-0 right-0 z-50 bg-[var(--color2)] text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md"
+      >
+        <!-- Logo -->
+        <div class="flex items-center logo-icon">
+          <a href="./index.html" class="flex items-center space-x-3">
+            <img
+              src="./assets/icons/Campus Marketplace Logo.svg"
+              alt="Campus Logo"
+              class="w-10 h-10 object-contain mb-3.5"
+            />
+            <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
+              Campus Marketplace
+            </h1>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+          class="md:hidden text-3xl focus:outline-none"
+          onclick="toggleMenu()"
+        >
+          ☰
+        </button>
+
+        <!-- Navigation Links (Desktop) -->
+        <div
+          class="hidden md:flex flex-row items-center space-x-10 capitalize font-semibold"
+        >
+          <ul class="flex space-x-10">
+            <li>
+              <a
+                href="./index.html"
+                class="inline-block py-2 hover:scale-110 duration-300"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="./index.html#about"
+                class="inline-block py-2 hover:scale-110 duration-300"
+                >About</a
+              >
+            </li>
+            <li>
+              <a
+                href="./index.html#market"
+                class="inline-block py-2 hover:scale-110 duration-300"
+                >Market</a
+              >
+            </li>
+            <li>
+              <a
+                href="./index.html#contact"
+                class="inline-block py-2 hover:scale-110 duration-300"
+                >Contact</a
+              >
+            </li>
+          </ul>
+
+          <!-- Login/Signup (Desktop) -->
+          <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
+            <!-- <li>
+              <a
+                href="login.html"
+                class="bg-[#152c2e] text-[#f2f2f2] py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
+                >Login</a
+              >
+            </li> -->
+            <li>
+              <a
+                href="./signup1.html"
+                
+                class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
+                >Sign Up</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Mobile Navigation Menu -->
+      <div
+      id="mobileMenu"
+      class="select-none fixed top-[66px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl"
+    >
+      <ul class="space-y-6 text-center">
+        <li>
+          <a
+            href="./index.html"
+            class="block py-2 hover:scale-110 duration-300"
+            >Home</a
+          >
+        </li>
+        <li>
+          <a
+            href="./index.html#about"
+            class="block py-2 hover:scale-110 duration-300"
+            >About</a
+          >
+        </li>
+        <li>
+          <a
+            href="./index.html#market"
+            class="block py-2 hover:scale-110 duration-300"
+            >Market</a
+          >
+        </li>
+        <li>
+          <a
+            href="./index.html#contact"
+            class="block py-2 hover:scale-110 duration-300"
+            >Contact</a
+          >
+        </li>
+      </ul>
+
+      <ul class="flex flex-col gap-5 mt-8 text-center">
+        <!-- <li>
+          <a
+            href="./login.html"
+            class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
+            >Login</a
+          >
+        </li> -->
+        <li>
+          <a
+            href="./signup1.html"
+            class="bg-[#152c2e] text-[#f2f2f2] py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
+            >Sign Up</a
+          >
+        </li>
+      </ul>
+    </div>
+    </header>
+    <!-- Signup Form Container -->
+    <div class="flex flex-1 items-center justify-center px-4">
+      <!-- Left Illustration -->
+      <img
+        src="./assets/images/trumpet.png"
+        alt="Person Blowing Horn"
+        class="hidden md:block left-img w-40 lg:w-56 xl:w-64 absolute left-[-6rem] lg:left-[8rem]"
+      />
+
+      <!-- Form Container -->
+      <div
+        class="bg-[var(--color3)] shadow-[0px_4px_10px_rgba(0,0,0,0.9)] rounded-3xl p-8 w-full max-w-md min-w-[320px] sm:min-w-[380px] mx-auto"
+      >
+        <h2 class="text-2xl font-bold text-[var(--color2)] text-center">
+          Login to your account
+        </h2>
+
+        <form class="mt-6 space-y-4" id="loginForm">
+          <div>
+            <label class="block text-[var(--color2)] font-medium">
+              Username or Email
+            </label>
+            <input
+              type="text"
+              name="username"
+              placeholder="Enter username or email"
+              class="w-full border border-[var(--color1)] text-[var(--color2)] rounded-lg px-3 py-2 focus:ring focus:ring-teal-300 outline-none"
+              required
+            />
+          </div>
+        
+          <div class="relative">
+            <label class="block text-[var(--color2)] font-medium">Password</label>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              placeholder="Enter password"
+              pattern=".{6,}"
+              title="Password must be at least 6 characters long."
+              class="w-full border border-[var(--color1)] text-[var(--color2)] rounded-lg px-3 py-2 pr-10 focus:ring focus:ring-teal-300"
+              required
+            />
+            <span
+              id="togglePassword"
+              class="select-none absolute right-3 top-8 cursor-pointer text-[var(--color2)]"
+            >👁️</span>
+          </div>
+        
+          <!-- Error message placeholder -->
+          <p id="errorMsg" class="text-red-600 text-center font-medium hidden"></p>
+        
+          <!-- Continue Button -->
+          <button
+            type="submit"
+            name="submit"
+            class="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition font-medium"
+          >
+            Login ➝
+          </button>
+        </form>
+        
+
+        <p class="mt-4 text-center text-[var(--color2)]">
+          Don't have an account?
+          <a href="./signup1.html" class="text-teal-500 font-medium hover:underline"
+            >Signup</a
+          >
+        </p>
+      </div>
+
+      <!-- Right Illustration -->
+
+      <img
+        src="./assets/images/trumpet.png"
+        alt="Person Blowing Horn"
+        class="hidden md:block right-img w-40 lg:w-56 xl:w-64 absolute right-[6rem] -rotate-y-180 lg:right-[8rem]"
+      />
+    </div>
+    <!-- JavaScript for Toggle Functionality -->
+    <script src="./js/login.js"></script>
+  </body>
+</html>
+

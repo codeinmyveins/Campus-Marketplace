@@ -4,37 +4,39 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Campus Connect - A Student's Marketplace</title>
-    <link rel="stylesheet" href="./css/output.css" />
+    <title>Campus Marketplace - A Student's Marketplace</title>
+    <link rel="stylesheet" href="./styles/output.css" />
+    <link rel="stylesheet" href="./styles/index.css" />
     <link
       rel="shortcut icon"
-      href="./assets/high-school.png"
+      href="./assets/icons/Campus Marketplace Logo.svg"
       type="image/x-icon"
     />
-    <script>
-      // Function to toggle the mobile menu
-      function toggleMenu() {
-        document.getElementById("mobileMenu").classList.toggle("hidden");
-      }
-    </script>
   </head>
 
-  <body class="box-border">
+  <body class="box-border pt-20 md:pt-24 bg-[var(--color2)]">
     <!-- Header & Navigation -->
     <header>
       <nav
-        class="z-10 bg-[var(--color2)] text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24"
+        class="select-none fixed top-0 left-0 right-0 z-50 bg-[var(--color2)] text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md"
       >
         <!-- Logo -->
-        <div class="logo-icon">
-          <h1 class="font-bold font-serif text-2xl uppercase">
-            Campus Connect
-          </h1>
+        <div class="flex items-center logo-icon">
+          <a href="./index.html" class="flex items-center space-x-3">
+            <img
+              src="./assets/icons/Campus Marketplace Logo.svg"
+              alt="Campus Logo"
+              class="w-10 h-10 object-contain mb-3.5"
+            />
+            <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
+              Campus Marketplace
+            </h1>
+          </a>
         </div>
 
         <!-- Mobile Menu Button -->
         <button
-          class="md:hidden text-2xl focus:outline-none"
+          class="select-none md:hidden text-3xl focus:outline-none"
           onclick="toggleMenu()"
         >
           ☰
@@ -53,26 +55,33 @@
               >
             </li>
             <li>
-              <a href="#" class="inline-block py-2 hover:scale-110 duration-300"
+              <a
+                href="./index.html#about"
+                class="inline-block py-2 hover:scale-110 duration-300"
                 >About</a
               >
             </li>
             <li>
-              <a href="#" class="inline-block py-2 hover:scale-110 duration-300"
+              <a
+                href="./index.html#market"
+                class="inline-block py-2 hover:scale-110 duration-300"
                 >Market</a
               >
             </li>
             <li>
-              <a href="#" class="inline-block py-2 hover:scale-110 duration-300"
+              <a
+                href="./index.html#contact"
+                class="inline-block py-2 hover:scale-110 duration-300"
                 >Contact</a
               >
             </li>
           </ul>
+
           <!-- Login/Signup (Desktop) -->
           <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
             <li>
               <a
-                href="#"
+                href="./login.html"
                 class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
                 >Login</a
               >
@@ -88,43 +97,52 @@
         </div>
       </nav>
 
-      <!-- Mobile Navigation Menu -->
       <div
         id="mobileMenu"
-        class="md:hidden flex-col items-center bg-[var(--color2)] p-5 hidden"
+        class="select-none fixed top-[66px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl"
       >
-        <ul class="space-y-4 text-center">
+        <ul class="space-y-6 text-center">
           <li>
-            <a href="#" class="block py-2 hover:scale-110 duration-300">Home</a>
+            <a
+              href="./index.html"
+              class="block py-2 hover:scale-110 duration-300"
+              >Home</a
+            >
           </li>
           <li>
-            <a href="#" class="block py-2 hover:scale-110 duration-300"
+            <a
+              href="./index.html#about"
+              class="block py-2 hover:scale-110 duration-300"
               >About</a
             >
           </li>
           <li>
-            <a href="#" class="block py-2 hover:scale-110 duration-300"
+            <a
+              href="./index.html#market"
+              class="block py-2 hover:scale-110 duration-300"
               >Market</a
             >
           </li>
           <li>
-            <a href="#" class="block py-2 hover:scale-110 duration-300"
+            <a
+              href="./index.html#contact"
+              class="block py-2 hover:scale-110 duration-300"
               >Contact</a
             >
           </li>
         </ul>
-        <!-- Login/Signup (Mobile) -->
-        <ul class="flex flex-col gap-5 mt-5 text-center">
+
+        <ul class="flex flex-col gap-5 mt-8 text-center">
           <li>
             <a
-              href="#"
+              href="./login.html"
               class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
               >Login</a
             >
           </li>
           <li>
             <a
-              href="#"
+              href="./signup1.html"
               class="bg-[#152c2e] text-[#f2f2f2] py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
               >Sign Up</a
             >
@@ -135,77 +153,101 @@
 
     <!-- Hero Section (Full Landing Page) -->
     <section
-      class="bg-[var(--color2)] flex flex-col-reverse md:flex-row items-center justify-between p-10 md:p-20 min-h-screen gap-12"
+      class="bg-[var(--color2)] flex flex-col-reverse md:flex-row items-center justify-between px-6 pt-12 pb-6 sm:px-10 sm:pt-16 sm:pb-8 md:px-20 md:pt-20 md:pb-12 min-h-[75vh] gap-3 sm:gap-6 md:gap-8"
     >
       <!-- Left Text Content -->
-      <div class="md:w-1/2 space-y-6 text-center md:text-left">
-        <h2 class="text-4xl md:text-5xl font-extrabold leading-tight">
+      <div
+        class="md:w-1/2 space-y-3 sm:space-y-5 md:space-y-6 text-center md:text-left opacity-0 translate-y-10 transition-all duration-700 ease-out"
+        id="left-content"
+      >
+        <h2
+          class="text-2xl sm:text-3xl md:text-5xl font-extrabold leading-tight"
+        >
           Welcome To The Student's Marketplace.
-          <br />Buy, Sell, Borrow Or Lend Items With Your Campus Mates.
+          <br />
+          Buy, Sell, Borrow Or Lend Items With Your Campus Mates.
         </h2>
-        <p class="text-gray-700 text-lg">
+        <p class="text-gray-700 text-base sm:text-lg">
           Discover a new way to trade essentials within your campus, making
           buying and selling easier than ever.
         </p>
         <a
-          href="#"
+          href="./signup1.html"
           class="bg-teal-600 text-white px-6 py-3 rounded-lg inline-block text-lg hover:bg-teal-700 transition"
-          >Shop Now</a
+          >Get Started</a
         >
       </div>
 
       <!-- Right Image -->
-      <div class="md:w-1/2 flex justify-center">
+      <div
+        class="md:w-1/2 flex justify-center opacity-0 translate-y-10 transition-all duration-700 ease-out"
+        id="right-image"
+      >
         <img
-          src="./assets/hero.png"
-          alt="Campus Connect Illustration"
-          class="w-[80%] max-w-md md:max-w-lg lg:max-w-xl"
+          src="./assets/images/hero.png"
+          alt="Campus Marketplace Illustration"
+          class="w-[80%] sm:w-[85%] md:w-[90%] lg:w-[95%] max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl object-contain"
         />
       </div>
     </section>
 
     <!-- About Section -->
-    <section class="bg-[var(--color2)] py-16 px-4">
+    <section id="about" class="bg-[var(--color2)] py-20 px-4">
       <div
         class="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-12"
       >
         <!-- Left (Image) -->
-        <div class="flex justify-center lg:w-1/2">
+        <div
+          class="flex justify-center lg:w-1/2 opacity-0 translate-y-10 transition-all duration-700 ease-out"
+          id="about-img"
+        >
           <img
-            src="./assets/about2.png"
+            src="./assets/images/about.png"
             class="max-w-full h-auto object-contain"
-            alt="About Campus Connect"
+            alt="About Campus Marketplace"
           />
         </div>
+
         <!-- Right (Text) -->
-        <div class="text-center lg:text-left lg:w-1/2">
+        <div
+          class="text-center lg:text-left lg:w-1/2 opacity-0 translate-y-10 transition-all duration-700 ease-out"
+          id="about-text"
+        >
           <h2
             class="text-4xl md:text-5xl font-bold text-[#152c2e] leading-tight"
           >
-            About <span class="text-teal-600">Campus Connect</span>
+            About <span class="text-teal-600">Campus Marketplace</span>
           </h2>
           <p class="mt-4 text-lg text-gray-800">
-            Campus Connect is a student's marketplace where you can buy, sell,
-            borrow, or lend items within your campus.
+            Campus Marketplace is a student's marketplace where you can buy,
+            sell, borrow, or lend items within your campus.
           </p>
           <p class="mt-2 text-lg text-gray-800">
             Whether you need books, gadgets, or other essentials, this platform
-            connects you with campus mates to exchange what you need, safely and
-            conveniently.
+            Marketplaces you with campus mates to exchange what you need, safely
+            and conveniently.
           </p>
-          <button
+          <!-- <button
+            href="#timeline"
             class="mt-6 px-6 py-3 font-bold rounded-xl bg-teal-600 text-white hover:bg-teal-700 transition"
           >
             Learn More
-          </button>
+          </button> -->
+          <a
+          href="#timeline"
+          class=" mt-6 bg-teal-600 text-white px-6 py-3 rounded-lg inline-block text-lg hover:bg-teal-700 transition"
+          >Learn More</a
+        >
         </div>
       </div>
     </section>
+
     <!-- FEATURES SECTION -->
     <section class="bg-[var(--color1)] py-16 px-4">
       <div class="max-w-6xl mx-auto text-center">
         <h2 class="text-4xl md:text-5xl font-bold text-[#152c2e] leading-tight">
-          Why Choose <span class="text-[var(--color2)]">Campus Connect?</span>
+          Why Choose
+          <span class="text-[var(--color2)]">Campus Marketplace?</span>
         </h2>
         <p class="mt-4 text-lg text-[var(--color3)] max-w-3xl mx-auto">
           We make campus trading easy, secure, and student-friendly. Explore the
@@ -222,7 +264,7 @@
           class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
         >
           <img
-            src="./assets/secure.png"
+            src="./assets/images/secure.png"
             alt="Secure Transactions"
             class="w-64 h-64"
           />
@@ -236,7 +278,11 @@
         <div
           class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
         >
-          <img src="./assets/easy.png" alt="Easy to Use" class="w-64 h-64" />
+          <img
+            src="./assets/images/easy.png"
+            alt="Easy to Use"
+            class="w-64 h-64"
+          />
           <h3 class="mt-4 text-xl font-bold text-[#152c2e]">Easy to Use</h3>
           <p class="text-gray-700 text-center mt-2">
             Post listings or find deals in just a few clicks.
@@ -248,7 +294,7 @@
           class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
         >
           <img
-            src="./assets/affordable.png"
+            src="./assets/images/affordable.png"
             alt="Affordable Deals"
             class="w-64 h-64"
           />
@@ -265,7 +311,7 @@
           class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
         >
           <img
-            src="./assets/community.png"
+            src="./assets/images/community.png"
             alt="Campus Community"
             class="w-64 h-64"
           />
@@ -282,7 +328,7 @@
           class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
         >
           <img
-            src="./assets/convenience.png"
+            src="./assets/images/convenience.png"
             alt="Convenience"
             class="w-64 h-64"
           />
@@ -297,7 +343,7 @@
           class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
         >
           <img
-            src="./assets/sustainability.png"
+            src="./assets/images/sustainability.png"
             alt="Sustainability"
             class="w-64 h-64"
           />
@@ -308,11 +354,13 @@
         </div>
       </div>
     </section>
+
     <!-- HOW IT WORKS SECTION -->
-    <section class="bg-[var(--color1)] py-16 px-4">
+    <section id="timeline" class="bg-[var(--color1)] py-16 px-4">
       <div class="max-w-6xl mx-auto text-center">
         <h2 class="text-4xl md:text-5xl font-bold text-[#152c2e] leading-tight">
-          How <span class="text-[var(--color2)]">Campus Connect</span> Works?
+          How
+          <span class="text-[var(--color2)]">Campus Marketplace</span> Works?
         </h2>
         <p class="mt-4 text-lg text-gray-900 max-w-3xl mx-auto">
           Follow these simple steps to buy, sell, and trade with your campus
@@ -330,7 +378,9 @@
         <!-- Steps Wrapper -->
         <div class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-10">
           <!-- Step 1 -->
-          <div class="relative flex md:flex-row-reverse md:items-start">
+          <div
+            class="relative flex md:flex-row-reverse md:items-start scroll-fade"
+          >
             <div
               class="w-12 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
             >
@@ -346,7 +396,7 @@
           </div>
 
           <!-- Step 2 -->
-          <div class="relative flex md:items-start">
+          <div class="relative flex md:items-start scroll-fade">
             <div
               class="w-12 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
             >
@@ -361,7 +411,9 @@
           </div>
 
           <!-- Step 3 -->
-          <div class="relative flex md:flex-row-reverse md:items-start">
+          <div
+            class="relative flex md:flex-row-reverse md:items-start scroll-fade"
+          >
             <div
               class="w-12 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
             >
@@ -377,7 +429,7 @@
           </div>
 
           <!-- Step 4 -->
-          <div class="relative flex md:items-start">
+          <div class="relative flex md:items-start scroll-fade">
             <div
               class="w-12 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
             >
@@ -385,7 +437,7 @@
             </div>
             <div class="ml-6 md:ml-6 md:pl-12">
               <h3 class="text-xl font-bold text-[#152c2e]">
-                Connect with Buyers/Sellers
+                Marketplace with Buyers/Sellers
               </h3>
               <p class="text-gray-900 mt-2">
                 Chat securely with other students and finalize your deals.
@@ -394,7 +446,9 @@
           </div>
 
           <!-- Step 5 -->
-          <div class="relative flex md:flex-row-reverse md:items-start">
+          <div
+            class="relative flex md:flex-row-reverse md:items-start scroll-fade"
+          >
             <div
               class="w-12 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
             >
@@ -410,7 +464,7 @@
           </div>
 
           <!-- Step 6 -->
-          <div class="relative flex md:items-start">
+          <div class="relative flex md:items-start scroll-fade">
             <div
               class="w-16 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
             >
@@ -419,16 +473,17 @@
             <div class="ml-6 md:ml-6 md:pl-12">
               <h3 class="text-xl font-bold text-[#152c2e]">Enjoy & Repeat</h3>
               <p class="text-gray-900 mt-2">
-                Use Campus Connect anytime for buying, selling, or trading items
-                easily!
+                Use Campus Marketplace anytime for buying, selling, or trading
+                items easily!
               </p>
             </div>
           </div>
         </div>
       </div>
     </section>
+
     <!-- FEATURED LISTINGS SECTION -->
-    <section class="bg-[var(--color2)] py-16 px-4">
+    <section id="market" class="bg-[var(--color2)] py-16 px-4">
       <div class="max-w-6xl mx-auto text-center">
         <h2 class="text-4xl md:text-5xl font-bold text-[#152c2e] leading-tight">
           Featured <span class="text-[var(--color1)]">Listings</span>
@@ -444,9 +499,11 @@
         class="max-w-5xl mx-auto mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
       >
         <!-- Listing 1 - Drafting Set -->
-        <div class="bg-[#f2f2f2] shadow-lg rounded-xl p-6 flex flex-col">
+        <div
+          class="bg-[#f2f2f2] shadow-lg rounded-xl p-6 flex flex-col scroll-fade"
+        >
           <img
-            src="./assets/drafter.jpg"
+            src="./assets/images/drafter.jpg"
             alt="Drafting Set"
             class="w-full h-48 object-cover rounded-lg"
           />
@@ -467,9 +524,11 @@
         </div>
 
         <!-- Listing 2 - Scientific Calculator -->
-        <div class="bg-[#f2f2f2] shadow-lg rounded-xl p-6 flex flex-col">
+        <div
+          class="bg-[#f2f2f2] shadow-lg rounded-xl p-6 flex flex-col scroll-fade"
+        >
           <img
-            src="./assets/casio.jpg"
+            src="./assets/images/casio.jpg"
             alt="Scientific Calculator"
             class="w-full h-48 object-cover rounded-lg"
           />
@@ -492,9 +551,11 @@
         </div>
 
         <!-- Listing 3 - Engineering Mechanics Book -->
-        <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col">
+        <div
+          class="bg-white shadow-lg rounded-xl p-6 flex flex-col scroll-fade"
+        >
           <img
-            src="./assets/book.jpg"
+            src="./assets/images/book.jpg"
             alt="Engineering Mechanics Book"
             class="w-full h-48 object-cover rounded-lg"
           />
@@ -517,20 +578,22 @@
         </div>
       </div>
     </section>
+
     <!-- CTA SECTION -->
     <section
       class="bg-[var(--color2)] text--[var(--color3)] py-16 px-6 text-center"
     >
-      <div class="max-w-4xl mx-auto">
+      <div class="max-w-4xl mx-auto join-animate">
         <h2 class="text-4xl md:text-5xl font-bold leading-tight">
-          Join <span class="text-[var(--color1)]">Campus Connect</span> Today!
+          Join
+          <span class="text-[var(--color1)]">Campus Marketplace</span> Today!
         </h2>
         <p class="mt-4 text-lg">
           Start buying, selling, and trading with your campus community
           effortlessly.
         </p>
         <a
-          href="#"
+          href="./signup1.html"
           class="inline-block mt-6 bg-[var(--color1)] text-[var(--color2)] font-bold py-3 px-6 rounded-full text-lg shadow-lg transition-all duration-300 hover:bg-[var(--color3)]"
         >
           Get Started
@@ -539,7 +602,10 @@
     </section>
 
     <!-- CONTACT SECTION -->
-    <section class="bg-[#152c2e] text-white py-16 px-6">
+    <section
+      id="contact"
+      class="bg-[#152c2e] text-white py-16 px-6 scroll-fade"
+    >
       <div class="max-w-5xl mx-auto text-center">
         <h2 class="text-3xl md:text-4xl font-bold">Get in Touch</h2>
         <p class="mt-2 text-lg text-gray-300">
@@ -553,10 +619,10 @@
         <!-- Contact Details -->
         <div class="text-left space-y-5">
           <p class="flex items-center gap-3 text-gray-300">
-            📍 <span>Campus Connect, Your University</span>
+            📍 <span>Campus Marketplace, Your University</span>
           </p>
           <p class="flex items-center gap-3 text-gray-300">
-            ✉️ <span>support@campusconnect.com</span>
+            ✉️ <span>support@campusMarketplace.com</span>
           </p>
           <p class="flex items-center gap-3 text-gray-300">
             📞 <span>+123 456 7890</span>
@@ -589,5 +655,6 @@
         </form>
       </div>
     </section>
+    <script src="./js/index.js"></script>
   </body>
 </html>
