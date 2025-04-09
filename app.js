@@ -15,6 +15,7 @@ const xss = require("xss-clean");
 
 //routers
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/users");
 
 //middleware
 const notFound = require("./middleware/not-found");
@@ -32,13 +33,17 @@ app.use(cors());
 app.use(xss());
 
 // Public frontend
+const uploadDir = path.join(__dirname, "../uploads");
+app.use("/uploads", express.static(uploadDir));
+
 app.use(express.static(path.join(__dirname, "./public")));
 app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
-// Sample route
+// Main route
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "./public/index.html"));
 });
