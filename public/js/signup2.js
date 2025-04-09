@@ -104,12 +104,14 @@ document.addEventListener("DOMContentLoaded", () => {
             errorMsg.classList.add("hidden");
         }
 
-        // Final Check
-        if (isValid) {
-            // ✅ Success - Submit the form or do something
-            console.log("Form is valid! ✅ Submitting...");
-            // form.submit(); // Uncomment this line to enable actual form submission
-        }
+        
+
+        // // Final Check
+        // if (isValid) {
+        //     // ✅ Success - Submit the form or do something
+        //     console.log("Form is valid! ✅ Submitting...");
+        //     // form.submit(); // Uncomment this line to enable actual form submission
+        // }
     });
 
     // ✅ Populate Day

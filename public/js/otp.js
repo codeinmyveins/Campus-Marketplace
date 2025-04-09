@@ -455,8 +455,20 @@ function startTimer(duration) {
 startTimer(299);
 
 // 🔁 Resend OTP
-resendBtn.addEventListener("click", () => {
-  showMessage(`📩 OTP resent to ${currentEmail}`, "success");
+resendBtn.addEventListener("click", async () => {
+
+  try {
+    const { data } = await axios.post("/api/auth/resend-otp/register");
+    showMessage(data.msg, "success");
+  } catch (error) {
+    console.error(error);
+    showMessage(error.response.data.msg, "error");
+  }
+  setTimeout(() => {
+    errorMsg.textContent = "";
+    errorMsg.classList.add("hidden");
+  }, 7000);
+
   resendBtn.disabled = true;
   resendBtn.classList.add("opacity-50", "cursor-not-allowed");
   startTimer(299);
@@ -502,20 +514,20 @@ updateEmailBtn.addEventListener("click", async () => {
 
   try {
     // Simulated request or real server call
-    const { data } = await axios.post("/api/auth/verify-email", { otp });
+    const { data } = await axios.patch("/api/auth/email", { email });
 
     currentEmail = email;
     currentEmailEl.textContent = currentEmail;
     localStorage.setItem("userEmail", currentEmail);
 
-    showMessage(`✅ OTP sent to ${email}`, "success");
+    showMessage(data.msg, "success");
     closePopup();
     resendBtn.disabled = true;
     resendBtn.classList.add("opacity-50", "cursor-not-allowed");
     startTimer(299);
   } catch (err) {
     console.error(err);
-    popupError.textContent = "❌ Failed to update email. Please try again.";
+    popupError.textContent = err.response.data.msg;
   }
 });
 

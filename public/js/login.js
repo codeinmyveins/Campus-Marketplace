@@ -75,29 +75,47 @@ form.addEventListener("submit", async function (e) {
     return;
   }
 
+  
+  // Check if usernameOrEmail is an email or username
+  let reqBody  = {password};
+  
+  if (usernameOrEmail.includes("@")) {
+    reqBody.email = usernameOrEmail;
+  }
+  else{
+    reqBody.username = usernameOrEmail;
+  }
+
   // ✅ Simulate Login / Replace with Backend API call
   // Example: Replace this with axios POST request if backend exists
-  // try {
-  //   const { data } = await axios.post('/api/login', { username, password });
-  //   // Handle response
-  // } catch (err) {
-  //   errorMsg.textContent = err.response?.data?.message || "Login failed.";
-  //   errorMsg.classList.remove("hidden");
-  // }
-
-  if (
-    (usernameOrEmail === "admin" || usernameOrEmail === "admin@example.com") &&
-    password === "password123"
-  ) {
-    // alert("Login successful! ✅");
-    errorMsg.classList.remove("hidden");
-    errorMsg.classList.remove("text-red-600");
-    errorMsg.classList.add("text-green-600");
-    errorMsg.textContent = "Login successful! ✅";
-    // window.location.href = "dashboard.html";
-  } else {
-    errorMsg.textContent = "Invalid username/email or password.";
+  try {
+    const { data } = await axios.post('/api/auth/login', reqBody);
+    // Handle response
+    showError(data.msg); // Replace with actual success handling
+    // Redirect to dashboard or show success message  
+    window.location.href = "loader.html"; // Uncomment to redirect
+  } catch (err) {
+    errorMsg.textContent = err.response.data.msg;
     errorMsg.classList.remove("hidden");
   }
+
+  // if (
+  //   (usernameOrEmail === "admin" || usernameOrEmail === "admin@example.com") &&
+  //   password === "password123"
+  // ) {
+  //   // alert("Login successful! ✅");
+  //   errorMsg.classList.remove("hidden");
+  //   errorMsg.classList.remove("text-red-600");
+  //   errorMsg.classList.add("text-green-600");
+  //   errorMsg.textContent = "Login successful! ✅";
+  //   // window.location.href = "dashboard.html";
+  // } else {
+  //   errorMsg.textContent = "Invalid username/email or password.";
+  //   errorMsg.classList.remove("hidden");
+  // }
 });
 
+function showError(message) {
+  errorMsg.textContent = message;
+  errorMsg.classList.remove("hidden");
+}
