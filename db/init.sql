@@ -1,6 +1,8 @@
 -- CREATE DATABASE campus_marketplace;
 -- USE campus_marketplace;
 
+CREATE EXTENSION IF NOT EXISTS postgis;
+
 DO $$
 BEGIN
     IF NOT EXISTS (
@@ -19,6 +21,12 @@ BEGIN
         SELECT 1 FROM pg_type WHERE typname = 'status_enum' 
     ) THEN 
         CREATE TYPE STATUS_ENUM AS ENUM ('unverified', 'verified');
+    END IF;
+
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_type WHERE typname = 'item_type_enum' 
+    ) THEN 
+        CREATE TYPE ITEM_TYPE_ENUM AS ENUM ('sell', 'buy', 'lend', 'borrow');
     END IF;
 END
 $$ LANGUAGE plpgsql;
@@ -45,7 +53,7 @@ CREATE TABLE IF NOT EXISTS users (
 
     gender GENDER_ENUM NOT NULL,
     avatar_url TEXT,
-    bio TEXT CHECK (char_length(bio) <= 2056),
+    bio TEXT CHECK (char_length(bio) <= 2048),
     role ROLE_ENUM NOT NULL DEFAULT 'user'
 );
 
@@ -70,7 +78,7 @@ CREATE TABLE IF NOT EXISTS pre_users (
     gender GENDER_ENUM,
 
     avatar_url TEXT,
-    bio TEXT CHECK (char_length(bio) <= 2056),
+    bio TEXT CHECK (char_length(bio) <= 2048),
 
     status STATUS_ENUM NOT NULL DEFAULT 'unverified',
 
@@ -92,6 +100,39 @@ CREATE TABLE IF NOT EXISTS sessions (
     UNIQUE (user_id, device_fingerprint)
 );
 
+CREATE TABLE IF NOT EXISTS items (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+
+    item_name TEXT NOT NULL CHECK (char_length(item_name) <= 32),
+    item_category TEXT NOT NULL CHECK (char_length(item_category) <= 32),
+    price NUMERIC(10, 2) CHECK (price >= 0),
+
+    title TEXT NOT NULL CHECK (char_length(title) <= 64),
+    body TEXT NOT NULL CHECK (char_length(body) <= 16384),
+
+    location GEOGRAPHY(Point, 4326),
+
+    image_count INTEGER NOT NULL DEFAULT 0,
+
+    type ITEM_TYPE_ENUM NOT NULL,
+    closed BOOLEAN NOT NULL DEFAULT FALSE,
+
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    modified_at TIMESTAMP NOT NULL DEFAULT NOW(),
+
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS item_images (
+    id SERIAL PRIMARY KEY,
+    item_id INTEGER NOT NULL,
+    name TEXT NOT NULL CHECK (char_length(name) <= 32),
+    url TEXT NOT NULL,
+
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
+);
+
 CREATE OR REPLACE FUNCTION update_modified_column()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -100,15 +141,15 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- DO $$
--- BEGIN
---     IF NOT EXISTS (
---         SELECT 1 FROM pg_trigger WHERE tgname = 'update_modified_at'
---     ) THEN
---         CREATE TRIGGER update_modified_at
---         BEFORE UPDATE ON sessions
---         FOR EACH ROW
---         EXECUTE FUNCTION update_modified_column();
---     END IF;
--- END
--- $$ LANGUAGE plpgsql;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_trigger WHERE tgname = 'update_modified_at'
+    ) THEN
+        CREATE TRIGGER update_modified_at
+        BEFORE UPDATE ON items
+        FOR EACH ROW
+        EXECUTE FUNCTION update_modified_column();
+    END IF;
+END
+$$ LANGUAGE plpgsql;

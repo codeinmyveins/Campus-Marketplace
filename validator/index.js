@@ -49,10 +49,37 @@ const UserInfo = Joi.object({
     country_code: Joi.string().length(2).pattern(/^[A-Z]+$/),
     phone: Joi.string().pattern(/^[0-9]+$/),
     college_name: college_name,
-    bio: Joi.string().max(2056),
+    bio: Joi.string().max(2048),
     username: username,
 });
 
+const itemPostInfoObj = {
+    item_name: Joi.string().max(32),
+    item_category: Joi.string().max(32),
+    title: Joi.string().max(64),
+    body: Joi.string().max(16384),
+    location: Joi.string(),
+    image_count: Joi.number(),
+    type: Joi.string().valid("sell", "buy", "lend", "borrow"),
+};
+
+const price = Joi.number().greater(0).precision(2)
+
+const itemPostInfo = Joi.object({
+    ...itemPostInfoObj,
+    price: price,
+});
+
+const itemPostInfoRequired = Joi.object({
+    ...Object.fromEntries(
+        Object.entries(itemPostInfoObj).map(([key, schema]) => [key, schema.required()])
+    ),
+    price: price.when("type", {
+        is: "sell",
+        then: Joi.required(),
+        otherwise: Joi.optional()
+    }),
+});
 
 exports.validateRegisterInitial = validator(registerInitialSchema);
 exports.validateRegisterComplete = validator(registerCompleteSchema);
@@ -61,3 +88,5 @@ exports.validateEmail = validator(emailSchema);
 exports.validateOTP = validator(otpSchema);
 exports.validateDeviceFingerprint = validator(device_fingerprint);
 exports.validateUserInfo = validator(UserInfo);
+exports.validateItemPostInfo = validator(itemPostInfo);
+exports.validateItemPostInfoRequired = validator(itemPostInfoRequired);

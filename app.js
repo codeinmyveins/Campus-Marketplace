@@ -16,6 +16,7 @@ const xss = require("xss-clean");
 //routers
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
+const itemRoutes = require("./routes/items");
 
 //middleware
 const notFound = require("./middleware/not-found");
@@ -42,6 +43,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/items", itemRoutes);
 
 // Main route
 app.get('/', (req, res) => {
