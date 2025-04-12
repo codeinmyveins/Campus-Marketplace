@@ -1,3 +1,9 @@
+const showMsg = getShowMsg(document.getElementById("infoErrorMsg"));
+
+
+const form = document.getElementById("signupForm");
+const countryCodeDOM = document.getElementById("country");
+
 // Toggle the mobile menu 
 function toggleMenu() {
     document.getElementById("mobileMenu").classList.toggle("hidden");
@@ -15,164 +21,129 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("signupForm");
-    const fullName = document.getElementById("fullName");
-    const gender = document.getElementById("gender");
-    const countryCodeDOM = document.getElementById("country");
-    const college = document.querySelector("select[name='college']");
-    const phoneInput = document.getElementById("phone");
-    const errorMsg = document.getElementById("errorMsg");
+// ✅ Form Submission Handler
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    const full_name = form.fullName.value.trim();
+    const gender = form.gender.value.trim();
+    const day = form.day.value.trim();
+    const month = form.month.value.trim();
+    const year = form.year.value.trim();
+    const dob = `${year}-${month}-${day}`;
+    const country_code = form.country.value.trim();
+    const phone = form.phone.value.trim();
+    const college_name = form.college.value.trim();
 
-    // DOB dropdown fields
-    const day = document.getElementById("day");
-    const month = document.getElementById("month");
-    const year = document.getElementById("year");
-
-    // Error Elements
-    const fullNameError = document.getElementById("fullNameError");
-    const dobError = document.getElementById("dobError");
-    const genderError = document.getElementById("genderError");
-    const phoneError = document.getElementById("phoneError");
-
+    
+    
+    // Full Name Validation
     // ✅ Validate full name (at least 3 characters, only alphabets and space)
     const isValidName = name => /^[A-Za-z\s]{3,}$/.test(name.trim());
-
-    // ✅ Validate age (at least 16)
-    const isAtLeast16 = (y, m, d) => {
-        const birthDate = new Date(y, m - 1, d);
-        const today = new Date();
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const hasHadBirthday =
-            today.getMonth() > birthDate.getMonth() ||
-            (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
-        return age > 16 || (age === 16 && hasHadBirthday);
-    };
-
-    // ✅ Validate phone number (10 to 15 digits, no special characters)
-    const isValidPhone = phone => /^\d{10,15}$/.test(phone.trim());
-
-    // ✅ Form Submission Handler
-    form.addEventListener("submit", e => {
-        e.preventDefault();
-
-        let isValid = true;
-        errorMsg.classList.add("hidden");
-
-        // Full Name Validation
-        if (!isValidName(fullName.value)) {
-            fullNameError.textContent = "Full name must be at least 3 characters and only contain letters and spaces.";
-            fullNameError.classList.remove("hidden");
-            isValid = false;
-        } else {
-            fullNameError.classList.add("hidden");
-        }
-
-        // DOB Validation
-        if (!day.value || !month.value || !year.value || !isAtLeast16(year.value, month.value, day.value)) {
-            dobError.textContent = "You must be at least 16 years old.";
-            dobError.classList.remove("hidden");
-            isValid = false;
-        } else {
-            dobError.classList.add("hidden");
-        }
-
-        // Gender Validation
-        if (!gender.value) {
-            genderError.textContent = "Please select a gender.";
-            genderError.classList.remove("hidden");
-            isValid = false;
-        } else {
-            genderError.classList.add("hidden");
-        }
-
-        // Phone Validation
-        if (!isValidPhone(phoneInput.value)) {
-            phoneError.textContent = "Phone number must be 10–15 digits without any letters or special characters.";
-            phoneError.classList.remove("hidden");
-            isValid = false;
-        } else {
-            phoneError.classList.add("hidden");
-        }
-
-        // Country & College Validation
-        if (!countryCodeDOM.value || !college.value) {
-            errorMsg.innerText = "Please select both a valid country and college.";
-            errorMsg.classList.remove("hidden");
-            isValid = false;
-        } else {
-            errorMsg.classList.add("hidden");
-        }
-
-        
-
-        // // Final Check
-        // if (isValid) {
-        //     // ✅ Success - Submit the form or do something
-        //     console.log("Form is valid! ✅ Submitting...");
-        //     // form.submit(); // Uncomment this line to enable actual form submission
-        // }
-    });
-
-    // ✅ Populate Day
-    for (let d = 1; d <= 31; d++) {
-        const opt = document.createElement("option");
-        opt.value = d;
-        opt.textContent = d;
-        day.appendChild(opt);
+    if (!isValidName(full_name)) {
+        showMsg("Full name must be at least 3 characters and only contain letters and spaces.",ERROR);
+        return;
     }
 
-    // ✅ Populate Month
-    const monthNames = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
-    monthNames.forEach((m, idx) => {
-        const opt = document.createElement("option");
-        opt.value = idx + 1;
-        opt.textContent = m;
-        month.appendChild(opt);
-    });
-
-    // ✅ Populate Year (last 100 years)
-    const currentYear = new Date().getFullYear();
-    for (let y = currentYear; y >= currentYear - 100; y--) {
-        const opt = document.createElement("option");
-        opt.value = y;
-        opt.textContent = y;
-        year.appendChild(opt);
+    // Gender Validation
+    if (!gender) {
+        showMsg("Please select a gender.",ERROR);
+        return;
     }
-
-    // ✅ Truncate helper
-    const truncateString = (str, max) =>
-        str.length > max ? str.slice(0, max) + "…" : str;
-
-    // ✅ Fetch and Fill Countries
-    const fillCountryCodes = async () => {
-        try {
-            const { data } = await axios.get(
-                "https://restcountries.com/v3.1/all?fields=name,cca2,idd"
-            );
-
-            data
-                .sort((a, b) => a.name.common.localeCompare(b.name.common))
-                .forEach(c => {
-                    const name = truncateString(c.name.common, 18);
-                    const option = document.createElement("option");
-                    option.value = c.cca2;
-
-                    const code =
-                        c.idd?.root && c.idd?.suffixes
-                            ? `${c.idd.root}${c.idd.suffixes[0]}`.trim()
-                            : "";
-
-                    option.innerText = `${name} ${code ? `(${code})` : ""}`;
-                    countryCodeDOM.appendChild(option);
-                });
-        } catch (error) {
-            console.error("Failed to fetch countries:", error);
-        }
+    
+    // Country Code Validation
+    if (!country_code) {
+    showMsg("Please select a country.",ERROR);
+    return;
     };
 
-    fillCountryCodes();
+    // college name Validation
+    if (!college_name) {
+        showMsg("Please select a college.",ERROR);
+        return;
+    }
+
+    showMsg("loading...", INFO);
+
+    try {
+        const { data } = await axios.patch("/api/auth/register/complete", {
+            full_name,
+            dob,
+            gender,
+            country_code,
+            phone,
+            college_name,
+            device_fingerprint:await generateDeviceFingerprint(),
+        });
+
+
+        showMsg(data.msg, SUCCESS);
+        window.location.href = "./loader.html";
+
+    } catch (error) {
+        if (error.response?.data?.msg)
+            showMsg(error.response.data.msg, ERROR);
+        else console.error(error);
+    }});
+
+// ✅ Populate Day
+for (let d = 1; d <= 31; d++) {
+    const opt = document.createElement("option");
+    opt.value = String(d).padStart(2, "0");
+    opt.textContent = d;
+    day.appendChild(opt);
+}
+
+// ✅ Populate Month
+const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+];
+monthNames.forEach((m, idx) => {
+    const opt = document.createElement("option");
+    opt.value = String(idx + 1).padStart(2, "0");
+    opt.textContent = m;
+    month.appendChild(opt);
 });
+
+// ✅ Populate Year (last 100 years)
+const currentYear = new Date().getFullYear();
+for (let y = currentYear; y >= currentYear - 100; y--) {
+    const opt = document.createElement("option");
+    opt.value = String(y);
+    opt.textContent = y;
+    year.appendChild(opt);
+}
+
+// ✅ Truncate helper
+const truncateString = (str, max) =>
+    str.length > max ? str.slice(0, max) + "…" : str;
+
+// ✅ Fetch and Fill Countries
+const fillCountryCodes = async () => {
+    try {
+        const { data } = await axios.get(
+            "https://restcountries.com/v3.1/all?fields=name,cca2,idd"
+        );
+
+        data
+            .sort((a, b) => a.name.common.localeCompare(b.name.common))
+            .forEach(c => {
+                const name = truncateString(c.name.common, 18);
+                const option = document.createElement("option");
+                option.value = c.cca2;
+
+                const code =
+                    c.idd?.root && c.idd?.suffixes
+                        ? `${c.idd.root}${c.idd.suffixes[0]}`.trim()
+                        : "";
+
+                option.innerText = `${name} ${code ? `(${code})` : ""}`;
+                countryCodeDOM.appendChild(option);
+            });
+    } catch (error) {
+        console.error("Failed to fetch countries:", error);
+    }
+};
+
+fillCountryCodes();
