@@ -174,7 +174,7 @@ const verifyEmail = async (req, res) =>  {
 
 const changeEmailInitial = async (req, res) => {
 
-    const { body: { email: inputEmail }, user: { userId, otpId, role, lastResendTime, lastEmailTime } } = req;
+    const { body: { email: inputEmail }, user: { userId, otpId, role, lastEmailTime } } = req;
     const email = inputEmail.toLowerCase();
 
     if (role === "verified") {
@@ -233,7 +233,7 @@ const changeEmailInitial = async (req, res) => {
             sub: userId,
             rol: role,
             oid: otpId,
-            lrt: lastResendTime,
+            lrt: epochNow,
             elt: epochNow
         },
         process.env.JWT_SECRET, {
