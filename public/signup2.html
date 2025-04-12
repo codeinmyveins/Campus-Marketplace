@@ -50,21 +50,21 @@
             </li>
             <li>
               <a
-                href="#about"
+                href="./index.html#about"
                 class="inline-block py-2 hover:scale-110 duration-300"
                 >About</a
               >
             </li>
             <li>
               <a
-                href="#market"
+                href="./index.html#market"
                 class="inline-block py-2 hover:scale-110 duration-300"
                 >Market</a
               >
             </li>
             <li>
               <a
-                href="#contact"
+                href="./index.html#contact"
                 class="inline-block py-2 hover:scale-110 duration-300"
                 >Contact</a
               >
@@ -75,7 +75,7 @@
           <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
             <li>
               <a
-                href="#"
+                href="./login.html"
                 class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
                 >Login</a
               >
@@ -135,13 +135,13 @@
               >Login</a
             >
           </li>
-          <!-- <li>
+          <li>
             <a
               href="./signup1.html"
               class="bg-[#152c2e] text-[#f2f2f2] py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
               >Sign Up</a
             >
-          </li> -->
+          </li>
         </ul>
       </div>
     </header>
@@ -174,27 +174,10 @@
               required
               class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none"
             />
-            <p class="text-red-500 text-sm hidden" id="fullNameError">
+            <!-- <p class="text-red-500 text-sm hidden" id="fullNameError">
               Please enter a valid name.
-            </p>
+            </p> -->
           </div>
-
-          <!-- Date of Birth
-          <div class="text-[var(--color2)]">
-            <label class="block text-[var(--color2)] font-medium"
-              >Date of Birth</label
-            >
-            <input
-              type="date"
-              id="dob"
-              name="dob"
-              required
-              class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none"
-            />
-            <p class="text-red-500 text-sm hidden" id="dobError">
-              You must be at least 16 years old.
-            </p>
-          </div> -->
 
           <!-- Date of Birth -->
           <div class="w-full">
@@ -263,9 +246,9 @@
             </div>
 
             <!-- DOB Error -->
-            <p id="dobError" class="text-red-500 text-sm hidden mt-1">
+            <!-- <p id="dobError" class="text-sm hidden mt-1">
               You must be at least 16 years old.
-            </p>
+            </p> -->
           </div>
 
           <!-- Gender -->
@@ -294,9 +277,9 @@
                 ▼
               </span>
             </div>
-            <p class="text-red-500 text-sm hidden" id="genderError">
+            <!-- <p class="text-red-500 text-sm hidden" id="genderError">
               Please select a gender.
-            </p>
+            </p> -->
           </div>
 
           <!-- Country -->
@@ -321,9 +304,9 @@
                 ▼
               </span>
             </div>
-            <p class="text-red-500 text-sm hidden" id="countryError">
+            <!-- <p class="text-red-500 text-sm hidden" id="countryError">
               Please select a country.
-            </p>
+            </p> -->
           </div>
 
           <!-- Phone Number -->
@@ -336,13 +319,13 @@
               id="phone"
               name="phone"
               required
-              pattern="[0-9]{10,15}"
+              pattern="[0-9]{08,15}"
               placeholder="Phone Number"
               class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none"
             />
-            <p class="text-red-500 text-sm hidden" id="phoneError">
+            <!-- <p class="text-sm hidden" id="phoneError">
               Please enter a valid phone number.
-            </p>
+            </p> -->
           </div>
 
           <!-- College -->
@@ -361,6 +344,7 @@
                 <option value="mit">
                   Massachusetts Institute of Technology (MIT)
                 </option>
+                <option value="stanford">Shadan College Of Engineering & Technology</option>
                 <option value="stanford">Stanford University</option>
                 <option value="harvard">Harvard University</option>
                 <option value="oxford">University of Oxford</option>
@@ -374,15 +358,15 @@
                 ▼
               </span>
             </div>
-            <p class="text-red-500 text-sm hidden" id="collegeError">
+            <!-- <p class="text-red-500 text-sm hidden" id="collegeError">
               Please select a college.
-            </p>
+            </p> -->
           </div>
 
           <!-- Error message placeholder -->
           <p
-            id="errorMsg"
-            class="text-red-600 text-center font-medium hidden"
+            id="infoErrorMsg"
+            class="text-center font-medium hidden"
           ></p>
 
           <!-- Continue Button -->
@@ -403,6 +387,8 @@
     </div>
     <!-- Validation Script -->
     <script src="./js/lib/axios.min.js"></script>
+    <script src="./js/utility/infoErrorMsg.js"></script>
+    <script src="./js/utility/deviceFingerprintGen.js"></script>
     <script src="./js/signup2.js"></script>
   </body>
 </html>
