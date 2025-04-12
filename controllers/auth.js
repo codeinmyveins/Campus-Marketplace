@@ -93,7 +93,9 @@ const registerInitial = async (req, res) => {
         {
             sub: newUser[0].id,
             rol: newUser[0].status,
-            oid: otpId
+            oid: otpId,
+            lrt: Math.floor(Date.now() / 1000), // now
+            elt: Math.floor(Date.now() / 1000) - 60 // 1 min before
         },
         process.env.JWT_SECRET, {
         expiresIn: "1h"
@@ -172,11 +174,18 @@ const verifyEmail = async (req, res) =>  {
 
 const changeEmailInitial = async (req, res) => {
 
-    const { body: { email: inputEmail }, user: { userId, otpId, role } } = req;
+    const { body: { email: inputEmail }, user: { userId, otpId, role, lastResendTime, lastEmailTime } } = req;
     const email = inputEmail.toLowerCase();
 
     if (role === "verified") {
         throw new CustomAPIError("Forbidden, no need of verification", StatusCodes.FORBIDDEN);
+    }
+
+    const epochNow = Math.floor(Date.now() / 1000); // current epoch in seconds
+    if (lastEmailTime + 60 > epochNow) {
+        const tryAfter = lastEmailTime + 60 - epochNow
+        res.set("Retry-After", tryAfter);
+        throw new CustomAPIError(`Too many requests. try after ${tryAfter} seconds`, StatusCodes.TOO_MANY_REQUESTS);
     }
     
     // Joi validation
@@ -223,7 +232,9 @@ const changeEmailInitial = async (req, res) => {
         {
             sub: userId,
             rol: role,
-            oid: otpId
+            oid: otpId,
+            lrt: lastResendTime,
+            elt: epochNow
         },
         process.env.JWT_SECRET, {
         expiresIn: "1h"
@@ -244,10 +255,17 @@ const changeEmailInitial = async (req, res) => {
 
 const resendOTPInitial = async (req, res) => {
 
-    const { user: { userId, otpId, role } } = req;
+    const { user: { userId, otpId, role, lastResendTime, lastEmailTime } } = req;
 
     if (role === "verified") {
         throw new CustomAPIError("Forbidden, no need of verification", StatusCodes.FORBIDDEN);
+    }
+
+    const epochNow = Math.floor(Date.now() / 1000); // current epoch in seconds
+    if (lastResendTime + 60 > epochNow) {
+        const tryAfter = lastResendTime + 60 - epochNow
+        res.set("Retry-After", tryAfter);
+        throw new CustomAPIError(`Too many requests. try after ${tryAfter} seconds`, StatusCodes.TOO_MANY_REQUESTS);
     }
 
     // prune unverified pre_users older than one hour
@@ -288,7 +306,9 @@ const resendOTPInitial = async (req, res) => {
         {
             sub: userId,
             rol: role,
-            oid: otpId
+            oid: otpId,
+            lrt: epochNow,
+            elt: lastEmailTime
         },
         process.env.JWT_SECRET, {
         expiresIn: "1h"
