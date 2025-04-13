@@ -57,20 +57,22 @@ const preUserAuth = async (req, res, next) => {
     } catch (error) {
         throw new CustomAPIError("Authentication Invalid.", StatusCodes.UNAUTHORIZED);
     }
-    const { sub, rol, oid } = payload;
+    const { sub, rol, oid, lrt, elt } = payload;
     if (!sub || !rol)
         throw new CustomAPIError("Authentication Invalid", StatusCodes.UNAUTHORIZED);
-    req.user = { userId: sub, role: rol, otpId: oid };
+    req.user = { userId: sub, role: rol, otpId: oid, lastResendTime: lrt, lastEmailTime: elt };
     
     next();
 }
 
 const otpUserAuth = async (req, res, next) => {
 
-    const { userId, role, otpId } = req.user;
+    const { userId, role, otpId, lastResendTime, lastEmailTime } = req.user;
     if (role === "verified")
         throw new CustomAPIError("Forbidden, no need of verification", StatusCodes.FORBIDDEN);
-    if (!userId || !role || !otpId)
+    // last otp resend time,
+    // last email changed time,
+    if (!userId || !role || !otpId || !lastResendTime || !lastEmailTime)
         throw new CustomAPIError("Forbidden, invalid token", StatusCodes.FORBIDDEN);
     next();
 
