@@ -1,5 +1,4 @@
-// Utility function to show Succes, Info, Error message
-
+// Utility function to show Success, Info or Error message
 
 const SUCCESS = "success";
 const INFO = "info";
@@ -7,10 +6,19 @@ const INFOD = "info-dark";
 const ERROR = "error";
 
 function getShowMsg(infoErrorMsg) {
-    if (!infoErrorMsg) {
+    if (!infoErrorMsg || !(infoErrorMsg instanceof HTMLElement)) {
         throw new Error("Invalid element passed to getShowMsg");
     }
+
+    let timeoutId = null;
+
     return (message, type = ERROR, timeout = 7000) => {
+
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+            timeoutId = null;
+        }
+
         infoErrorMsg.classList.remove("hidden", "text-green-500", "text-red-500", "text-teal-50", "text-teal-950");
         
         if (type === SUCCESS) {
@@ -27,8 +35,9 @@ function getShowMsg(infoErrorMsg) {
     
         // Auto-clears msg
         if (!timeout) return;
-        setTimeout(() => {
+        timeoutId = setTimeout(() => {
             infoErrorMsg.classList.add("hidden");
+            timeoutId = null;
         }, timeout);
     }
 }

@@ -42,9 +42,12 @@ function startOtpEpxTimer(duration) {
 
   let timeLeft = parseInt(localStorage.getItem("otpTime")) + duration - Math.floor(Date.now() / 1000);
 
-  if (timeLeft <= 0) {
+  if (timeLeft <= 0 || isNaN(timeLeft)) {
     clearInterval(otpExpTimerInterval);
-    otpShowMsg("⏰ OTP has expired. Please request a new one.", ERROR);
+    if (isNaN(timeLeft))
+      otpShowMsg("⏰ OTP has expired. Please request a new one.", ERROR, null);
+    else
+      alert("Invalid session, please login or re-register.");
 
     otpInputs.forEach((input) => (input.value = ""));
     timerEl.textContent = "00:00";
@@ -65,13 +68,16 @@ function startOtpResndTimer(duration) {
 
   let timeLeft = parseInt(localStorage.getItem("otpResnd")) + duration - Math.floor(Date.now() / 1000);
 
-  if (timeLeft <= 0) {
+  if (timeLeft <= 0 || isNaN(timeLeft)) {
     clearInterval(otpResndInterval);
 
     resendBtn.disabled = false;
     resendBtn.classList.remove("opacity-50", "cursor-not-allowed");
     timerReEl.textContent = "";
     return;
+  } else {
+    resendBtn.disabled = true;
+    resendBtn.classList.add("opacity-50", "cursor-not-allowed");
   }
 
   otpResndInterval = setInterval(() => {
@@ -98,9 +104,7 @@ resendBtn.addEventListener("click", async () => {
     localStorage.setItem("otpTime", Math.floor(Date.now() / 1000));
     localStorage.setItem("otpResnd", Math.floor(Date.now() / 1000));
     startOtpResndTimer(60);
-
-    resendBtn.disabled = true;
-    resendBtn.classList.add("opacity-50", "cursor-not-allowed");
+    startOtpEpxTimer(300);
 
   } catch (error) {
     if (error.response?.data?.msg)
@@ -156,6 +160,7 @@ emailPopup.addEventListener("submit", async (e) => {
     localStorage.setItem("otpTime", Math.floor(Date.now() / 1000));
     localStorage.setItem("otpResnd", Math.floor(Date.now() / 1000));
     startOtpEpxTimer(300);
+    startOtpResndTimer(60);
     
     emailShowMsg(data.msg, SUCCESS);
     otpShowMsg(data.msg, SUCCESS);
