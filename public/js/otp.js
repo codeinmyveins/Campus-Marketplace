@@ -45,9 +45,9 @@ function startOtpEpxTimer(duration) {
   if (timeLeft <= 0 || isNaN(timeLeft)) {
     clearInterval(otpExpTimerInterval);
     if (isNaN(timeLeft))
-      otpShowMsg("⏰ OTP has expired. Please request a new one.", ERROR, null);
-    else
       alert("Invalid session, please login or re-register.");
+    else
+      otpShowMsg("⏰ OTP has expired. Please request a new one.", ERROR, null);
 
     otpInputs.forEach((input) => (input.value = ""));
     timerEl.textContent = "00:00";
