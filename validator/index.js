@@ -23,7 +23,7 @@ const loginSchema = Joi.object({
 
 const full_name = Joi.string().max(64).pattern(/^[a-zA-Z\s]+$/)
     .rule({"message": "\"full_name\" can only contains letters and spaces"});
-const college_name = Joi.string().max(64).pattern(/^[a-zA-Z\s]+$/)
+const college_name = Joi.string().max(128).pattern(/^[a-zA-Z\s]+$/)
     .rule({"message": "\"college_name\" can only contains letters and spaces"});
 const dob = Joi.date().less("now").iso().messages({"date.format": "\"dob\" must be in the iso 8601 YYYY-MM-DD format"});
 
@@ -57,16 +57,15 @@ const itemPostInfoObj = {
     item_name: Joi.string().max(32),
     item_category: Joi.string().max(32),
     title: Joi.string().max(64),
-    body: Joi.string().max(16384),
-    location: Joi.string(),
-    image_count: Joi.number(),
-    type: Joi.string().valid("sell", "buy", "lend", "borrow"),
+    description: Joi.string().max(16384),
 };
 
-const price = Joi.number().greater(0).precision(2)
+const price = Joi.number().greater(0).precision(2);
 
 const itemPostInfo = Joi.object({
     ...itemPostInfoObj,
+    location: Joi.string(),
+    closed: Joi.boolean(),
     price: price,
 });
 
@@ -74,12 +73,19 @@ const itemPostInfoRequired = Joi.object({
     ...Object.fromEntries(
         Object.entries(itemPostInfoObj).map(([key, schema]) => [key, schema.required()])
     ),
+    type: Joi.string().valid("sell", "buy", "lend", "borrow").required(),
+    location: Joi.string(),
     price: price.when("type", {
-        is: "sell",
+        is: Joi.valid("sell", "lend"),
         then: Joi.required(),
-        otherwise: Joi.optional()
+        otherwise: Joi.forbidden()
     }),
 });
+
+const itemImageReorderSchema = Joi.array()
+    .items(Joi.number().integer().required())
+    .unique()
+    .required();
 
 exports.validateRegisterInitial = validator(registerInitialSchema);
 exports.validateRegisterComplete = validator(registerCompleteSchema);
@@ -90,3 +96,5 @@ exports.validateDeviceFingerprint = validator(device_fingerprint);
 exports.validateUserInfo = validator(UserInfo);
 exports.validateItemPostInfo = validator(itemPostInfo);
 exports.validateItemPostInfoRequired = validator(itemPostInfoRequired);
+exports.itemImageReorderSchema = itemImageReorderSchema;
+exports.priceSchema = price;

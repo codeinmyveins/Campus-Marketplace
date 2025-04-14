@@ -2,7 +2,7 @@ const express = require("express");
 
 //middleware
 const { auth } = require("../middleware/authentication");
-const { userAvatarUpload } = require("../middleware/uploads");
+const { userAvatarUpload } = require("../middleware/file_uploadr");
 //controller
 const { getUser, getCurrentUser, editUser, putAvatarImage } = require("../controllers/users");
 

@@ -31,9 +31,24 @@ const userAvatarUpload = multer({
     fileFilter: fileImgFilter
 });
 
+const itemImageStorage = multer.diskStorage({
+    destination,
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + "@" + req.params.id);
+    }
+});
+
+const itemImageUpload = multer({
+    storage: itemImageStorage,
+    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+    fileFilter: fileImgFilter
+});
+
 const uploadDir = path.join(__dirname, "../uploads");
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
 const avatarDir = path.join(__dirname, "../uploads/avatar");
 if (!fs.existsSync(avatarDir)) fs.mkdirSync(avatarDir);
+const itemImgDir = path.join(__dirname, "../uploads/item_images");
+if (!fs.existsSync(itemImgDir)) fs.mkdirSync(itemImgDir);
 
-module.exports = { userAvatarUpload };
+module.exports = { userAvatarUpload, itemImageUpload };

@@ -8,7 +8,7 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM pg_type WHERE typname = 'gender_enum' 
     ) THEN 
-        CREATE TYPE GENDER_ENUM AS ENUM ('male', 'female');
+        CREATE TYPE GENDER_ENUM AS ENUM ('male', 'female', 'other');
     END IF;
     
     IF NOT EXISTS (
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS users (
     country_code TEXT NOT NULL CHECK (char_length(country_code) = 2 AND country_code ~ '^[A-Z]+$'),
     phone TEXT UNIQUE NOT NULL CHECK (phone ~ '^(\+|\d)\d{1,4}\s[0-9]{7,16}$'),
 
-    college_name TEXT NOT NULL CHECK (char_length(college_name) <= 64 AND college_name ~ '^[a-zA-Z\s]+$'),
+    college_name TEXT NOT NULL CHECK (char_length(college_name) <= 128 AND college_name ~ '^[a-zA-Z\s]+$'),
 
     gender GENDER_ENUM NOT NULL,
     avatar_url TEXT,
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS pre_users (
     country_code TEXT CHECK (char_length(country_code) = 2 AND country_code ~ '^[A-Z]+$'),
     phone TEXT CHECK (phone ~ '^(\+|\d)\d{1,4}\s[0-9]{7,16}$'),
 
-    college_name TEXT CHECK (char_length(college_name) <= 64 AND college_name ~ '^[a-zA-Z\s]+$'),
+    college_name TEXT CHECK (char_length(college_name) <= 128 AND college_name ~ '^[a-zA-Z\s]+$'),
     gender GENDER_ENUM,
 
     avatar_url TEXT,
@@ -109,11 +109,11 @@ CREATE TABLE IF NOT EXISTS items (
     price NUMERIC(10, 2) CHECK (price >= 0),
 
     title TEXT NOT NULL CHECK (char_length(title) <= 64),
-    body TEXT NOT NULL CHECK (char_length(body) <= 16384),
+    description TEXT NOT NULL CHECK (char_length(description) <= 16384),
 
     location GEOGRAPHY(Point, 4326),
 
-    image_count INTEGER NOT NULL DEFAULT 0,
+    image_count INTEGER NOT NULL DEFAULT 0 CHECK (image_count >= 0),
 
     type ITEM_TYPE_ENUM NOT NULL,
     closed BOOLEAN NOT NULL DEFAULT FALSE,
@@ -127,9 +127,11 @@ CREATE TABLE IF NOT EXISTS items (
 CREATE TABLE IF NOT EXISTS item_images (
     id SERIAL PRIMARY KEY,
     item_id INTEGER NOT NULL,
-    name TEXT NOT NULL CHECK (char_length(name) <= 32),
+    order_idx INTEGER NOT NULL DEFAULT 0,
+    name TEXT NOT NULL,
     url TEXT NOT NULL,
 
+    UNIQUE (item_id, order_idx),
     FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 );
 
