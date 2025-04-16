@@ -1,5 +1,6 @@
 const pathParts = window.location.pathname.split('/');
-const username = pathParts[pathParts.length - 1];
+const username = (pathParts.length === 3) ? pathParts[pathParts.length - 1] : "";
+
 
 async function getCountryNameFromCode(code) {
   try {
