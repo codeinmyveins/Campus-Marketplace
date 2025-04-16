@@ -111,6 +111,10 @@ CREATE TABLE IF NOT EXISTS items (
     title TEXT NOT NULL CHECK (char_length(title) <= 64),
     description TEXT NOT NULL CHECK (char_length(description) <= 16384),
 
+    document tsvector GENERATED ALWAYS AS (
+        to_tsvector('english', item_name || ' ' || title || ' ' || item_category || ' ' || description)
+    ) STORED,
+
     location GEOGRAPHY(Point, 4326),
 
     image_count INTEGER NOT NULL DEFAULT 0 CHECK (image_count >= 0),
@@ -123,6 +127,10 @@ CREATE TABLE IF NOT EXISTS items (
 
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+CREATE INDEX IF NOT EXISTS idx_items_closed_false ON items (closed) WHERE closed = false;
+
+CREATE INDEX IF NOT EXISTS idx_items_document ON items USING GIN (document);
 
 CREATE TABLE IF NOT EXISTS item_images (
     id SERIAL PRIMARY KEY,

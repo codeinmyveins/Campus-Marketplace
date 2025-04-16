@@ -44,6 +44,55 @@ const getItem = async (req, res) => {
 
 const getItems = async (req, res) => {
 
+    const { page = "1", search, type = "sell", item_category, closed = "false",
+        price_min, price_max, user_id, sort,
+        created_from, created_to, college_name } = req.query;
+
+    const limit = 20;
+    const offset = (Number(page) - 1) * limit;
+
+    const params = [
+        type ? type.split(",") : null,
+        item_category ? item_category.split(",") : null,
+        closed === "all" ? null : (closed === "true" ? "true" : "false"),
+        user_id ? Number(user_id) : null,
+        created_from || null,
+        created_to || null,
+        search || null,
+        price_min ? parseFloat(price_min) : null,
+        price_max ? parseFloat(price_max) : null,
+        college_name ? college_name.split(",") : null,
+        limit,
+        isNaN(offset) ? 0 : offset
+    ];
+
+    const sortFieldsRaw = sort ? sort.split(",") : [];
+    const relevanceSortIndex = sortFieldsRaw.indexOf("relevance");
+    const hasRelevanceSort = relevanceSortIndex !== -1;
+
+    if (hasRelevanceSort && search) {
+        sortFieldsRaw[relevanceSortIndex] = "-rank";
+    } else if (hasRelevanceSort && !search) {
+        if (sortFieldsRaw.length === 0)
+            sortFieldsRaw[relevanceSortIndex] = "-created_at";
+        else
+            sortFieldsRaw.splice(relevanceSortIndex, 1);
+    } else if (search) {
+        if (sortFieldsRaw.length === 0)
+            sortFieldsRaw.push("-rank");
+        else
+            sortFieldsRaw.push("-created_at");
+    } else {
+        sortFieldsRaw.push("-created_at");
+    }
+
+    const orderByClause = sortFieldsRaw.map(field => {
+        const dir = field.startsWith("-") ? "DESC" : "ASC";
+        const column = field.replace(/^-/, "");
+        const allowed = ["item_name", "created_at", "modified_at", "price", "rank"];
+        return allowed.includes(column) ? `${column} ${dir}` : null;
+    }).filter(Boolean).join(", ");
+
     const { rowCount, rows: items } = await pool.query(`
         SELECT
             i.id,
@@ -53,8 +102,10 @@ const getItems = async (req, res) => {
             LEFT(i.description, 64) AS description,
             i.price,
             i.type,
+            u.college_name,
             i.closed,
             i.created_at,
+            i.modified_at,
             CASE
                 WHEN img.id IS NULL THEN NULL
                 ELSE JSON_BUILD_OBJECT(
@@ -62,11 +113,29 @@ const getItems = async (req, res) => {
                     'name', img.name,
                     'url', img.url
                 )
-            END AS cover_img
+            END AS cover_img,
+            CASE
+                WHEN $7::text IS NOT NULL THEN ts_rank(i.document, plainto_tsquery('english', $7))
+                ELSE NULL
+            END AS rank
         FROM items i
-        LEFT JOIN item_images img ON i.id = img.item_id
-        WHERE (img.order_idx = 0 OR img.order_idx IS NULL) AND NOT closed
-        `);
+        LEFT JOIN item_images img ON i.id = img.item_id AND img.order_idx = 0
+        LEFT JOIN users u on u.id = i.user_id
+        WHERE
+            ($1::item_type_enum[] IS NULL OR i.type = ANY($1::item_type_enum[]))
+            AND ($2::text[] IS NULL OR i.item_category = ANY($2))
+            AND ($3::boolean IS NULL OR i.closed = $3)
+            AND ($4::int IS NULL OR i.user_id = $4)
+            AND ($5::timestamptz IS NULL OR i.created_at >= $5)
+            AND ($6::timestamptz IS NULL OR i.created_at <= $6)
+            AND ($7::text IS NULL OR i.document @@ plainto_tsquery('english', $7))
+            AND ($8::numeric IS NULL OR i.price >= $8)
+            AND ($9::numeric IS NULL OR i.price <= $9)
+            AND ($10::text[] IS NULL OR u.college_name = ANY($10))
+        ORDER BY ${orderByClause}
+        LIMIT $11
+        OFFSET $12
+        `, params);
 
     res.status(StatusCodes.OK).json({ itemCount: rowCount, items });
 
