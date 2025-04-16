@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - My Listings</title>
+    <link rel="stylesheet" href="./styles/dashboard.css" />
+    <link rel="stylesheet" href="./styles/output.css" />
+    <link
+      rel="shortcut icon"
+      href="./assets/icons/Campus Marketplace Logo.svg"
+      type="image/x-icon"
+    />
+  </head>
+
+  <body class="bg-[var(--color2)] min-h-screen pt-24 px-4 md:px-10">
+    <h1 class="text-3xl font-semibold text-[#0b2c2d] mb-8">My Listings Dashboard</h1>
+
+    <div class="space-y-6">
+      <!-- Card Component 1 -->
+      <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-4 flex items-start gap-4 border border-gray-200">
+        <!-- Image Section -->
+        <div class="w-40 h-40 rounded-lg overflow-hidden">
+          <img
+            src="./assets/images/book.jpg"
+            alt="Engineering Mechanics"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <!-- Content Section -->
+        <div class="flex flex-col justify-between w-full">
+          <!-- Title & Status -->
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-base font-medium text-[#0b2c2d]">Engineering Mechanics</h2>
+            <span class="text-[11px] font-semibold px-2 py-[2px] rounded-full bg-green-50 text-green-700 border border-green-200">
+              Active
+            </span>
+          </div>
+
+          <!-- Details Section -->
+          <div class="text-[13px] text-gray-700 space-y-1">
+            <div class="grid grid-cols-2 gap-x-4">
+              <p><span class="font-medium">Type:</span> Lend</p>
+              <p><span class="font-medium">Price:</span> Free</p>
+              <p><span class="font-medium">Category:</span> Books</p>
+              <p><span class="font-medium">Closed:</span> No</p>
+            </div>
+            <div class="grid grid-cols-2 gap-x-4">
+              <p><span class="font-medium">Created:</span> 2025-04-10</p>
+              <p><span class="font-medium">Modified:</span> 2025-04-12</p>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <div class="mt-auto flex justify-end">
+            <button
+              class="bg-[#00bfa6] text-white px-3 py-1.5 rounded-md text-sm hover:bg-[#009e8c] transition"
+            >
+              Edit
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Component 2 -->
+      <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-4 flex items-start gap-4 border border-gray-200">
+        <!-- Image Section -->
+        <div class="w-40 h-40 rounded-lg overflow-hidden">
+          <img
+            src="./assets/images/drafter.jpg"
+            alt="Drafting Set"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <!-- Content Section -->
+        <div class="flex flex-col justify-between w-full">
+          <!-- Title & Status -->
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-base font-medium text-[#0b2c2d]">Drafting Set</h2>
+            <span class="text-[11px] font-semibold px-2 py-[2px] rounded-full bg-red-50 text-red-600 border border-red-200">
+              Closed
+            </span>
+          </div>
+
+          <!-- Details Section -->
+          <div class="text-[13px] text-gray-700 space-y-1">
+            <div class="grid grid-cols-2 gap-x-4">
+              <p><span class="font-medium">Type:</span> Sell</p>
+              <p><span class="font-medium">Price:</span> $10</p>
+              <p><span class="font-medium">Category:</span> Stationery</p>
+              <p><span class="font-medium">Closed:</span> Yes</p>
+            </div>
+            <div class="grid grid-cols-2 gap-x-4">
+              <p><span class="font-medium">Created:</span> 2025-03-25</p>
+              <p><span class="font-medium">Modified:</span> 2025-04-01</p>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <div class="mt-auto flex justify-end">
+            <button
+              class="bg-[#00bfa6] text-white px-3 py-1.5 rounded-md text-sm hover:bg-[#009e8c] transition"
+            >
+              Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/index.js"></script>
+  </body>
+</html>
