@@ -1,4 +1,5 @@
-const username = new URLSearchParams(window.location.search).get("u");
+const pathParts = window.location.pathname.split('/');
+const username = pathParts[pathParts.length - 1];
 
 async function getCountryNameFromCode(code) {
   try {
@@ -10,7 +11,7 @@ async function getCountryNameFromCode(code) {
   }
 }
 
-async function fillUserDetails(){
+async function fillUserDetails() {
   const pfpDOM = document.getElementById("pfp");
   const fullnameDOM = document.getElementById("fullname");
   const usernameDOM = document.getElementById("username");
@@ -19,14 +20,14 @@ async function fillUserDetails(){
   const collegeDOM = document.getElementById("college");
 
   try {
-    const { data: { user } } = await axios.get("/api/users/"+username);
+    const { data: { user } } = await axios.get("/api/users/" + username);
     if (user.avatar_url)
       pfpDOM.src = user.avatar_url;
     fullnameDOM.textContent = user.full_name;
-    countryDOM.textContent = await getCountryNameFromCode(user.country_code);
-    if (user.bio) 
-     bioDOM.textContent = user.bio;
-    collegeDOM.textContent = user.college_name;
+    countryDOM.textContent = `From ${await getCountryNameFromCode(user.country_code) || user.country_code}`;
+    if (user.bio)
+      bioDOM.textContent = user.bio;
+    collegeDOM.textContent = `Studying at ${user.college_name}`;
     usernameDOM.textContent = user.username;
 
   } catch (error) {

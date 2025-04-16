@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VantaTree Profile - Campus Connect</title>
+  <base href="/" />
   <link rel="stylesheet" href="./styles/output.css" />
   <link rel="stylesheet" href="./styles/index.css" />
   <link rel="shortcut icon" href="./assets/icons/Campus Marketplace Logo.svg" type="image/x-icon" />
@@ -13,11 +14,11 @@
     /* Added custom styles for larger profile picture and spacing */
     .enhanced-profile {
       min-height: 60vh;
-      padding-top: 5rem;
+      padding-top: 2rem;
     }
     .enhanced-pfp {
-      width: 18rem;
-      height: 18rem;
+      width: 20rem;
+      height: 20rem;
     }
   </style>
 </head>
@@ -93,11 +94,11 @@
         
       </p>
       <div class="space-y-4">
-        <p class="text-gray-700 flex items-center gap-1">
-          <i class="fas fa-globe text-gray-500 mr-2"></i>From <span id="country"></span>
+        <p class="text-gray-700 flex items-center">
+          <i class="fas fa-globe text-gray-500 mr-2"></i><span id="country"></span>
         </p>
-        <p class="text-gray-700 flex items-center gap-1">
-          <i class="fas fa-university text-gray-500 mr-2"></i>Studying at <span id="college"></span>
+        <p class="text-gray-700 flex items-center">
+          <i class="fas fa-university text-gray-500 mr-2"></i><span id="college"></span>
         </p>
       </div>
       <button class="mt-6 px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition text-lg">
