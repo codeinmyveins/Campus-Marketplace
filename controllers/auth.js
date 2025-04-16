@@ -16,6 +16,7 @@ const {
     validateLogin,
     validateDeviceFingerprint
 } = require("../validator");
+const { STATUS } = require("../db/enums");
 
 function generateOTP() {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
@@ -177,10 +178,6 @@ const changeEmailInitial = async (req, res) => {
     const { body: { email: inputEmail }, user: { userId, otpId, role, lastEmailTime } } = req;
     const email = inputEmail.toLowerCase();
 
-    if (role === "verified") {
-        throw new CustomAPIError("Forbidden, no need of verification", StatusCodes.FORBIDDEN);
-    }
-
     const epochNow = Math.floor(Date.now() / 1000); // current epoch in seconds
     if (lastEmailTime + 60 > epochNow) {
         const tryAfter = lastEmailTime + 60 - epochNow
@@ -257,10 +254,6 @@ const resendOTPInitial = async (req, res) => {
 
     const { user: { userId, otpId, role, lastResendTime, lastEmailTime } } = req;
 
-    if (role === "verified") {
-        throw new CustomAPIError("Forbidden, no need of verification", StatusCodes.FORBIDDEN);
-    }
-
     const epochNow = Math.floor(Date.now() / 1000); // current epoch in seconds
     if (lastResendTime + 60 > epochNow) {
         const tryAfter = lastResendTime + 60 - epochNow
@@ -331,7 +324,7 @@ const registerComplete = async (req, res) => {
 
     const { userId, role } = req.user;
 
-    if (role !== "verified") {
+    if (role !== STATUS.VERIFIED) {
         throw new CustomAPIError("Forbidden, user unverified", StatusCodes.FORBIDDEN);
     }
 

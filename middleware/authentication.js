@@ -4,14 +4,10 @@ const accessTokenExpiredError = require("../errors/accessToeknExpiredError");
 const refevifyRequiredError = require("../errors/refevifyRequiredError");
 const { StatusCodes } = require("http-status-codes");
 const jwt = require("jsonwebtoken");
+const { ROLE, STATUS } = require("../db/enums");
 
 const auth = async (req, res, next) => {
 
-    // const authHeader = req.headers.authorization;
-    // if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    //     throw new CustomAPIError("Authentication invalid", StatusCodes.UNAUTHORIZED);
-    // }
-    // const token = authHeader.split(" ")[1];
     const token = req.cookies.access_token;
     if (!token) {
         throw new CustomAPIError("Authentication invalid", StatusCodes.UNAUTHORIZED);
@@ -26,10 +22,10 @@ const auth = async (req, res, next) => {
         throw new CustomAPIError("Authentication Invalid", StatusCodes.UNAUTHORIZED);
     }
     const { sub, rol, sid } = payload;
-    if (rol === "reverify_required") {
+    if (rol === ROLE.REVERIFY_REQUIRED) {
         throw new refevifyRequiredError();
     }
-    if (!sub || !rol || !sid || !["user", "admin"].includes(rol))
+    if (!sub || !rol || !sid || ![ROLE.USER, ROLE.ADMIN].includes(rol))
         throw new CustomAPIError("Authentication Invalid.", StatusCodes.UNAUTHORIZED);
     req.user = { userId: sub, role: rol, sid };
 
@@ -68,7 +64,7 @@ const preUserAuth = async (req, res, next) => {
 const otpUserAuth = async (req, res, next) => {
 
     const { userId, role, otpId, lastResendTime, lastEmailTime } = req.user;
-    if (role === "verified")
+    if (role === STATUS.VERIFIED)
         throw new CustomAPIError("Forbidden, no need of verification", StatusCodes.FORBIDDEN);
     // last otp resend time,
     // last email changed time,
@@ -78,4 +74,4 @@ const otpUserAuth = async (req, res, next) => {
 
 }
 
-module.exports = { auth, preUserAuth, otpUserAuth, refreshAuth};
+module.exports = { auth, preUserAuth, otpUserAuth, refreshAuth };

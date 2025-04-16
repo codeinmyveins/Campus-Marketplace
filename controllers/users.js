@@ -13,7 +13,7 @@ const getCurrentUser = async (req, res) => {
     const { user: { userId }, query: { sensitive } } = req;
 
     const { rowCount, rows: users } = await pool.query(
-        `SELECT id, username, full_name, country_code, college_name, avatar_url, bio${sensitive==="true"?",email,to_char(dob, 'DD/MM/YYYY') AS dob,phone,gender":""} FROM users WHERE id = $1`,
+        `SELECT id, username, full_name, country_code, college_name, avatar_url, bio${sensitive.toLowerCase()==="true"?",email,to_char(dob, 'DD/MM/YYYY') AS dob,phone,gender":""} FROM users WHERE id = $1`,
         [userId]
     );
 
