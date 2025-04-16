@@ -234,6 +234,7 @@ const editItem = async (req, res) => {
 
 const uploadImages = async (req, res) => {
 
+    req.fileCount--;
     const item_id = req.params.id;
     const files = req.files;
     const existingCount = req.currentItemImgCount;

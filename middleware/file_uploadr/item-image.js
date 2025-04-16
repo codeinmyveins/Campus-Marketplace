@@ -24,10 +24,10 @@ const itemImageUpload = multer({
             return cb(new CustomAPIError("Only images are allowed (JPEG, PNG, WEBP)", StatusCodes.BAD_REQUEST));
         }
 
-        if (!req.fileCount && req.fileCount !== 0) {
-            req.fileCount = 0;
+        if (req.fileCount === null || req.fileCount === undefined) {
+            req.fileCount = 1;
         }
-        if (!req.currentItemImgCount && req.currentItemImgCount !== 0) {
+        if (req.currentItemImgCount === null || req.currentItemImgCount === undefined) {
             const { rows: images } = await pool.query(
                 "SELECT COUNT(*) FROM item_images WHERE item_id = $1",
                  [req.params.id]);
