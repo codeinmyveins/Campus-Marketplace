@@ -489,24 +489,33 @@ const login = async (req, res) => {
         if (!ip_address) {
             throw new CustomAPIError("ip_address not present", StatusCodes.BAD_REQUEST);
         }
-        var session_id;
-        try {
-            session_id = crypto.randomUUID();
+
+        let session_id = crypto.randomUUID();
     
-            await pool.query("INSERT INTO sessions (id, user_id, hashed_refresh_token, device_fingerprint, user_agent, ip_address) VALUES ($1, $2, $3, $4, $5, $6)",
-                [session_id, users[0].id, hashedRefToken, device_fingerprint, user_agent, ip_address]
-            );
-        } catch (error) {
-            if (error.code === "23505") {
-                const { rows: sessions } = await pool.query("UPDATE sessions SET hashed_refresh_token = $1, device_fingerprint = $2, user_agent = $3, ip_address = $4, last_used_at = NOW(), expires_at = (NOW() + INTERVAL '30 days') WHERE user_id = $5 RETURNING id",
-                    [hashedRefToken, device_fingerprint, user_agent, ip_address, users[0].id]
-                );
-                session_id = sessions[0].id;
-            } else {
-                console.error(error);
-                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
-            }
-        }
+        const { rows: sessions } = await pool.query(
+            `INSERT INTO sessions
+                (id, user_id, hashed_refresh_token, device_fingerprint, user_agent, ip_address)
+                VALUES ($1, $2, $3, $4, $5, $6)
+                ON CONFLICT (user_id, device_fingerprint) DO UPDATE SET
+                hashed_refresh_token = EXCLUDED.hashed_refresh_token,
+                user_agent = EXCLUDED.user_agent,
+                ip_address = EXCLUDED.ip_address,
+                last_used_at = NOW(),
+                expires_at = NOW() + INTERVAL '30 days'
+            RETURNING id`,
+            [session_id, users[0].id, hashedRefToken, device_fingerprint, user_agent, ip_address]
+        );
+        session_id = sessions[0].id;
+        // } catch (error) {
+        //     if (error.code === "23505") {
+        //         const { rows: sessions } = await pool.query("UPDATE sessions SET hashed_refresh_token = $1, device_fingerprint = $2, user_agent = $3, ip_address = $4, last_used_at = NOW(), expires_at = (NOW() + INTERVAL '30 days') WHERE user_id = $5 RETURNING id",
+        //             [hashedRefToken, device_fingerprint, user_agent, ip_address, users[0].id]
+        //         );
+        //     } else {
+        //         console.error(error);
+        //         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
+        //     }
+        // }
 
         // access_token signing
         const access_token = jwt.sign(
