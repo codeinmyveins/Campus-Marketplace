@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Post</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-white text-[#1f1f1f] min-h-screen flex items-center justify-center px-4 py-10">
+  <div class="bg-white rounded-2xl p-8 w-full max-w-2xl shadow-xl transition-all">
+    <h2 class="text-2xl font-bold mb-6 text-center text-[#0b2c2d]">Create Post</h2>
+    
+    <form id="createPostForm" action="/post-complete" method="POST" enctype="multipart/form-data">
+      <!-- Step 1 -->
+      <div id="step1" class="space-y-4">
+        <label for="item_name" class="block font-semibold text-gray-700">Item Name</label>
+        <p class="text-sm text-gray-500">Enter the name of your item in one or two words</p>
+        <input type="text" id="item_name" name="item_name" placeholder="Item Name Here" required
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-400 focus:outline-none"/>
+
+        <select name="item_category" required class="w-full px-4 py-2 border border-gray-300 rounded-md">
+          <option value="">Select Category</option>
+          <option value="stationary">Stationary</option>
+          <option value="electronics">Electronics</option>
+          <option value="books">Books</option>
+        </select>
+
+        <input type="text" name="title" placeholder="Post Title" required
+          class="w-full px-4 py-2 border border-gray-300 rounded-md"/>
+
+        <textarea name="body" rows="4" placeholder="Description" required
+          class="w-full px-4 py-2 border border-gray-300 rounded-md"></textarea>
+
+        <label class="block font-medium">Type:</label>
+        <div id="itemType" class="grid grid-cols-2 gap-4" onchange="checkType()">
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="type" value="borrow" required> <span>Borrow</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="type" value="lend" required> <span>Lend</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="type" value="sell" required> <span>Sell</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="type" value="buy" required> <span>Buy</span>
+          </label>
+        </div>
+
+        <input type="number" name="price" id="priceField" step="0.01" placeholder="Price"
+          class="w-full px-4 py-2 border border-gray-300 rounded-md hidden"/>
+
+        <button type="button" onclick="showStep2()"
+          class="w-full bg-[#00bfa6] text-white py-2 rounded-lg hover:bg-[#019d8c] transition">
+          Next →
+        </button>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="step2" class="space-y-4 hidden">
+        <label for="imageInput" class="w-full cursor-pointer border border-gray-300 px-4 py-3 rounded-md flex items-center gap-2">
+          <i class="fas fa-image text-gray-600 text-xl"></i>
+          <input type="file" id="imageInput" accept="image/*" multiple class="hidden" onchange="handleImageSelection(event)" />
+          <span class="text-sm text-gray-500">Upload from gallery</span>
+        </label>
+
+        <label for="captureImage" class="w-full cursor-pointer border border-gray-300 px-4 py-3 rounded-md flex items-center gap-2">
+          <i class="fas fa-camera text-gray-600 text-xl"></i>
+          <input type="file" id="captureImage" accept="image/*" capture="environment" class="hidden" onchange="previewCapturedImage(event)">
+          <span class="text-sm text-gray-500">Capture from camera</span>
+        </label>
+        
+
+        <p class="text-sm text-gray-600">You can swap your images by dragging them</p>
+        <div id="previewContainer" class="flex flex-wrap gap-4"></div>
+
+        <input type="hidden" name="coverImageIndex" id="coverImageIndex" />
+        <!-- Fullscreen Image Modal -->
+<div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center hidden z-50" onclick="closeImageModal()">
+  <img id="modalImage" class="max-w-full max-h-full rounded shadow-lg transition-transform duration-200 ease-in-out" />
+
+</div>
+
+
+        <div class="flex justify-between space-x-4">
+          <button type="button" onclick="showStep1()"
+  class="w-1/2 bg-gray-100 text-black py-2 rounded-lg hover:bg-gray-200">← Previous</button>
+
+          <button type="submit"
+            class="w-1/2 bg-[#00bfa6] text-white py-2 rounded-lg hover:bg-[#019d8c] transition">Post</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    let selectedImages = [];
+    let zoomScale = 1;
+  
+    function checkType() {
+      const selected = document.querySelector('input[name="type"]:checked')?.value;
+      const priceField = document.getElementById("priceField");
+  
+      if (selected === "lend" || selected === "sell") {
+        priceField.classList.remove("hidden");
+        priceField.required = true;
+      } else {
+        priceField.classList.add("hidden");
+        priceField.required = false;
+        priceField.value = "";
+      }
+    }
+  
+    function showStep1() {
+      document.getElementById("step2").classList.add("hidden");
+      document.getElementById("step1").classList.remove("hidden");
+    }
+  
+    function showStep2() {
+      document.getElementById("step1").classList.add("hidden");
+      document.getElementById("step2").classList.remove("hidden");
+    }
+  
+    function handleImageSelection(event) {
+      const files = Array.from(event.target.files);
+      const maxFiles = 5;
+  
+      if (files.length + selectedImages.length > maxFiles) {
+        alert("You can only upload a maximum of 5 images.");
+        return;
+      }
+  
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = e => {
+          selectedImages.push({
+            file,
+            url: e.target.result,
+            isCover: selectedImages.length === 0
+          });
+          renderImagePreviews();
+        };
+        reader.readAsDataURL(file);
+      });
+  
+      event.target.value = ''; // Reset file input
+    }
+  
+    function renderImagePreviews() {
+      const container = document.getElementById("previewContainer");
+      container.innerHTML = "";
+  
+      selectedImages.forEach((img, index) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "relative w-32 h-32 border rounded overflow-hidden";
+        wrapper.draggable = true;
+        wrapper.ondragstart = e => e.dataTransfer.setData("index", index);
+        wrapper.ondrop = e => {
+          const fromIndex = e.dataTransfer.getData("index");
+          const toIndex = index;
+          const moved = selectedImages.splice(fromIndex, 1)[0];
+          selectedImages.splice(toIndex, 0, moved);
+          renderImagePreviews();
+        };
+        wrapper.ondragover = e => e.preventDefault();
+  
+        wrapper.innerHTML = `
+          <img src="${img.url}" class="w-full h-full object-cover cursor-pointer" onclick="showFullScreenImage('${img.url}')" />
+          <button type="button" 
+            class="absolute bottom-1 left-1 text-xs bg-white bg-opacity-80 px-1 rounded"
+            onclick="event.stopPropagation(); setAsCover(${index})">
+            ${img.isCover ? 'Cover ✔' : 'Set as Cover'}
+          </button>
+          <button type="button"
+            class="absolute top-1 right-1 text-xs bg-red-500 text-white px-1 rounded"
+            onclick="removeImage(${index})">✕</button>
+        `;
+  
+        container.appendChild(wrapper);
+      });
+  
+      updateCoverImageIndex();
+    }
+  
+    function setAsCover(index) {
+      selectedImages.forEach(img => img.isCover = false);
+      const coverImage = selectedImages.splice(index, 1)[0];
+      coverImage.isCover = true;
+      selectedImages.unshift(coverImage);
+      renderImagePreviews();
+    }
+  
+    function removeImage(index) {
+      selectedImages.splice(index, 1);
+      if (!selectedImages.some(img => img.isCover) && selectedImages[0]) {
+        selectedImages[0].isCover = true;
+      }
+      renderImagePreviews();
+    }
+  
+    function updateCoverImageIndex() {
+      const coverIndex = selectedImages.findIndex(img => img.isCover);
+      document.getElementById("coverImageIndex").value = coverIndex;
+    }
+  
+    function showFullScreenImage(url) {
+      const modal = document.getElementById("imageModal");
+      const modalImage = document.getElementById("modalImage");
+      zoomScale = 1;
+      modalImage.src = url;
+      modalImage.style.transform = `scale(${zoomScale})`;
+      modal.classList.remove("hidden");
+      modalImage.addEventListener("wheel", handleZoom);
+    }
+  
+    function closeImageModal() {
+      const modal = document.getElementById("imageModal");
+      const modalImage = document.getElementById("modalImage");
+      modal.classList.add("hidden");
+      modalImage.removeEventListener("wheel", handleZoom);
+    }
+  
+    function handleZoom(event) {
+      event.preventDefault();
+      zoomScale += event.deltaY * -0.001;
+      zoomScale = Math.min(Math.max(zoomScale, 0.5), 5);
+      const modalImage = document.getElementById("modalImage");
+      modalImage.style.transform = `scale(${zoomScale})`;
+    }
+  
+    function handleCapturedImage(dataUrl) {
+      const maxFiles = 5;
+      if (selectedImages.length >= maxFiles) {
+        alert("You can only upload a maximum of 5 images.");
+        return;
+      }
+  
+      selectedImages.push({
+        file: null,
+        url: dataUrl,
+        isCover: selectedImages.length === 0
+      });
+  
+      renderImagePreviews();
+    }
+   function previewCapturedImage(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const dataUrl = e.target.result;
+      handleCapturedImage(dataUrl); // Use your existing handleCapturedImage function
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+
+  </script>
+  
+</body>
+</html>
