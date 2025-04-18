@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VantaTree Profile - Campus Connect</title>
+  <base href="/" />
+  <link rel="stylesheet" href="./styles/output.css" />
+  <link rel="stylesheet" href="./styles/index.css" />
+  <link rel="shortcut icon" href="./assets/icons/Campus Marketplace Logo.svg" type="image/x-icon" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* Added custom styles for larger profile picture and spacing */
+    .enhanced-profile {
+      min-height: 60vh;
+      padding-top: 2rem;
+    }
+    .enhanced-pfp {
+      width: 20rem;
+      height: 20rem;
+    }
+  </style>
+</head>
+
+<body class="bg-[var(--color2)] text-[#152c2e] pt-24">
+
+  <!-- Header/Navbar -->
+  <header>
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[var(--color2)] text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md">
+      <!-- Logo -->
+      <div class="flex items-center space-x-3 logo-icon">
+        <img
+          src="./assets/icons/Campus Marketplace Logo.svg"
+          alt="Campus Logo"
+          class="w-10 h-10 object-contain mb-3.5"
+        />
+        <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
+          Campus Marketplace
+        </h1>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden text-3xl focus:outline-none" onclick="toggleMenu()">
+        ☰
+      </button>
+
+      <!-- Desktop Navigation Links -->
+      <div class="hidden md:flex flex-row items-center space-x-10 capitalize font-semibold">
+        <ul class="flex space-x-10">
+          <li><a href="./index.html" class="inline-block py-2 hover:scale-110 duration-300">Home</a></li>
+          <li><a href="#about" class="inline-block py-2 hover:scale-110 duration-300">About</a></li>
+          <li><a href="#market" class="inline-block py-2 hover:scale-110 duration-300">Market</a></li>
+          <li><a href="#contact" class="inline-block py-2 hover:scale-110 duration-300">Contact</a></li>
+        </ul>
+        <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
+          <li><a href="./login.html" class="bg-[#152c2e] text-[#f2f2f2] py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Login</a></li>
+          <li><a href="./signup1.html" class="bg-[#152c2e] text-[#f2f2f2] py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign Up</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="md:hidden flex-col items-center bg-[var(--color2)] p-5 hidden">
+      <ul class="space-y-4 text-center">
+        <li><a href="./index.html" class="block py-2 hover:scale-110 duration-300">Home</a></li>
+        <li><a href="#about" class="block py-2 hover:scale-110 duration-300">About</a></li>
+        <li><a href="#market" class="block py-2 hover:scale-110 duration-300">Market</a></li>
+        <li><a href="#contact" class="block py-2 hover:scale-110 duration-300">Contact</a></li>
+      </ul>
+      <ul class="flex flex-col gap-5 mt-5 text-center">
+        <li><a href="./login.html" class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition">Login</a></li>
+        <li><a href="./signup1.html" class="bg-[#152c2e] text-[#f2f2f2] py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign Up</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Enhanced Profile Section -->
+  <section class="px-6 py-12 md:px-20 bg-[var(--color2)] enhanced-profile flex flex-col md:flex-row items-center gap-12">
+    <!-- Left Column: Larger Profile Image -->
+    <div class="flex-1 flex justify-center">
+      <img id="pfp" 
+        src="./assets/images/default-user.jpg" 
+        alt="default profile picture" 
+        class="enhanced-pfp rounded-full object-cover shadow-xl" 
+      />
+    </div>
+
+    <!-- Right Column: Profile Info -->
+    <div class="flex-1 text-center md:text-left space-y-6">
+      <h1 id="fullname" class="text-4xl md:text-5xl font-bold"></h1>
+      <p class="text-lg text-gray-700">@<span id="username"></span></p>
+      <p id="bio" class="text-lg text-gray-700">
+        
+      </p>
+      <div class="space-y-4">
+        <p class="text-gray-700 flex items-baseline text-left">
+          <i class="fas fa-globe text-gray-500 mr-2"></i><span id="country"></span>
+        </p>
+        <p class="text-gray-700 flex items-baseline text-left">
+          <i class="fas fa-university text-gray-500 mr-2"></i><span id="college"></span>
+        </p>
+      </div>
+      <button class="mt-6 px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition text-lg">
+        Edit Profile
+      </button>
+    </div>
+  </section>
+
+  <!-- Activity Section -->
+  <section class="bg-[var(--color1)] py-16 px-6 md:px-20">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">Your Recent Posts</h2>
+      <p class="text-lg text-gray-800 mb-10">
+        These are the items you've listed on Campus Marketplace.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-[var(--color2)] p-6 rounded-xl shadow hover:scale-105 transition">
+          <h3 class="text-xl font-semibold mb-2">Used Laptop for Sale</h3>
+          <p class="text-gray-700">Rs. 25,000 · Posted 2 days ago</p>
+        </div>
+        <div class="bg-[var(--color2)] p-6 rounded-xl shadow hover:scale-105 transition">
+          <h3 class="text-xl font-semibold mb-2">Borrow: Engineering Math Book</h3>
+          <p class="text-gray-700">Needed for 1 week · Posted 5 hours ago</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Support Section -->
+  <section class="bg-[var(--color2)] py-16 px-6 md:px-20 text-center">
+    <h2 class="text-3xl font-bold">Need Help?</h2>
+    <p class="text-lg text-gray-800 mt-2">Contact support or visit the help center for any profile issues.</p>
+    <button class="mt-4 px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition">
+      Contact Support
+    </button>
+  </section>
+
+  <script>
+    // toggle mobile view menu
+    function toggleMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('hidden');
+    }
+  </script>
+  <script src="./js/lib/axios.min.js"></script>
+  <script src="./js/profile.js"></script>
+</body>
+</html>

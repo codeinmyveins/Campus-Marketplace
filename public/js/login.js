@@ -56,18 +56,18 @@ form.addEventListener("submit", async function (e) {
 
   // Check if input is email or username
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const usernamePattern = /^[a-z0-9]+$/;
+  const usernamePattern = /^[a-zA-Z0-9]+$/;
 
   const isEmail = emailPattern.test(usernameOrEmail);
   const isUsername = usernamePattern.test(usernameOrEmail);
 
   if (!isEmail && !isUsername) {
-    showMsg("Enter a valid email or a username (lowercase letters and numbers only).",ERROR);
+    showMsg("Enter a valid email or a username (letters and numbers only).",ERROR);
     return;
   }
   
   // Check if usernameOrEmail is an email or username
-  let reqBody  = { password, device_fingerprint:await generateDeviceFingerprint()};
+  let reqBody  = { password, device_fingerprint: await generateDeviceFingerprint() };
   
   if (usernameOrEmail.includes("@")) {
     reqBody.email = usernameOrEmail;
