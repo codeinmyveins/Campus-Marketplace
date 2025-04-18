@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Market Page - Campus Connect</title>
+    <link rel="stylesheet" href="./styles/output.css" />
+    <link rel="stylesheet" href="./styles/market.css" />
+    
+  </head>
+  <body class="bg-[var(--color2)] text-[var(--color3)] m-0 p-0 overflow-x-hidden">
+    <header>
+        <nav
+          class="select-none fixed top-0 left-0 right-0 z-50 bg-[var(--color2)] shadow px-4 py-4 flex items-center gap-2 sm:gap-4 flex-wrap sm:flex-nowrap"
+        >
+          <!-- Logo + Text -->
+          <div class="flex items-center space-x-2 flex-shrink-0">
+            <img
+              src="./assets/icons/Campus Marketplace Logo.svg"
+              alt="Campus Logo"
+              class="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+            />
+            <h1
+              class="hidden md:block font-bold font-serif text-lg md:text-2xl uppercase leading-tight text-[#152c2e]"
+            >
+              Campus Marketplace
+            </h1>
+          </div>
+      
+          <!-- Search Input -->
+          <input
+            type="text"
+            placeholder="Search campus items..."
+            class="flex-grow min-w-[100px] sm:min-w-[160px] px-3 py-2 border rounded text-sm"
+          />
+      
+          <!-- Search Button -->
+          <button
+            class="bg-teal-600 hover:bg-teal-700 text-white px-2 sm:px-4 py-2 rounded text-sm cursor-pointer flex items-center justify-center"
+          >
+            <!-- Icon only for small screens, text on larger -->
+            <span class="block sm:hidden text-lg" >🔍</span>
+            <span class="hidden sm:block">Search</span>
+          </button>
+      
+          <!-- Profile Icon -->
+          <div
+            class="flex items-center justify-center border border-teal-600 rounded-full w-9 h-9 flex-shrink-0"
+          >
+            <button onclick="toggleSidebar()" class="text-xl cursor-pointer">👤</button>
+          </div>
+        </nav>
+      </header>
+            
+      
+    <!-- Spacer -->
+    <div class="h-[70px]"></div>
+
+    <!-- Right Sidebar -->
+    <div
+      id="sidebar"
+      class="fixed top-0 right-0 h-full w-64 bg-[var(--color1)] text-white shadow-lg transform translate-x-full transition-transform duration-300 z-50"
+    >
+      <div class="flex flex-col h-full p-6 space-y-6">
+        <button onclick="toggleSidebar()" class="self-end text-xl">✖</button>
+        <a href="#" class="sidebar-link text-lg hover:text-teal-200"
+          >👤 Profile</a
+        >
+        <a href="#" class="sidebar-link text-lg hover:text-teal-200"
+          >📊 Dashboard</a
+        >
+        <a href="#" class="sidebar-link text-lg hover:text-teal-200"
+          >⚙️ Settings</a
+        >
+        <button
+          onclick="confirmLogout()"
+          class="mt-auto bg-white text-[var(--color1)] px-3 py-2 rounded hover:bg-teal-100 transition"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-1 md:ml-[25%] px-4 pt-6 mx-auto w-full">
+      <!-- Filter Toggle (Mobile only) -->
+      <button
+        onclick="toggleFilterSidebar()"
+        class="md:hidden bg-[var(--color1)] text-white px-4 py-2 rounded mb-4 ml-4 w-fit"
+      >
+        ☰ Filters
+      </button>
+
+<aside
+id="filterSidebar"
+class="md:w-1/4 fixed top-[60px] left-0 z-40 w-3/4 h-[calc(100vh-60px)] overflow-y-auto bg-[var(--color1)] text-white px-6 pt-6 pb-10 space-y-6 transition-transform transform -translate-x-full md:translate-x-0 md:block rounded-tr-2xl rounded-br-2xl shadow-lg"
+>
+<div class="flex justify-between items-center mb-4">
+  <h2 class="font-semibold text-2xl">Filters</h2>
+  <button
+    onclick="toggleFilterSidebar()"
+    class="md:hidden text-white text-3xl font-bold"
+  >
+    ×
+  </button>
+</div>
+
+<!-- Category -->
+<div>
+  <label for="category" class="block text-sm font-medium mb-2">Category</label>
+  <select id="category" class="w-full px-3 py-2 rounded bg-white text-black">
+    <option value="all">All</option>
+    <option value="electronics">Electronics</option>
+    <option value="books">Books</option>
+    <option value="furniture">Furniture</option>
+    <option value="clothing">Clothing</option>
+    <option value="stationery">Stationery</option>
+  </select>
+</div>
+
+<!-- Type -->
+<div>
+  <p class="text-sm font-medium mb-2">Type</p>
+  <div class="flex flex-col gap-2 pl-1">
+    <label class="inline-flex items-center">
+      <input type="checkbox" class="form-checkbox text-blue-500 mr-2" />
+      Sell
+    </label>
+    <label class="inline-flex items-center">
+      <input type="checkbox" class="form-checkbox text-blue-500 mr-2" />
+      Lend
+    </label>
+  </div>
+</div>
+
+<!-- Condition -->
+<div>
+  <p class="text-sm font-medium mb-2">Condition</p>
+  <div class="flex flex-col gap-2 pl-1">
+    <label class="inline-flex items-center">
+      <input type="radio" name="condition" class="form-radio text-blue-500 mr-2" />
+      New
+    </label>
+    <label class="inline-flex items-center">
+      <input type="radio" name="condition" class="form-radio text-blue-500 mr-2" />
+      Used
+    </label>
+  </div>
+</div>
+
+<!-- Sort by Date -->
+<div>
+    <label for="sort-date" class="block text-sm font-medium mb-2">Sort by Date</label>
+    <select id="sort-date" class="w-full px-3 py-2 rounded bg-white text-black">
+      <option value="latest">Latest</option>
+      <option value="oldest">Oldest</option>
+    </select>
+  </div>
+  
+  <!-- Sort by Price -->
+  <div>
+    <label for="sort-price" class="block text-sm font-medium mb-2">Sort by Price</label>
+    <select id="sort-price" class="w-full px-3 py-2 rounded bg-white text-black">
+      <option value="low-high">Low to High</option>
+      <option value="high-low">High to Low</option>
+    </select>
+  </div>
+  
+<!-- Apply Filters Button (optional) -->
+<div class="pt-4">
+  <button
+    class="w-full py-2 rounded bg-teal-700 hover:bg-teal-600 text-white font-semibold shadow-md transition duration-200"
+  >
+    Apply Filters
+  </button>
+</div>
+</aside>
+
+<h1 class="text-2xl font-semibold text-[var(--color3)] mb-2">
+    Campus Market 🛍️
+  </h1>
+
+<!-- Product Listings -->
+<section class="w-full flex flex-col gap-4">
+  
+    <div
+    id="product-list"
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full"
+  >
+  
+  
+      <!-- Enhanced Product Card -->
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 w-full">
+        <!-- Product Image -->
+        <div class="h-48 overflow-hidden">
+          <img
+            src="./assets/images/casio.jpg"
+            alt="Product"
+            class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          />
+        </div>
+  
+        <!-- Product Details -->
+        <div class="p-4 space-y-3">
+          <h3 class="text-lg font-semibold text-gray-800">Laptop</h3>
+  
+          <p class="text-teal-600 font-bold text-xl">$300</p>
+  
+          <!-- Tags -->
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
+              Electronics
+            </span>
+            <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">
+              Sell
+            </span>
+          </div>
+  
+          <!-- Date -->
+          <p class="text-sm text-gray-500">Posted on: Apr 13, 2025</p>
+  
+          <!-- Add to Cart Button -->
+          <button
+            class="w-full bg-teal-600 hover:bg-teal-700 text-white py-2 px-4 rounded-lg font-semibold transition duration-200"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 w-full">
+        <!-- Product Image -->
+        <div class="h-48 overflow-hidden">
+          <img
+            src="./assets/images/casio.jpg"
+            alt="Product"
+            class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          />
+        </div>
+  
+        <!-- Product Details -->
+        <div class="p-4 space-y-3">
+          <h3 class="text-lg font-semibold text-gray-800">Laptop</h3>
+  
+          <p class="text-teal-600 font-bold text-xl">$300</p>
+  
+          <!-- Tags -->
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
+              Electronics
+            </span>
+            <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">
+              Sell
+            </span>
+          </div>
+  
+          <!-- Date -->
+          <p class="text-sm text-gray-500">Posted on: Apr 13, 2025</p>
+  
+          <!-- Add to Cart Button -->
+          <button
+            class="w-full bg-teal-600 hover:bg-teal-700 text-white py-2 px-4 rounded-lg font-semibold transition duration-200"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 w-full">
+        <!-- Product Image -->
+        <div class="h-48 overflow-hidden">
+          <img
+            src="./assets/images/casio.jpg"
+            alt="Product"
+            class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          />
+        </div>
+  
+        <!-- Product Details -->
+        <div class="p-4 space-y-3">
+          <h3 class="text-lg font-semibold text-gray-800">Laptop</h3>
+  
+          <p class="text-teal-600 font-bold text-xl">$300</p>
+  
+          <!-- Tags -->
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
+              Electronics
+            </span>
+            <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">
+              Sell
+            </span>
+          </div>
+  
+          <!-- Date -->
+          <p class="text-sm text-gray-500">Posted on: Apr 13, 2025</p>
+  
+          <!-- Add to Cart Button -->
+          <button
+            class="w-full bg-teal-600 hover:bg-teal-700 text-white py-2 px-4 rounded-lg font-semibold transition duration-200"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 w-full">
+            <!-- Product Image -->
+            <div class="h-48 overflow-hidden">
+            <img
+                src="./assets/images/casio.jpg"
+                alt="Product"
+                class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+            </div>
+    
+            <!-- Product Details -->
+            <div class="p-4 space-y-3">
+            <h3 class="text-lg font-semibold text-gray-800">Laptop</h3>
+    
+            <p class="text-teal-600 font-bold text-xl">$300</p>
+    
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-2 text-xs">
+                <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
+                Electronics
+                </span>
+                <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">
+                Sell
+                </span>
+            </div>
+    
+            <!-- Date -->
+            <p class="text-sm text-gray-500">Posted on: Apr 13, 2025</p>
+    
+            <!-- Add to Cart Button -->
+            <button
+                class="w-full bg-teal-600 hover:bg-teal-700 text-white py-2 px-4 rounded-lg font-semibold transition duration-200"
+            >
+                Add to Cart
+            </button>
+            </div>
+        </div>        
+    </div>
+  </section>
+    </main>
+    <script src="./js/market.js"></script>
+  </body>
+</html>
