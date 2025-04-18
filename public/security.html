@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile - Personal Info</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#f2e9dc] text-gray-800 font-sans">
+    <header>
+        <nav
+            class="select-none fixed top-0 left-0 right-0 z-[999] bg-[#f2e9dc] bg-opacity-100 text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md">
+            <!-- nav content here -->
+            <!-- Logo -->
+            <div class="flex items-center logo-icon">
+                <a href="./index.html" class="flex items-center space-x-3">
+                    <img src="./assets/icons/Campus Marketplace Logo.svg" alt="Campus Logo"
+                        class="w-10 h-10 object-contain mb-3.5" />
+                    <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
+                        Campus Marketplace
+                    </h1>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="select-none md:hidden text-3xl focus:outline-none" onclick="toggleMenu()">
+                ☰
+            </button>
+
+            <!-- Navigation Links (Desktop) -->
+            <div class="hidden md:flex flex-row items-center space-x-10 capitalize font-semibold">
+                <ul class="flex space-x-10">
+                    <li>
+                        <a href="./index.html" class="inline-block py-2 hover:scale-110 duration-300">Home</a>
+                    </li>
+                    <li>
+                        <a href="./index.html#about" class="inline-block py-2 hover:scale-110 duration-300">About</a>
+                    </li>
+                    <li>
+                        <a href="./index.html#market" class="inline-block py-2 hover:scale-110 duration-300">Market</a>
+                    </li>
+                    <li>
+                        <a href="./index.html#contact"
+                            class="inline-block py-2 hover:scale-110 duration-300">Contact</a>
+                    </li>
+                </ul>
+
+                <!-- Login/Signup (Desktop) -->
+                <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
+                    <li>
+                        <a href="./login.html"
+                            class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition">Login</a>
+                    </li>
+                    <li>
+                        <a href="./signup1.html"
+                            class="bg-[#152c2e] text-[#f2f2f2] py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign
+                            Up</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="mobileMenu"
+            class="select-none fixed top-[66px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl">
+            <ul class="space-y-6 text-center">
+                <li>
+                    <a href="./index.html" class="block py-2 hover:scale-110 duration-300">Home</a>
+                </li>
+                <li>
+                    <a href="./index.html#about" class="block py-2 hover:scale-110 duration-300">About</a>
+                </li>
+                <li>
+                    <a href="./index.html#market" class="block py-2 hover:scale-110 duration-300">Market</a>
+                </li>
+                <li>
+                    <a href="./index.html#contact" class="block py-2 hover:scale-110 duration-300">Contact</a>
+                </li>
+            </ul>
+
+            <ul class="flex flex-col gap-5 mt-8 text-center">
+                <li>
+                    <a href="./login.html"
+                        class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition">Login</a>
+                </li>
+                <li>
+                    <a href="./signup1.html"
+                        class="bg-[#152c2e] text-[#f2f2f2] py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign
+                        Up</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <br><br>
+    <div class="min-h-screen flex mt-10">
+        <!-- Sidebar -->
+        <aside class="w-64 border-r bg-[#faf2e6] px-6 py-8">
+            <h1 class="text-xl font-semibold mb-8">My Profile</h1>
+            <nav class="flex flex-col space-y-4">
+                <a href="./edit-profile.html"
+                    class="flex items-center space-x-3 text-gray-700 hover:text-black px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M12 11c0 1.1-.9 2-2 2H6v6h12v-6h-4c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2h4V4H6v3h4c1.1 0 2 .9 2 2v2z" />
+                    </svg>
+                    <span>Personal info</span>
+                </a>
+
+                <a href="./security.html"
+                    class="flex items-center space-x-3 bg-[#152c2e] text-[#faf2e6] px-4 py-2 rounded-lg font-medium">
+                    <svg class="w-5 h-5 text-[#faf2e6]" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 17v-2m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Security</span>
+                </a>
+
+
+            </nav>
+        </aside>
+
+        <!-- Main content -->
+        <main class="flex-1 px-10 py-8 text-xl">
+
+            <h1 class="text-2xl font-semibold mb-2">Your devices</h1>
+            <p class="mb-6 text-sm text-gray-600">
+                You’re signed in on these devices or have been in the last 28 days.
+                There might be multiple activity sessions from the same device.
+                <a href="#" class="text-blue-600 hover:underline">Learn more</a>
+            </p>
+
+            <!-- Windows Session -->
+            <div class="bg-[#6E918B] text-[#f2f2f2] border rounded-lg shadow-sm p-4 mb-4 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <!-- Laptop Icon -->
+                    <img src="https://img.icons8.com/ios-filled/50/014d4e/laptop.png" class="w-10 h-10" alt="Laptop Icon" />
+            
+                    <div>
+                        <p class="font-medium">Windows</p>
+                    
+                        <!-- Location + Timestamps in one line -->
+                        <p class="text-sm flex flex-wrap gap-x-1 text-[#f2f2f2]">
+                            Hyderabad, Telangana, India · Google Chrome · 
+                            <span class="text-xs text-[#dfeceb]">First Signed in at: <span class="font-medium">2025-04-18 10:15 AM</span></span> · 
+                            <span class="text-xs text-[#dfeceb]">Last Activity: <span class="font-medium">2025-04-18 10:42 AM</span></span>
+                        </p>
+                    
+                        <p class="text-[#152c2e] text-sm font-semibold">✔ Your current session</p>
+                    </div>
+                    
+                </div>
+            
+                <!-- Sign Out Icon Button -->
+                <button
+    class="flex items-center h-8 gap-2 text-[#f2f2f2] bg-[#152c2e] font-medium px-2 py-0.5 text-sm rounded hover:bg-red-50 hover:text-red-800 transition-colors duration-200 w-200">
+    
+    <!-- Door Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+            d="M15.75 9V5.25A2.25 2.25 0 0013.5 3H6.75A2.25 2.25 0 004.5 5.25v13.5A2.25 2.25 0 006.75 21h6.75a2.25 2.25 0 002.25-2.25V15m3-3h-9m0 0l3-3m-3 3l3 3" />
+    </svg>
+
+    <!-- Button Text -->
+    <span>Sign out</span>
+</button>
+
+            </div>
+            
+            <!-- Galaxy S22+ Session -->
+            <div class="bg-[#6E918B] text-[#f2f2f2] border rounded-lg shadow-sm p-4 mb-4 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <!-- Mobile Icon -->
+                    <img src="https://img.icons8.com/ios-filled/50/014d4e/smartphone-tablet.png" class="w-10 h-10" alt="Mobile Icon" />
+            
+                    <div>
+                        <p class="font-medium">Oneplus-Nord</p>
+                    
+                        <!-- Location + Timestamps in one line -->
+                        <p class="text-sm flex flex-wrap gap-x-1 text-[#f2f2f2]">
+                            Hyderabad, Telangana, India · 
+                            <span class="text-xs text-[#dfeceb]">First Signed in at: <span class="font-medium">2025-04-17 03:20 PM</span></span> · 
+                            <span class="text-xs text-[#dfeceb]">Last Activity: <span class="font-medium">2025-04-18 10:42 AM</span></span>
+                        </p>
+                    
+                        <p class="text-sm">Android device, Among Us... +8</p>
+                    </div>
+                    
+                </div>
+            
+                <!-- Sign Out Icon Button -->
+                <button
+    class="flex items-center h-8 gap-2 text-[#f2f2f2] bg-[#152c2e] font-medium px-2 py-0.5 text-sm rounded hover:bg-red-50 hover:text-red-800 transition-colors duration-200 w-200">
+    
+    <!-- Door Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+            d="M15.75 9V5.25A2.25 2.25 0 0013.5 3H6.75A2.25 2.25 0 004.5 5.25v13.5A2.25 2.25 0 006.75 21h6.75a2.25 2.25 0 002.25-2.25V15m3-3h-9m0 0l3-3m-3 3l3 3" />
+    </svg>
+
+    <!-- Button Text -->
+    <span>Sign out</span>
+</button>
+
+            </div>
+            
+
+            <!-- SM-S906E Session -->
+            <div class="bg-[#6E918B] text-[#f2f2f2] border rounded-lg shadow-sm p-4 mb-4 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <!-- Mobile Icon -->
+                    <img src="https://img.icons8.com/ios-filled/50/014d4e/smartphone-tablet.png" class="w-10 h-10" alt="Mobile Icon" />
+            
+                    <div>
+                        <p class="font-medium">Rmx-14289</p>
+                    
+                        <!-- Location + Timestamps in one line -->
+                        <p class="text-sm flex flex-wrap gap-x-1 text-[#f2f2f2]">
+                            Hyderabad, Telangana, India · 
+                            <span class="text-xs text-[#dfeceb]">First Signed in at: <span class="font-medium">2025-04-16 06:10 PM</span></span> · 
+                            <span class="text-xs text-[#dfeceb]">Last Activity: <span class="font-medium">2025-04-17 05:00 AM</span></span>
+                        </p>
+                    
+                        <p class="text-sm">Chrome Webview</p>
+                    </div>
+                    
+                </div>
+            
+                <!-- Sign Out Icon Button -->
+                <button
+    class="flex items-center gap-2 text-[#f2f2f2] bg-[#152c2e] font-medium px-2 py-0.5 text-sm rounded hover:bg-red-50 hover:text-red-800 transition-colors duration-200 w-200 h-8">
+    
+    <!-- Door Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+            d="M15.75 9V5.25A2.25 2.25 0 0013.5 3H6.75A2.25 2.25 0 004.5 5.25v13.5A2.25 2.25 0 006.75 21h6.75a2.25 2.25 0 002.25-2.25V15m3-3h-9m0 0l3-3m-3 3l3 3" />
+    </svg>
+
+    <!-- Button Text -->
+    <span>Sign out</span>
+</button>
+
+            </div>
+            
+
+
+
+        </main>
+
+    </div>
+    <script>
+function toggleMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            // Toggle 'hidden' class to show/hide menu
+            mobileMenu.classList.toggle('hidden');
+}
+
+    </script>
+
+
+</body>
+
+</html>
