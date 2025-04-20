@@ -163,3 +163,30 @@ BEGIN
     END IF;
 END
 $$ LANGUAGE plpgsql;
+
+CREATE TABLE IF NOT EXISTS data_flags (
+  id TEXT PRIMARY KEY,
+  loaded_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS universities (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    state TEXT,
+    district TEXT
+);
+
+CREATE TABLE IF NOT EXISTS colleges (
+    id INTEGER PRIMARY KEY,
+    uni_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    type TEXT NOT NULL,
+    state TEXT NOT NULL,
+    district TEXT NOT NULL,
+
+    document tsvector GENERATED ALWAYS AS (to_tsvector('english', name)) STORED,
+
+    FOREIGN KEY (uni_id) REFERENCES universities(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_cllgs_document ON colleges USING GIN (document);
