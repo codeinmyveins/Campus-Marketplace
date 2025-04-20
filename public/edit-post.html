@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Post</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/output.css">
+</head>
+
+<body class="bg-(--color2) text-[#1f1f1f] min-h-screen pt-24 px-4 py-10 flex items-center justify-center">
+
+  <header>
+    <nav
+      class="select-none fixed top-0 left-0 right-0 z-[999] bg-(--color2) bg-opacity-100 text-(--color3) w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md">
+      <!-- nav content here -->
+      <!-- Logo -->
+      <div class="flex items-center logo-icon">
+        <a href="./index.html" class="flex items-center space-x-3">
+          <img src="./assets/icons/Campus Marketplace Logo.svg" alt="Campus Logo"
+            class="w-10 h-10 object-contain mb-3.5" />
+          <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
+            Campus Marketplace
+          </h1>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="select-none md:hidden text-3xl focus:outline-none" onclick="toggleMenu()">
+        ☰
+      </button>
+
+      <!-- Navigation Links (Desktop) -->
+      <div class="hidden md:flex flex-row items-center gap-10 capitalize font-semibold">
+        <ul class="flex gap-5">
+          <li>
+            <a href="./index.html" class="inline-block py-2 hover:scale-110 duration-300">Home</a>
+          </li>
+          <li>
+            <a href="./index.html#about" class="inline-block py-2 hover:scale-110 duration-300">About</a>
+          </li>
+          <li>
+            <a href="./index.html#market" class="inline-block py-2 hover:scale-110 duration-300">Market</a>
+          </li>
+          <li>
+            <a href="./index.html#contact" class="inline-block py-2 hover:scale-110 duration-300">Contact</a>
+          </li>
+        </ul>
+
+        <!-- Login/Signup (Desktop) -->
+        <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
+          <li>
+            <a href="./login.html"
+              class="border-2 border-(--color3) py-2 px-4 rounded-xl hover:bg-(--color3) hover:text-(--color5) transition">Login</a>
+          </li>
+          <li>
+            <a href="./signup1.html"
+              class="bg-(--color3) text-(--color5) text-nowrap py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign Up</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div id="mobileMenu"
+      class="select-none fixed top-[66px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl">
+      <ul class="space-y-6 text-center">
+        <li>
+          <a href="./index.html" class="block py-2 hover:scale-110 duration-300">Home</a>
+        </li>
+        <li>
+          <a href="./index.html#about" class="block py-2 hover:scale-110 duration-300">About</a>
+        </li>
+        <li>
+          <a href="./index.html#market" class="block py-2 hover:scale-110 duration-300">Market</a>
+        </li>
+        <li>
+          <a href="./index.html#contact" class="block py-2 hover:scale-110 duration-300">Contact</a>
+        </li>
+      </ul>
+
+      <ul class="flex flex-col gap-5 mt-8 text-center">
+        <li>
+          <a href="./login.html"
+            class="border-2 border-(--color3) py-2 px-4 rounded-xl hover:bg-(--color3) hover:text-(--color5) transition">Login</a>
+        </li>
+        <li>
+          <a href="./signup1.html"
+            class="bg-(--color3) text-(--color5) py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign Up</a>
+        </li>
+      </ul>
+    </div>
+  </header>
+  
+  <form class="w-9/10">
+    <div class="bg-[var(--color6)] z-10 rounded-2xl p-8 w-full transition-all grid grid-cols-1 md:grid-cols-[7fr_3fr] gap-8 w-full">
+      
+      <!-- Form Section - Left -->
+      <div class="space-y-4 w-full">
+        <h2 class="text-2xl font-bold mb-6 text-(--color3) text-center md:text-left">Edit Post</h2>
+        
+        <div>
+          <label class="block font-semibold text-(--color3)">Item Name</label>
+          <p class="text-sm text-[#6b7280] my-1">Enter the name of your item in one or two words</p>
+          <input type="text" name="item_name" placeholder="Enter the item name" required
+            class="w-full px-4 py-2 border border-[#d1d5db] rounded-md" />
+        </div>
+        
+        <div>
+          <label class="block font-semibold text-(--color3)">Category</label>
+          <p class="text-sm text-[#6b7280] my-1"></p>
+          <select name="item_category" required
+            class="w-full px-4 py-2 border border-[#d1d5db] rounded-md text-[#1f2937]">
+            <option value="">Select Category</option>
+            <option value="stationary">Stationary</option>
+            <option value="electronics">Electronics</option>
+            <option value="books">Books</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-(--color3)">Post Title</label>
+          <p class="text-sm text-[#6b7280] my-1"></p>
+          <input type="text" name="title" placeholder="Enter the post title" required
+          class="w-full px-4 py-2 border border-[#d1d5db] rounded-md" />
+        </div>
+
+        <div>
+          <label class="block font-semibold text-(--color3)">Description</label>
+          <p class="text-sm text-[#6b7280] my-1"></p>
+          <textarea name="body" rows="4" placeholder="Enter the description of the post"
+            class="w-full px-4 py-2 border border-[#d1d5db] rounded-md"></textarea>
+        </div>
+        
+        <div>
+          <label class="block font-semibold text-(--color3)">Price</label>
+          <p class="text-sm text-[#6b7280] my-1"></p>
+          <input type="number" name="price" id="priceField" step="0.01" placeholder="Enter the price of the item"
+          class="w-full px-4 py-2 border border-[#d1d5db] rounded-md" />
+        </div>
+  
+        <!-- Active / Inactive Toggle -->
+        <div class="flex items-center gap-5 mb-8">
+          <label class="block font-semibold text-(--color3)">Post Status:</label>
+          <div class="flex items-center space-x-4">
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" name="is_active" id="statusToggle" class="sr-only peer" checked>
+              <div
+                class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-[#00bfa6] transition-colors duration-300">
+              </div>
+              <div
+                class="absolute left-0.5 top-0.5 bg-white w-5 h-5 rounded-full transition-transform duration-300 peer-checked:translate-x-full">
+              </div>
+            </label>
+            <span id="statusText" class="text-sm font-medium text-green-600">Open</span>
+          </div>
+        </div>
+  
+        <div class="flex justify-between items-center mt-2">
+          <!-- Update Post Button -->
+          <button type="submit" class="w-[calc(90%-60px)] bg-teal-600 text-white py-2 rounded-lg font-medium hover:bg-teal-700 transition-all">
+            Update Post
+          </button>
+        
+          <!-- Delete Post Button -->
+          <button type="button" onclick="confirmDelete()" class="ml-2 bg-red-600 text-white py-2 px-3 rounded-md font-medium hover:bg-red-700 transition-all">
+            Delete post
+          </button>
+        </div>
+         
+      </div>
+  
+      <!-- Image Upload Section - Right -->
+      <div class="space-y-4">
+        <label class="block cursor-pointer border border-[#d1d5db] text-[#6b7280] px-4 py-3 rounded-md flex items-center gap-2 transition-all duration-300 hover:bg-(--color3) hover:text-(--color5)">
+          <i class="fas fa-image text-xl"></i>
+          <input type="file" accept="image/*" multiple class="hidden" onchange="handleImageSelection(event)" />
+          <span class="text-sm">Upload from gallery</span>
+        </label>
+  
+        <label class="block cursor-pointer border border-[#d1d5db] text-[#6b7280] px-4 py-3 rounded-md flex items-center gap-2 transition-all duration-300 hover:bg-(--color3) hover:text-(--color5)">
+          <i class="fas fa-camera text-xl"></i>
+          <input type="file" accept="image/*" capture="environment" class="hidden" onchange="previewCapturedImage(event)">
+          <span class="text-sm">Capture from camera</span>
+        </label>
+
+        <input type="hidden" name="coverImageIndex" id="coverImageIndex" />
+        <div id="imageModal" class="fixed inset-0 bg-black/50 items-center justify-center hidden z-50 flex h-full"
+          onclick="closeImageModal()">
+          <img id="modalImage"
+            class="max-w-full max-h-full rounded shadow-lg transition-transform duration-200 ease-in-out" />
+        </div>
+  
+        <p class="text-sm text-[#4b5563]">Drag images to reorder. Click image to zoom.</p>
+        <div id="previewContainer" class="flex justify-center flex-wrap gap-4 w-full"></div>
+        <input type="hidden" name="coverImageIndex" id="coverImageIndex" />
+      </div>
+    </div>
+  </form>
+  
+  <script src="./js/edit-post.js"></script>
+
+</body>
+
+</html>
