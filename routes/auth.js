@@ -4,7 +4,9 @@ const { auth, refreshAuth, preUserAuth, otpUserAuth } = require("../middleware/a
 //controller
 const {
     registerInitial, verifyEmail, changeEmailInitial, resendOTPInitial, registerComplete,
-    login, refreshAccessToken
+    login, refreshAccessToken,
+    getSession, getAllSessions,
+    logout, deleteSession, deleteAllSessions
 } = require("../controllers/auth");
 
 const router = express.Router();
@@ -17,7 +19,11 @@ router.route("/register/complete").patch(preUserAuth, registerComplete);
 
 
 router.route("/login").post(login);
-router.route("/logout").post();
+
+router.route("/logout").delete(logout);
+router.route("/session/all").get(auth, getAllSessions).delete(auth, deleteAllSessions);
+router.route("/session/:id").get(auth, getSession).delete(auth, deleteSession);
+
 router.route("/reverify").post();
 router.route("/resend-otp/reverify").post();
 
