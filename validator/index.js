@@ -23,7 +23,7 @@ const loginSchema = Joi.object({
 
 const full_name = Joi.string().max(64).pattern(/^[a-zA-Z\s]+$/)
     .rule({"message": "\"full_name\" can only contains letters and spaces"});
-const college_name = Joi.string().max(128).pattern(/^[a-zA-Z\s]+$/)
+const college_name = Joi.string().max(256).pattern(/^[a-zA-Z\s]+$/)
     .rule({"message": "\"college_name\" can only contains letters and spaces"});
 const dob = Joi.date().less("now").iso().messages({"date.format": "\"dob\" must be in the iso 8601 YYYY-MM-DD format"});
 

@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS users (
     country_code TEXT NOT NULL CHECK (char_length(country_code) = 2 AND country_code ~ '^[A-Z]+$'),
     phone TEXT UNIQUE NOT NULL CHECK (phone ~ '^(\+|\d)\d{1,4}\s[0-9]{7,16}$'),
 
-    college_name TEXT NOT NULL CHECK (char_length(college_name) <= 128 AND college_name ~ '^[a-zA-Z\s]+$'),
+    college_name TEXT NOT NULL CHECK (char_length(college_name) <= 256 AND college_name ~ '^[a-zA-Z\s]+$'),
 
     gender GENDER_ENUM NOT NULL,
     avatar_url TEXT,
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS pre_users (
     country_code TEXT CHECK (char_length(country_code) = 2 AND country_code ~ '^[A-Z]+$'),
     phone TEXT CHECK (phone ~ '^(\+|\d)\d{1,4}\s[0-9]{7,16}$'),
 
-    college_name TEXT CHECK (char_length(college_name) <= 128 AND college_name ~ '^[a-zA-Z\s]+$'),
+    college_name TEXT CHECK (char_length(college_name) <= 256 AND college_name ~ '^[a-zA-Z\s]+$'),
     gender GENDER_ENUM,
 
     avatar_url TEXT,
