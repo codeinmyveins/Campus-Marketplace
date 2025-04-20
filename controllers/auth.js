@@ -665,9 +665,98 @@ const refreshAccessToken = async (req, res) => {
         })
         .json({ msg: "token refreshed" });
 
-}   
+}
+
+const getSession = async (req, res) => {
+
+    const { userId } = req.user;
+    const sessionId = req.params.id;
+
+    const { rowCount, rows: sessions} = await pool.query(
+        `SELECT id, user_agent, ip_address, created_at, last_used_at FROM sessions
+            WHERE id = $1 AND user_id = $2`,
+        [sessionId, userId]
+    );
+    if (rowCount === 0) {
+        throw new CustomAPIError("Session not found", StatusCodes.NOT_FOUND);
+    }
+
+    res.status(StatusCodes.OK).json({ session: sessions[0] });
+}
+
+const getAllSessions = async (req, res) => {
+
+    const { userId } = req.user;
+
+    const { rowCount, rows: sessions} = await pool.query(
+        `SELECT id, user_agent, ip_address, created_at, last_used_at FROM sessions
+             WHERE user_id = $1`,
+        [userId]
+    );
+    if (rowCount === 0) {
+        res.clearCookie('access_token');
+        res.clearCookie('refresh_token');
+        throw new CustomAPIError("No session ???!!!!", StatusCodes.NOT_FOUND);
+    }
+
+    res.status(StatusCodes.OK).json({ sessions });
+}
+
+const logout = async (req, res) => {
+
+    const token = req.cookies.access_token;
+
+    res.clearCookie('access_token');
+    res.clearCookie('refresh_token');
+
+    try {
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+        if (payload.sid) {
+            await pool.query("DELETE FROM sessions WHERE id = $1 AND user_id = $2",
+                [payload.sid, payload.sub]
+            );
+        }
+    } catch (error) {
+        throw new CustomAPIError("Valid session not found", StatusCodes.UNAUTHORIZED);
+    }
+    
+    res.status(StatusCodes.OK).json({ msg: "logged out successfully" });
+
+}
+
+const deleteSession = async (req, res) => {
+    const { userId } = req.user;
+    const sessionId = req.params.id;
+
+    const { rowCount } = await pool.query("DELETE FROM sessions WHERE id = $1 AND user_id = $2",
+        [sessionId, userId]
+    );
+    if (rowCount === 0) {
+        throw new CustomAPIError("Session not found", StatusCodes.NOT_FOUND);
+    }
+    
+    res.status(StatusCodes.OK).json({ msg: "logged out session successfully" });
+
+}
+
+const deleteAllSessions = async (req, res) => {
+    const { userId } = req.user;
+
+    const { rowCount } = await pool.query("DELETE FROM sessions WHERE user_id = $1",
+        [userId]
+    );
+    res.clearCookie('access_token');
+    res.clearCookie('refresh_token');
+    if (rowCount === 0) {
+        throw new CustomAPIError("No sessions not found", StatusCodes.NOT_FOUND);
+    }
+    
+    res.status(StatusCodes.OK).json({ msg: `logged out from all ${rowCount} sessions` });
+}
 
 module.exports = {
     registerInitial, verifyEmail, changeEmailInitial, resendOTPInitial, registerComplete,
-    login, refreshAccessToken
+    login, refreshAccessToken,
+    getSession, getAllSessions,
+    logout, deleteSession, deleteAllSessions
 };
