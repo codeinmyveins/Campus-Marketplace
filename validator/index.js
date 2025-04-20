@@ -23,7 +23,7 @@ const loginSchema = Joi.object({
 
 const full_name = Joi.string().max(64).pattern(/^[a-zA-Z\s]+$/)
     .rule({"message": "\"full_name\" can only contains letters and spaces"});
-const college_name = Joi.string().max(64).pattern(/^[a-zA-Z\s]+$/)
+const college_name = Joi.string().max(128).pattern(/^[a-zA-Z\s]+$/)
     .rule({"message": "\"college_name\" can only contains letters and spaces"});
 const dob = Joi.date().less("now").iso().messages({"date.format": "\"dob\" must be in the iso 8601 YYYY-MM-DD format"});
 
@@ -49,10 +49,43 @@ const UserInfo = Joi.object({
     country_code: Joi.string().length(2).pattern(/^[A-Z]+$/),
     phone: Joi.string().pattern(/^[0-9]+$/),
     college_name: college_name,
-    bio: Joi.string().max(2056),
+    bio: Joi.string().max(2048),
     username: username,
 });
 
+const itemPostInfoObj = {
+    item_name: Joi.string().max(32),
+    item_category: Joi.string().max(32),
+    title: Joi.string().max(64),
+    description: Joi.string().max(16384),
+};
+
+const price = Joi.number().greater(0).precision(2);
+
+const itemPostInfo = Joi.object({
+    ...itemPostInfoObj,
+    location: Joi.string(),
+    closed: Joi.boolean(),
+    price: price,
+});
+
+const itemPostInfoRequired = Joi.object({
+    ...Object.fromEntries(
+        Object.entries(itemPostInfoObj).map(([key, schema]) => [key, schema.required()])
+    ),
+    type: Joi.string().valid("sell", "buy", "lend", "borrow").required(),
+    location: Joi.string(),
+    price: price.when("type", {
+        is: Joi.valid("sell", "lend"),
+        then: Joi.required(),
+        otherwise: Joi.forbidden()
+    }),
+});
+
+const itemImageReorderSchema = Joi.array()
+    .items(Joi.number().integer().required())
+    .unique()
+    .required();
 
 exports.validateRegisterInitial = validator(registerInitialSchema);
 exports.validateRegisterComplete = validator(registerCompleteSchema);
@@ -61,3 +94,7 @@ exports.validateEmail = validator(emailSchema);
 exports.validateOTP = validator(otpSchema);
 exports.validateDeviceFingerprint = validator(device_fingerprint);
 exports.validateUserInfo = validator(UserInfo);
+exports.validateItemPostInfo = validator(itemPostInfo);
+exports.validateItemPostInfoRequired = validator(itemPostInfoRequired);
+exports.itemImageReorderSchema = itemImageReorderSchema;
+exports.priceSchema = price;

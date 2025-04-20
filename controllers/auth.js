@@ -16,6 +16,7 @@ const {
     validateLogin,
     validateDeviceFingerprint
 } = require("../validator");
+const { STATUS } = require("../db/enums");
 
 function generateOTP() {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
@@ -177,10 +178,6 @@ const changeEmailInitial = async (req, res) => {
     const { body: { email: inputEmail }, user: { userId, otpId, role, lastEmailTime } } = req;
     const email = inputEmail.toLowerCase();
 
-    if (role === "verified") {
-        throw new CustomAPIError("Forbidden, no need of verification", StatusCodes.FORBIDDEN);
-    }
-
     const epochNow = Math.floor(Date.now() / 1000); // current epoch in seconds
     if (lastEmailTime + 60 > epochNow) {
         const tryAfter = lastEmailTime + 60 - epochNow
@@ -257,10 +254,6 @@ const resendOTPInitial = async (req, res) => {
 
     const { user: { userId, otpId, role, lastResendTime, lastEmailTime } } = req;
 
-    if (role === "verified") {
-        throw new CustomAPIError("Forbidden, no need of verification", StatusCodes.FORBIDDEN);
-    }
-
     const epochNow = Math.floor(Date.now() / 1000); // current epoch in seconds
     if (lastResendTime + 60 > epochNow) {
         const tryAfter = lastResendTime + 60 - epochNow
@@ -331,7 +324,7 @@ const registerComplete = async (req, res) => {
 
     const { userId, role } = req.user;
 
-    if (role !== "verified") {
+    if (role !== STATUS.VERIFIED) {
         throw new CustomAPIError("Forbidden, user unverified", StatusCodes.FORBIDDEN);
     }
 
@@ -496,24 +489,33 @@ const login = async (req, res) => {
         if (!ip_address) {
             throw new CustomAPIError("ip_address not present", StatusCodes.BAD_REQUEST);
         }
-        var session_id;
-        try {
-            session_id = crypto.randomUUID();
+
+        let session_id = crypto.randomUUID();
     
-            await pool.query("INSERT INTO sessions (id, user_id, hashed_refresh_token, device_fingerprint, user_agent, ip_address) VALUES ($1, $2, $3, $4, $5, $6)",
-                [session_id, users[0].id, hashedRefToken, device_fingerprint, user_agent, ip_address]
-            );
-        } catch (error) {
-            if (error.code === "23505") {
-                const { rows: sessions } = await pool.query("UPDATE sessions SET hashed_refresh_token = $1, device_fingerprint = $2, user_agent = $3, ip_address = $4, last_used_at = NOW(), expires_at = (NOW() + INTERVAL '30 days') WHERE user_id = $5 RETURNING id",
-                    [hashedRefToken, device_fingerprint, user_agent, ip_address, users[0].id]
-                );
-                session_id = sessions[0].id;
-            } else {
-                console.error(error);
-                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
-            }
-        }
+        const { rows: sessions } = await pool.query(
+            `INSERT INTO sessions
+                (id, user_id, hashed_refresh_token, device_fingerprint, user_agent, ip_address)
+                VALUES ($1, $2, $3, $4, $5, $6)
+                ON CONFLICT (user_id, device_fingerprint) DO UPDATE SET
+                hashed_refresh_token = EXCLUDED.hashed_refresh_token,
+                user_agent = EXCLUDED.user_agent,
+                ip_address = EXCLUDED.ip_address,
+                last_used_at = NOW(),
+                expires_at = NOW() + INTERVAL '30 days'
+            RETURNING id`,
+            [session_id, users[0].id, hashedRefToken, device_fingerprint, user_agent, ip_address]
+        );
+        session_id = sessions[0].id;
+        // } catch (error) {
+        //     if (error.code === "23505") {
+        //         const { rows: sessions } = await pool.query("UPDATE sessions SET hashed_refresh_token = $1, device_fingerprint = $2, user_agent = $3, ip_address = $4, last_used_at = NOW(), expires_at = (NOW() + INTERVAL '30 days') WHERE user_id = $5 RETURNING id",
+        //             [hashedRefToken, device_fingerprint, user_agent, ip_address, users[0].id]
+        //         );
+        //     } else {
+        //         console.error(error);
+        //         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
+        //     }
+        // }
 
         // access_token signing
         const access_token = jwt.sign(
@@ -663,9 +665,98 @@ const refreshAccessToken = async (req, res) => {
         })
         .json({ msg: "token refreshed" });
 
-}   
+}
+
+const getSession = async (req, res) => {
+
+    const { userId } = req.user;
+    const sessionId = req.params.id;
+
+    const { rowCount, rows: sessions} = await pool.query(
+        `SELECT id, user_agent, ip_address, created_at, last_used_at FROM sessions
+            WHERE id = $1 AND user_id = $2`,
+        [sessionId, userId]
+    );
+    if (rowCount === 0) {
+        throw new CustomAPIError("Session not found", StatusCodes.NOT_FOUND);
+    }
+
+    res.status(StatusCodes.OK).json({ session: sessions[0] });
+}
+
+const getAllSessions = async (req, res) => {
+
+    const { userId } = req.user;
+
+    const { rowCount, rows: sessions} = await pool.query(
+        `SELECT id, user_agent, ip_address, created_at, last_used_at FROM sessions
+             WHERE user_id = $1`,
+        [userId]
+    );
+    if (rowCount === 0) {
+        res.clearCookie('access_token');
+        res.clearCookie('refresh_token');
+        throw new CustomAPIError("No session ???!!!!", StatusCodes.NOT_FOUND);
+    }
+
+    res.status(StatusCodes.OK).json({ sessions });
+}
+
+const logout = async (req, res) => {
+
+    const token = req.cookies.access_token;
+
+    res.clearCookie('access_token');
+    res.clearCookie('refresh_token');
+
+    try {
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+        if (payload.sid) {
+            await pool.query("DELETE FROM sessions WHERE id = $1 AND user_id = $2",
+                [payload.sid, payload.sub]
+            );
+        }
+    } catch (error) {
+        throw new CustomAPIError("Valid session not found", StatusCodes.UNAUTHORIZED);
+    }
+    
+    res.status(StatusCodes.OK).json({ msg: "logged out successfully" });
+
+}
+
+const deleteSession = async (req, res) => {
+    const { userId } = req.user;
+    const sessionId = req.params.id;
+
+    const { rowCount } = await pool.query("DELETE FROM sessions WHERE id = $1 AND user_id = $2",
+        [sessionId, userId]
+    );
+    if (rowCount === 0) {
+        throw new CustomAPIError("Session not found", StatusCodes.NOT_FOUND);
+    }
+    
+    res.status(StatusCodes.OK).json({ msg: "logged out session successfully" });
+
+}
+
+const deleteAllSessions = async (req, res) => {
+    const { userId } = req.user;
+
+    const { rowCount } = await pool.query("DELETE FROM sessions WHERE user_id = $1",
+        [userId]
+    );
+    res.clearCookie('access_token');
+    res.clearCookie('refresh_token');
+    if (rowCount === 0) {
+        throw new CustomAPIError("No sessions not found", StatusCodes.NOT_FOUND);
+    }
+    
+    res.status(StatusCodes.OK).json({ msg: `logged out from all ${rowCount} sessions` });
+}
 
 module.exports = {
     registerInitial, verifyEmail, changeEmailInitial, resendOTPInitial, registerComplete,
-    login, refreshAccessToken
+    login, refreshAccessToken,
+    getSession, getAllSessions,
+    logout, deleteSession, deleteAllSessions
 };
