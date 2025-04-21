@@ -29,7 +29,7 @@ const loginSchema = Joi.object({
 
 const full_name = Joi.string().trim().max(64).custom(toTitleCase, "Title Case Transformer").pattern(/^[a-zA-Z\s]+$/)
     .rule({"message": "\"full_name\" can only contains letters and spaces"});
-const college_name = Joi.string().trim().max(128);
+const college_name = Joi.string().trim().max(256);
 const dob = Joi.date().less("now").iso().messages({"date.format": "\"dob\" must be in the iso 8601 YYYY-MM-DD format"});
 
 const registerCompleteSchema = Joi.object({
