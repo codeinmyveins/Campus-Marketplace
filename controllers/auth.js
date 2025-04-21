@@ -28,12 +28,12 @@ function generateOTP() {
 const registerInitial = async (req, res) => {
 
     // Joi validation
-    const { error } = validateRegisterInitial(req.body);
+    const { error, value: joiValue } = validateRegisterInitial(req.body);
     if (error) {
         throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
     }
 
-    const { username, email:inputEmail, password } = req.body;
+    const { username, email:inputEmail, password } = joiValue;
     const email = inputEmail.toLowerCase();
 
     // prune unverified pre_users older than one hour
@@ -117,9 +117,9 @@ const registerInitial = async (req, res) => {
 
 const verifyEmail = async (req, res) =>  {
 
-    const { body: { otp: candidateOTP }, user: { userId, otpId, role } } = req;
+    const { body: { otp }, user: { userId, otpId, role } } = req;
 
-    const { error } = validateOTP(candidateOTP);
+    const { error, value: candidateOTP } = validateOTP(otp);
     // otp validation
     if (error) {
         throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
@@ -176,7 +176,6 @@ const verifyEmail = async (req, res) =>  {
 const changeEmailInitial = async (req, res) => {
 
     const { body: { email: inputEmail }, user: { userId, otpId, role, lastEmailTime } } = req;
-    const email = inputEmail.toLowerCase();
 
     const epochNow = Math.floor(Date.now() / 1000); // current epoch in seconds
     if (lastEmailTime + 60 > epochNow) {
@@ -186,7 +185,7 @@ const changeEmailInitial = async (req, res) => {
     }
     
     // Joi validation
-    const { error } = validateEmail(email);
+    const { error, value: email } = validateEmail(inputEmail);
     if (error) {
         throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
     }
@@ -328,12 +327,12 @@ const registerComplete = async (req, res) => {
         throw new CustomAPIError("Forbidden, user unverified", StatusCodes.FORBIDDEN);
     }
 
-    const { error } = validateRegisterComplete(req.body);
+    const { error, value: joiValue } = validateRegisterComplete(req.body);
     if (error) {
         throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
     }
     
-    const { full_name, dob, gender, country_code, phone, college_name, device_fingerprint } = req.body;
+    const { full_name, dob, gender, country_code, phone, college_name, device_fingerprint } = joiValue;
     const user_agent = req.headers['user-agent'];
     if (!user_agent) {
         throw new CustomAPIError("user-agent header not present", StatusCodes.BAD_REQUEST);
@@ -427,12 +426,12 @@ const registerComplete = async (req, res) => {
 
 const login = async (req, res) => {
 
-    const { error } = validateLogin(req.body);
+    const { error, value: joiValue } = validateLogin(req.body);
     if (error) {
         throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
     }
 
-    const { username, email, password, device_fingerprint } = req.body;
+    const { username, email, password, device_fingerprint } = joiValue;
 
     const { rowCount, rows: preUsers } = await pool.query("SELECT id, status, password FROM pre_users WHERE status = 'verified' AND (username = $1 OR email = $2)",
         [username, email]
@@ -553,8 +552,8 @@ const login = async (req, res) => {
 
 const refreshAccessToken = async (req, res) => {
 
-    const { device_fingerprint } = req.body;
-    const { error } = validateDeviceFingerprint(device_fingerprint);
+    const { device_fingerprint: inputDeviceFingerprint } = req.body;
+    const { error, value: device_fingerprint } = validateDeviceFingerprint(inputDeviceFingerprint);
     if (error) {
         throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
     }

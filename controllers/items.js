@@ -143,13 +143,13 @@ const getItems = async (req, res) => {
 
 const postItem = async (req, res) => {
     
-    const { error } = validateItemPostInfoRequired(req.body);
+    const { error, value: joiValue } = validateItemPostInfoRequired(req.body);
     if (error) {
         throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
     }
 
     const { userId } = req.user;
-    const { item_name, item_category, title, description, location, price, type } = req.body;
+    const { item_name, item_category, title, description, location, price, type } = joiValue;
     
     const { rows: items } = await pool.query("INSERT INTO items (user_id, item_name, item_category, title, description, location, price, type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
         [userId, item_name, item_category, title, description, location, price, type]
@@ -179,12 +179,12 @@ const editItem = async (req, res) => {
 
     const item_id = req.params.id;
 
-    const { error } = validateItemPostInfo(req.body);
+    const { error, value: joiValue } = validateItemPostInfo(req.body);
     if (error) {
         throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
     }
 
-    const { item_name, item_category, title, description, location, price, closed } = req.body;
+    const { item_name, item_category, title, description, location, price: inputPrice, closed } = joiValue;
 
     const { rowCount, rows: [ { type } ] } = await pool.query("SELECT type FROM items WHERE id = $1",
         [item_id]
@@ -194,7 +194,7 @@ const editItem = async (req, res) => {
     }
 
     const priceSchemaTT = (type === "sell" || type === "lend") ? priceSchema.optional() : priceSchema.forbidden();
-    const { error: error2 } = priceSchemaTT.validate(price);
+    const { error: error2, value: price } = priceSchemaTT.validate(inputPrice);
     if (error2) {
         throw new CustomAPIError("\"price\" is not allowed", StatusCodes.BAD_REQUEST);
     }

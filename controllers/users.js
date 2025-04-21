@@ -51,13 +51,13 @@ const getUser = async (req, res) => {
 
 const editUser = async (req, res) => {
 
-    const { error } = validateUserInfo(req.body);
+    const { error, value: joiValue } = validateUserInfo(req.body);
     if (error) {
         throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
     }
 
     const { userId } = req.user;
-    const { username, full_name, college_name, gender, dob, phone, country_code, bio } = req.body;
+    const { username, full_name, college_name, gender, dob, phone, country_code, bio } = joiValue;
     const patched = {};
 
     if (phone) {
