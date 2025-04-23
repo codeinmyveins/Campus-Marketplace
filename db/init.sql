@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS users (
     country_code TEXT NOT NULL CHECK (char_length(country_code) = 2 AND country_code ~ '^[A-Z]+$'),
     phone TEXT UNIQUE NOT NULL CHECK (phone ~ '^(\+|\d)\d{1,4}\s[0-9]{7,16}$'),
 
-    college_name TEXT NOT NULL CHECK (char_length(college_name) <= 256 AND college_name ~ '^[a-zA-Z\s]+$'),
+    college_id INTEGER NOT NULL,
 
     gender GENDER_ENUM NOT NULL,
     avatar_url TEXT,
@@ -74,9 +74,9 @@ CREATE TABLE IF NOT EXISTS pre_users (
     country_code TEXT CHECK (char_length(country_code) = 2 AND country_code ~ '^[A-Z]+$'),
     phone TEXT CHECK (phone ~ '^(\+|\d)\d{1,4}\s[0-9]{7,16}$'),
 
-    college_name TEXT CHECK (char_length(college_name) <= 256 AND college_name ~ '^[a-zA-Z\s]+$'),
-    gender GENDER_ENUM,
+    college_id INTEGER,
 
+    gender GENDER_ENUM,
     avatar_url TEXT,
     bio TEXT CHECK (char_length(bio) <= 2048),
 
@@ -190,3 +190,6 @@ CREATE TABLE IF NOT EXISTS colleges (
 );
 
 CREATE INDEX IF NOT EXISTS idx_cllgs_document ON colleges USING GIN (document);
+
+ALTER TABLE pre_users ADD FOREIGN KEY (college_id) REFERENCES colleges(id);
+ALTER TABLE users ADD FOREIGN KEY (college_id) REFERENCES colleges(id);

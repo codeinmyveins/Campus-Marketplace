@@ -332,7 +332,7 @@ const registerComplete = async (req, res) => {
         throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
     }
     
-    const { full_name, dob, gender, country_code, phone, college_name, device_fingerprint } = joiValue;
+    const { full_name, dob, gender, country_code, phone, college_id, device_fingerprint } = joiValue;
     const user_agent = req.headers['user-agent'];
     if (!user_agent) {
         throw new CustomAPIError("user-agent header not present", StatusCodes.BAD_REQUEST);
@@ -379,8 +379,13 @@ const registerComplete = async (req, res) => {
             StatusCodes.CONFLICT);
     }
 
-    const { rows: newUser } = await pool.query("INSERT INTO users (username, full_name, email, password, dob, gender, country_code, phone, college_name) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id, role",
-        [username, full_name, email, password, dob, gender, country_code, completePhone, college_name]
+    const { rowCount: cllg_exists } = await pool.query("SELECT 1 FROM colleges WHERE id = $1", [college_id]);
+    if (cllg_exists === 0) {
+        throw new CustomAPIError("Unknown college provided", StatusCodes.BAD_REQUEST);
+    }
+
+    const { rows: newUser } = await pool.query("INSERT INTO users (username, full_name, email, password, dob, gender, country_code, phone, college_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id, role",
+        [username, full_name, email, password, dob, gender, country_code, completePhone, college_id]
     );
 
     await pool.query("DELETE FROM pre_users WHERE id = $1", [userId]);

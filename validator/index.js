@@ -29,7 +29,6 @@ const loginSchema = Joi.object({
 
 const full_name = Joi.string().trim().max(64).custom(toTitleCase, "Title Case Transformer").pattern(/^[a-zA-Z\s]+$/)
     .rule({"message": "\"full_name\" can only contains letters and spaces"});
-const college_name = Joi.string().trim().max(256);
 const dob = Joi.date().less("now").iso().messages({"date.format": "\"dob\" must be in the iso 8601 YYYY-MM-DD format"});
 
 const registerCompleteSchema = Joi.object({
@@ -38,7 +37,7 @@ const registerCompleteSchema = Joi.object({
     gender: Joi.string().trim().lowercase().valid("male", "female").required(),
     country_code: Joi.string().trim().uppercase().length(2).pattern(/^[A-Z]+$/).required(),
     phone: Joi.string().trim().pattern(/^[0-9]+$/).required(),
-    college_name: college_name.required(),
+    college_id: Joi.number().min(1).required(),
     device_fingerprint: device_fingerprint.required(),
 });
 
@@ -53,7 +52,7 @@ const UserInfo = Joi.object({
     gender: Joi.string().trim().lowercase().valid("male", "female"),
     country_code: Joi.string().trim().uppercase().length(2).pattern(/^[A-Z]+$/),
     phone: Joi.string().trim().pattern(/^[0-9]+$/),
-    college_name: college_name,
+    college_id: Joi.number().min(1),
     bio: Joi.string().trim().max(2048),
     username: username,
 });

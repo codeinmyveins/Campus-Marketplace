@@ -13,7 +13,11 @@ const getCurrentUser = async (req, res) => {
     const { user: { userId }, query: { sensitive } } = req;
 
     const { rowCount, rows: users } = await pool.query(
-        `SELECT id, username, full_name, country_code, college_name, avatar_url, bio${sensitive?.toLowerCase()==="true"?",email,to_char(dob, 'DD/MM/YYYY') AS dob,phone,gender":""} FROM users WHERE id = $1`,
+        `SELECT u.id, u.username, u.full_name, u.country_code, c.name, u.avatar_url, u.bio
+            ${sensitive?.toLowerCase()==="true"?",u.email,to_char(u.dob, 'DD/MM/YYYY') AS dob,u.phone,u.gender":""}
+        FROM users u
+        LEFT JOIN colleges c ON u.college_id = c.id
+        WHERE u.id = $1`,
         [userId]
     );
 
@@ -35,7 +39,10 @@ const getUser = async (req, res) => {
     }
 
     const { rowCount, rows: users } = await pool.query(
-        "SELECT id, username, full_name, country_code, college_name, avatar_url, bio FROM users WHERE username = $1",
+        `u.SELECT id, u.username, u.full_name, u.country_code, c.name, u.avatar_url, u.bio
+        FROM users u
+        LEFT JOIN colleges c ON u.college_id = c.id
+        WHERE u.username = $1`,
         [username]
     );
 
@@ -57,7 +64,7 @@ const editUser = async (req, res) => {
     }
 
     const { userId } = req.user;
-    const { username, full_name, college_name, gender, dob, phone, country_code, bio } = joiValue;
+    const { username, full_name, college_id, gender, dob, phone, country_code, bio } = joiValue;
     const patched = {};
 
     if (phone) {
@@ -72,8 +79,12 @@ const editUser = async (req, res) => {
     if (full_name) {
         patched.full_name = full_name;
     }
-    if (college_name) {
-        patched.college_name = college_name;
+    if (college_id) {
+        const { rowCount: cllg_exists } = await pool.query("SELECT 1 FROM colleges WHERE id = $1", [college_id]);
+        if (cllg_exists === 0) {
+            throw new CustomAPIError("Unknown college provided", StatusCodes.BAD_REQUEST);
+        }
+        patched.college_id = college_id;
     }
     if (gender) {
         patched.gender = gender;

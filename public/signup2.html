@@ -38,9 +38,9 @@
 
         <!-- Navigation Links (Desktop) -->
         <div
-          class="hidden md:flex flex-row items-center space-x-10 capitalize font-semibold"
+          class="hidden md:flex flex-row items-center gap-10 capitalize font-semibold"
         >
-          <ul class="flex space-x-10">
+          <ul class="flex gap-10">
             <li>
               <a
                 href="./index.html"
@@ -83,7 +83,7 @@
             <li>
               <a
                 href="./signup1.html"
-                class="bg-[#152c2e] text-[#f2f2f2] py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
+                class="bg-[#152c2e] text-[#f2f2f2] text-nowrap py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
                 >Sign Up</a
               >
             </li>
@@ -334,29 +334,19 @@
               >College</label
             >
             <div class="relative">
-              <select
+              <input
+                type="text"
                 id="college"
                 name="college"
-                required
-                class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 pr-10 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none appearance-none"
-              >
-                <option value="">Select College</option>
-                <option value="mit">
-                  Massachusetts Institute of Technology (MIT)
-                </option>
-                <option value="stanford">Shadan College Of Engineering & Technology</option>
-                <option value="stanford">Stanford University</option>
-                <option value="harvard">Harvard University</option>
-                <option value="oxford">University of Oxford</option>
-                <option value="cambridge">University of Cambridge</option>
-                <option value="other">Other</option>
-              </select>
-              <!-- Custom Dropdown Icon -->
-              <span
-                class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]"
-              >
-                ▼
-              </span>
+                autocomplete="off"
+                placeholder="Search college..."
+                class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none"
+              />
+              <ul
+                id="college-options"
+                class="absolute z-10 mt-1 w-full max-h-60 overflow-auto rounded-md bg-[var(--color3)] border border-[var(--color1)] text-[var(--color2)] shadow-lg hidden"
+              ></ul>
+              <span class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]">🔍</span>
             </div>
             <!-- <p class="text-red-500 text-sm hidden" id="collegeError">
               Please select a college.

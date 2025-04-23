@@ -6,7 +6,7 @@ const getColleges = async(req, res) => {
     
     const { page = "1", search, state, district } = req.query;
 
-    const limit = 64;
+    const limit = 32;
     const offset = (Number(page) - 1) * limit;
 
     const params = [
@@ -19,6 +19,7 @@ const getColleges = async(req, res) => {
 
     const { rowCount, rows: colleges } = await pool.query(
         `SELECT
+            id,
             name,
             state,
             district,
