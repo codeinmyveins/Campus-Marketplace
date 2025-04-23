@@ -13,7 +13,7 @@ const getCurrentUser = async (req, res) => {
     const { user: { userId }, query: { sensitive } } = req;
 
     const { rowCount, rows: users } = await pool.query(
-        `SELECT u.id, u.username, u.full_name, u.country_code, c.name, u.avatar_url, u.bio
+        `SELECT u.id, u.username, u.full_name, u.country_code, c.name college_name, u.avatar_url, u.bio
             ${sensitive?.toLowerCase()==="true"?",u.email,to_char(u.dob, 'DD/MM/YYYY') AS dob,u.phone,u.gender":""}
         FROM users u
         LEFT JOIN colleges c ON u.college_id = c.id
@@ -39,7 +39,7 @@ const getUser = async (req, res) => {
     }
 
     const { rowCount, rows: users } = await pool.query(
-        `u.SELECT id, u.username, u.full_name, u.country_code, c.name, u.avatar_url, u.bio
+        `u.SELECT id, u.username, u.full_name, u.country_code, c.name college_name, u.avatar_url, u.bio
         FROM users u
         LEFT JOIN colleges c ON u.college_id = c.id
         WHERE u.username = $1`,
