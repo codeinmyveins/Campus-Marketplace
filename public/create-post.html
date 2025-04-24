@@ -14,7 +14,7 @@
     />
 </head>
 
-<body class="bg-(--color2) text-(--color3) min-h-screen pt-24 px-4 py-10 flex items-center justify-center">
+<body class="bg-(--color2) text-(--color3) min-h-screen pt-30 px-4 py-6 flex items-center justify-center">
 
   <header>
     <nav
@@ -153,52 +153,12 @@
           <input type="number" name="price" id="price" step="0.01" placeholder="Price"
             class="w-full px-4 py-2 border border-[#d1d5db] rounded-md" />
         </div>
-  
-        <button type="button" onclick="showStep2()"
-          class="w-full bg-teal-600 text-white font-medium py-2 rounded-lg hover:bg-teal-700 transition-all duration-300">
-          Next →
-        </button>
       </div>
-  
-      <!-- Step 2 -->
-      <div id="step2" class="space-y-4 hidden">
-        <div class="flex space-x-4">
 
-          <label for="imageInput"
-            class="w-full cursor-pointer border border-[#d1d5db] text-[#6b7280] px-4 py-3 rounded-md flex items-center gap-2 transition-all duration-300 hover:bg-(--color3) hover:text-(--color5)">
-            <i class="fas fa-image text-xl"></i>
-            <input type="file" id="imageInput" accept="image/*" multiple class="hidden"
-              onchange="handleImageSelection(event)" />
-            <span class="text-sm">Upload from gallery</span>
-          </label>
-    
-          <label for="captureImage"
-            class="w-full cursor-pointer border border-[#d1d5db] text-[#6b7280] px-4 py-3 rounded-md flex items-center gap-2 transition-all duration-300 hover:bg-(--color3) hover:text-(--color5)">
-            <i class="fas fa-camera text-xl"></i>
-            <input type="file" id="captureImage" accept="image/*" capture="environment" class="hidden"
-              onchange="previewCapturedImage(event)">
-            <span class="text-sm">Capture from camera</span>
-          </label>
-
-        </div>
-  
-        <p class="text-sm text-[#4b5563]">You can swap your images by dragging them</p>
-        <div id="previewContainer" class="flex flex-wrap justify-center gap-4"></div>
-  
-        <input type="hidden" name="coverImageIndex" id="coverImageIndex" />
-        <div id="imageModal" class="fixed inset-0 bg-black/50 items-center justify-center hidden z-50 flex h-full"
-          onclick="closeImageModal()">
-          <img id="modalImage"
-            class="max-w-full max-h-full rounded shadow-lg transition-transform duration-200 ease-in-out" />
-        </div>
-  
-        <div class="flex justify-between space-x-4">
-          <button type="button" onclick="showStep1()"
-            class="w-1/2 bg-teal-600 text-white py-2 font-medium rounded-lg hover:bg-teal-700 transition-all duration-300">← Previous</button>
-          <button type="submit"
-            class="w-1/2 bg-teal-600 text-white py-2 font-medium rounded-lg hover:bg-teal-700 transition-all duration-300">Post</button>
-        </div>
-      </div>
+      <button type="button"
+        class="w-full bg-teal-600 text-white font-medium py-2 rounded-lg hover:bg-teal-700 transition-all duration-300">
+        Post
+      </button>
     </form>
   </div>
   

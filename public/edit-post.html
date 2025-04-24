@@ -14,7 +14,7 @@
     />
 </head>
 
-<body class="bg-(--color2) text-[#1f1f1f] min-h-screen pt-24 px-4 py-10 flex items-center justify-center">
+<body class="bg-(--color2) text-[#1f1f1f] min-h-screen pt-30 px-4 py-6 flex items-center justify-center">
 
   <header>
     <nav
@@ -97,8 +97,8 @@
     </div>
   </header>
   
-  <form class="w-9/10">
-    <div class="bg-[var(--color6)] z-10 rounded-2xl p-8 w-full transition-all grid grid-cols-1 md:grid-cols-[7fr_3fr] gap-8 w-full">
+  <form class="w-9/10 bg-[var(--color6)] z-10 rounded-2xl p-8">
+    <div class="transition-all grid grid-cols-1 md:grid-cols-[7fr_1px_3fr] gap-8 w-full">
       
       <!-- Form Section - Left -->
       <div class="space-y-4 w-full">
@@ -114,7 +114,7 @@
         <div>
           <label class="block font-semibold text-(--color3)">Category</label>
           <p class="text-sm text-[#6b7280] my-1"></p>
-          <select name="item_category" required
+          <select id="item_category" name="item_category" required
             class="w-full px-4 py-2 border border-[#d1d5db] rounded-md text-[#1f2937]">
               <!-- JS will populate -->
           </select>
@@ -157,20 +157,11 @@
             <span id="statusText" class="text-sm font-medium text-green-600">Open</span>
           </div>
         </div>
-  
-        <div class="flex justify-between items-center mt-2">
-          <!-- Update Post Button -->
-          <button type="submit" class="w-[calc(90%-60px)] bg-teal-600 text-white py-2 rounded-lg font-medium hover:bg-teal-700 transition-all">
-            Update Post
-          </button>
-        
-          <!-- Delete Post Button -->
-          <button type="button" onclick="confirmDelete()" class="ml-2 bg-red-600 text-white py-2 px-3 rounded-md font-medium hover:bg-red-700 transition-all">
-            Delete post
-          </button>
-        </div>
-         
+
       </div>
+
+      <div class="hidden md:block w-full h-full bg-(--color3) rounded"></div>
+      <div class="md:hidden w-full h-[1px] bg-(--color3) rounded"></div>
   
       <!-- Image Upload Section - Right -->
       <div class="space-y-4">
@@ -197,6 +188,18 @@
         <div id="previewContainer" class="flex justify-center flex-wrap gap-4 w-full"></div>
         <input type="hidden" name="coverImageIndex" id="coverImageIndex" />
       </div>
+    </div>
+
+    <div class="flex justify-between items-center mt-2 md:w-[66%]">
+      <!-- Update Post Button -->
+      <button type="submit" class="w-full bg-teal-600 text-white px-3 py-2 rounded-lg font-medium hover:bg-teal-700 transition-all">
+        Update Post
+      </button>
+    
+      <!-- Delete Post Button -->
+      <button type="button" onclick="confirmDelete()" class="text-nowrap ml-2 bg-red-600 text-white py-2 px-3 rounded-md font-medium hover:bg-red-700 transition-all">
+        Delete post
+      </button>
     </div>
   </form>
   
