@@ -65,14 +65,14 @@
     </nav>
 
     <!-- Mobile Menu -->
-    <div id="mobileMenu" class="md:hidden flex-col items-center bg-[var(--color2)] p-5 hidden">
-      <ul class="space-y-4 text-center">
-        <li><a href="./index.html" class="block py-2 hover:scale-110 duration-300">Home</a></li>
-        <li><a href="#about" class="block py-2 hover:scale-110 duration-300">About</a></li>
-        <li><a href="#market" class="block py-2 hover:scale-110 duration-300">Market</a></li>
-        <li><a href="#contact" class="block py-2 hover:scale-110 duration-300">Contact</a></li>
+    <div id="mobileMenu" class="select-none fixed top-[73px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl">
+      <ul class="space-y-3 text-center">
+        <li><a href="./index.html" class="block hover:scale-110 duration-300">Home</a></li>
+        <li><a href="#about" class="block hover:scale-110 duration-300">About</a></li>
+        <li><a href="#market" class="block hover:scale-110 duration-300">Market</a></li>
+        <li><a href="#contact" class="block hover:scale-110 duration-300">Contact</a></li>
       </ul>
-      <ul class="flex flex-col gap-5 mt-5 text-center">
+      <ul class="flex flex-col space-y-7 mt-6 text-center">
         <li><a href="./login.html" class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition">Login</a></li>
         <li><a href="./signup1.html" class="bg-[#152c2e] text-[#f2f2f2] py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign Up</a></li>
       </ul>
@@ -140,13 +140,6 @@
     </button>
   </section>
 
-  <script>
-    // toggle mobile view menu
-    function toggleMenu() {
-      const mobileMenu = document.getElementById('mobileMenu');
-      mobileMenu.classList.toggle('hidden');
-    }
-  </script>
   <script src="./js/lib/axios.min.js"></script>
   <script src="./js/profile.js"></script>
 </body>

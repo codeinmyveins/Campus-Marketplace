@@ -1,3 +1,19 @@
+function toggleMenu() {
+    document.getElementById("mobileMenu").classList.toggle("hidden");
+}
+// Auto-close menu on link click (only on mobile)
+document.addEventListener("DOMContentLoaded", function () {
+    const links = document.querySelectorAll("#mobileMenu a");
+    links.forEach(link => {
+        link.addEventListener("click", () => {
+            const menu = document.getElementById("mobileMenu");
+            if (!menu.classList.contains("hidden")) {
+                menu.classList.add("hidden");
+            }
+        });
+    });
+});
+
 let selectedImages = [];
 let zoomScale = 0.5;
 
@@ -187,3 +203,15 @@ function confirmDelete() {
     window.location.href = "/delete-post/POST_ID"; 
     }
 }
+
+const itemCategoryDOM = document.querySelector("#item_category");
+const categories = ["Accessories & Jewelry", "Appliances", "Art & Design Supplies", "Athletic Wear", "Audio & Headphones", "Bags & Backpacks", "Bathroom Essentials", "Bedding & Linens", "Bicycles & Accessories", "Bikes & Scooters", "Board & Card Games", "Books & Novels", "Calculators & Tools", "Cameras & Photography", "Cleaning Equipment", "Computer Accessories", "Cookware & Utensils", "Crafting & Building Materials", "Educational Subscriptions & Services", "Event Tickets", "Footwear", "Free Stuff", "Furniture", "Games & Consoles", "Gifts & Novelty Items", "Gym Equipment", "Hair & Grooming Tools", "Health & Wellness Gear", "Home Utilities", "Lab Equipment", "Laptops & Computers", "Lighting & Decor", "Lost & Found", "Makeup & Skincare Tools", "Men's Clothing", "Mobile Phones & Tablets", "Musical Instruments", "Outdoor Sports Gear", "Pet Supplies", "Public Transit Passes & Services", "Repair & Maintenance Supplies", "Reusable Bottles & Lunchboxes", "Seasonal Wear", "Services & Rentals", "Small Kitchen Appliances", "Smart Devices & Wearables", "Stationery & Office Supplies", "Storage & Organization", "Storage Containers", "Storage Devices & Cables", "Streaming & Digital Access", "Subscription Accounts", "Tableware", "Textbooks & Study Material", "Toolkits & Hardware", "Travel Bags & Luggage", "Unisex Clothing", "Vehicle Accessories", "Women's Clothing", "Yoga & Stretching Gear"];
+
+itemCategoryDOM.innerHTML = '<option>Select A category</option>';
+categories.forEach(c => {
+    const option = document.createElement("option");
+    option.innerText = c;
+    option.value = c;
+    itemCategoryDOM.appendChild(option);
+});
+
