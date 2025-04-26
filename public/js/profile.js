@@ -37,7 +37,7 @@ async function fillUserDetails() {
   const collegeDOM = document.getElementById("college");
 
   try {
-    const { data: { user } } = await axios.get("/api/users/" + username);
+    const { data: { user } } = await apiAuth.get("/api/users/" + username);
     if (user.avatar_url)
       pfpDOM.src = user.avatar_url;
     fullnameDOM.textContent = user.full_name;
