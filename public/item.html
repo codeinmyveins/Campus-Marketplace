@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product Page</title>
+  <link rel="stylesheet" href="./styles/output.css" />
+</head>
+<body class="box-border pt-20 md:pt-24 bg-[var(--color2)]">
+<!-- Navbar -->
+<header>
+    <nav
+      class="select-none fixed top-0 left-0 right-0 z-50 bg-[var(--color2)] text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md"
+    >
+      <!-- Logo -->
+      <div class="flex items-center logo-icon">
+        <a href="./index.html" class="flex items-center space-x-3">
+          <img
+            src="./assets/icons/Campus Marketplace Logo.svg"
+            alt="Campus Logo"
+            class="w-10 h-10 object-contain mb-3.5"
+          />
+          <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
+            Campus Marketplace
+          </h1>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        class="select-none md:hidden text-3xl focus:outline-none"
+        onclick="toggleMenu()"
+      >
+        ☰
+      </button>
+
+      <!-- Navigation Links (Desktop) -->
+      <div
+        class="hidden md:flex flex-row items-center gap-10 capitalize font-semibold"
+      >
+        <ul class="flex gap-10">
+          <li>
+            <a
+              href="./index.html"
+              class="inline-block py-2 hover:scale-110 duration-300"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="./index.html#about"
+              class="inline-block py-2 hover:scale-110 duration-300"
+              >About</a
+            >
+          </li>
+          <li>
+            <a
+              href="./index.html#market"
+              class="inline-block py-2 hover:scale-110 duration-300"
+              >Market</a
+            >
+          </li>
+          <li>
+            <a
+              href="./index.html#contact"
+              class="inline-block py-2 hover:scale-110 duration-300"
+              >Contact</a
+            >
+          </li>
+        </ul>
+
+        <!-- Login/Signup (Desktop) -->
+        <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
+          <li>
+            <a
+              href="./login.html"
+              class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
+              >Login</a
+            >
+          </li>
+          <li>
+            <a
+              href="./signup1.html"
+              class="bg-[#152c2e] text-[#f2f2f2] text-nowrap py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
+              >Sign Up</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div
+      id="mobileMenu"
+      class="select-none fixed top-[73px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl"
+    >
+      <ul class="space-y-3 text-center">
+        <li>
+          <a
+            href="./index.html"
+            class="block hover:scale-110 duration-300"
+            >Home</a
+          >
+        </li>
+        <li>
+          <a
+            href="./index.html#about"
+            class="block hover:scale-110 duration-300"
+            >About</a
+          >
+        </li>
+        <li>
+          <a
+            href="./index.html#market"
+            class="block hover:scale-110 duration-300"
+            >Market</a
+          >
+        </li>
+        <li>
+          <a
+            href="./index.html#contact"
+            class="block hover:scale-110 duration-300"
+            >Contact</a
+          >
+        </li>
+      </ul>
+
+      <ul class="flex flex-col space-y-7 mt-6 text-center">
+        <li>
+          <a
+            href="./login.html"
+            class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
+            >Login</a
+          >
+        </li>
+        <li>
+          <a
+            href="./signup1.html"
+            class="bg-[#152c2e] text-[#f2f2f2] py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
+            >Sign Up</a
+          >
+        </li>
+      </ul>
+    </div>
+  </header>
+
+<!-- Main Grid Layout -->
+<!-- Main Grid Layout -->
+<div class="max-w-7xl p-6 flex-row-reverse grid grid-cols-1 md:grid-cols-[150px_600px_1fr] gap-6 mt-6"
+  x-data="{ selectedImage: './assets/images/book.jpg', images: ['./assets/images/book.jpg', './assets/images/casio.jpg', './assets/images/default-user.jpg', './assets/images/trumpet.png', './assets/images/drafter.jpg'], currentIndex: 0 }">
+
+
+    <!-- Left Side Thumbnails -->
+    <div class="flex flex-col space-y-4">
+      <img @click="selectedImage = images[0]; currentIndex = 0" :src="images[0]" class="w-20 h-20 object-cover rounded cursor-pointer border hover:ring-2 hover:ring-blue-400 transition">
+      <img @click="selectedImage = images[1]; currentIndex = 1" :src="images[1]" class="w-20 h-20 object-cover rounded cursor-pointer border hover:ring-2 hover:ring-blue-400 transition">
+      <img @click="selectedImage = images[2]; currentIndex = 2" :src="images[2]" class="w-20 h-20 object-cover rounded cursor-pointer border hover:ring-2 hover:ring-blue-400 transition">
+      <img @click="selectedImage = images[3]; currentIndex = 3" :src="images[3]" class="w-20 h-20 object-cover rounded cursor-pointer border hover:ring-2 hover:ring-blue-400 transition">
+      <img @click="selectedImage = images[4]; currentIndex = 4" :src="images[4]" class="w-20 h-20 object-cover rounded cursor-pointer border hover:ring-2 hover:ring-blue-400 transition">
+    </div>
+  
+    <!-- Main Cover Image with Navigation -->
+    <div class="w-[500px] h-[500px] rounded-lg overflow-hidden relative">
+      <img :src="selectedImage" alt="Cover Image" class="w-full h-full object-cover transition-all duration-300">
+      <!-- Left Button -->
+    <button 
+    @click="currentIndex = (currentIndex === 0 ? images.length - 1 : currentIndex - 1); selectedImage = images[currentIndex]" 
+    class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white text-gray-800 p-3 rounded-full shadow-lg hover:bg-gray-200 hover:text-gray-900 focus:outline-none transition duration-300 ease-in-out">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+    </button>
+
+    <!-- Right Button -->
+    <button 
+    @click="currentIndex = (currentIndex === images.length - 1 ? 0 : currentIndex + 1); selectedImage = images[currentIndex]" 
+    class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white text-gray-800 p-3 rounded-full shadow-lg hover:bg-gray-200 hover:text-gray-900 focus:outline-none transition duration-300 ease-in-out">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+    </svg>
+    </button>
+    </div>
+
+  <!-- Product Details -->
+  <div class="flex flex-col gap-4">
+    <div>
+      <h1 class="text-3xl font-bold mb-2">Title of the Product</h1>
+      <p class="text-xl  mb-2">Item name</p>
+      <div class="flex gap-2 mb-2">
+        <span class="bg-orange-400 text-white text-xs px-2 py-1 rounded-full">Category</span>
+        <span class="bg-orange-400 text-white text-xs px-2 py-1 rounded-full">Type</span>
+      </div>
+    </div>
+
+    <div class="text-3xl text-teal-600 font-extrabold">
+      $ Price
+    </div>
+
+    <!-- Seller Info -->
+    <div class="flex items-center gap-4 mt-6">
+      <img src="https://imgs.search.brave.com/KewnpwopibPIgGhXWR8Kvg6hOqWGuMNKkFqXvMkE64Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGFy/c3VuZm9sZGVkLmNv/bS93cC1jb250ZW50/L3VwbG9hZHMvMjAy/NC8wNS9EdXJlZmlz/aGFuLVNhbGVlbS1l/MTcxNTMzMzc3Mzg2/OS5qcGc" class="w-32 h-32 rounded-full object-cover border">
+      <div>
+        <div class="font-semibold">Full Name</div>
+        <div class="text-gray-600 text-sm">@username</div>
+        <button class="mt-2 bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded-full">
+          Contact Seller
+        </button>
+        
+        
+      </div>
+    </div>
+    <div class="text-xl text-gray-600 mt-10">
+        <p><strong>Posted On:</strong> April 28, 2025</p> <!-- Update with the actual date -->
+      </div>
+    
+  </div>
+
+</div>
+
+<!-- Description Section -->
+<div class="w-[97%] mx-auto mt-8 p-6 bg-[#152c2e] text-[#f2f2f2] rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-4">Description</h2>
+  <p class="text-[#f2f2f2]">Here goes the detailed description of the product...</p>
+</div>
+
+<script src="//unpkg.com/alpinejs" defer></script>
+<script src="./js/item.js"></script>
+</body>
+</html>
