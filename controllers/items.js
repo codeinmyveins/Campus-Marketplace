@@ -17,11 +17,13 @@ const getItem = async (req, res) => {
     const { rowCount, rows: items } = await pool.query(`
         SELECT
             i.*,
-            JSON_BUILD_OBJECT(
-                'name', c.name,
-                'state', c.state,
-                'district', c.district
-            ) AS college,
+            JSON_AGG(
+                JSON_BUILD_OBJECT(
+                    'name', c.name,
+                    'state', c.state,
+                    'district', c.district
+                )
+            )AS college,
             COALESCE(
                 JSON_AGG(
                     JSON_BUILD_OBJECT(
@@ -250,11 +252,13 @@ const uploadImages = async (req, res) => {
         throw new CustomAPIError("No item_images uploaded", StatusCodes.BAD_REQUEST);
     }
 
+    let imgIndex = []
     for (let i = 0; i < files.length; i++) {
-        await pool.query(
-            "INSERT INTO item_images (item_id, name, url, order_idx) VALUES ($1, $2, $3, $4)",
+        const { rows: img } = await pool.query(
+            "INSERT INTO item_images (item_id, name, url, order_idx) VALUES ($1, $2, $3, $4) RETURNING id",
             [item_id, files[i].originalname, files[i].path, existingCount + i]
         );
+        imgIndex.push(img.id);
     }
 
     await pool.query("UPDATE items SET image_count = $1 WHERE id = $2",
@@ -264,7 +268,8 @@ const uploadImages = async (req, res) => {
     res.status(StatusCodes.CREATED).json({
         msg: `${req.fileCount} images uploaded`,
         fileCount: req.fileCount,
-        fileNames: files.map((file) => file.originalname)
+        fileNames: files.map((file) => file.originalname),
+        recentImgIndexes: imgIndex
     });
 
 }

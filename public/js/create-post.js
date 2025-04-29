@@ -64,7 +64,7 @@ form.addEventListener("submit", async (e) => {
 
         showMsg(data.msg, SUCCESS);
         setTimeout(() => {
-            window.location.href = `edit-post/${data.item.id}`
+            window.location.href = `edit-item/${data.item.id}`
         }, 1000);
 
     } catch (error) {
