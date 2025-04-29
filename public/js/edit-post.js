@@ -271,6 +271,8 @@ async function confirmDelete() {
     try {
         const { data } = await apiAuth.delete(`/api/items/${itemId}`);
 
+        window.location.search = "./dashboard.html";
+
         showMsg(data.msg, SUCCESS);
 
     } catch (error) {
@@ -352,7 +354,7 @@ async function fillPostDetails() {
 
 }
 
-const showMsg = getShowMsg(form.querySelector("#infoErrorMsg"));
+const showMsg = getShowMsg(form.querySelector("#mainInfoErrorMsg #infoErrorMsg"));
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
