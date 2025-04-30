@@ -463,7 +463,7 @@ const login = async (req, res) => {
                 maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
                 path: "/",
             })
-            .json({ msg: "Logged in as incomplete user successfully" });
+            .json({ msg: "Logged in as incomplete user successfully", code: 31 });
     }
 
     const { rowCount: rowCount2, rows: users } = await pool.query("SELECT id, role, password FROM users WHERE username = $1 OR email = $2",
