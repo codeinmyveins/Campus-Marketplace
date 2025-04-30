@@ -17,6 +17,13 @@ const getItem = async (req, res) => {
     const { rowCount, rows: items } = await pool.query(`
         SELECT
             i.*,
+            JSON_AGG(
+                JSON_BUILD_OBJECT(
+                    'name', c.name,
+                    'state', c.state,
+                    'district', c.district
+                )
+            )AS college,
             COALESCE(
                 JSON_AGG(
                     JSON_BUILD_OBJECT(
@@ -30,6 +37,8 @@ const getItem = async (req, res) => {
             ) AS images
         FROM items i
         LEFT JOIN item_images img ON i.id = img.item_id
+        LEFT JOIN users u ON u.id = i.user_id
+        LEFT JOIN colleges c ON c.id = u.college_id
         WHERE i.id = $1
         GROUP BY i.id`,
         [item_id]
@@ -55,13 +64,13 @@ const getItems = async (req, res) => {
         type ? type.split(",") : null,
         item_category ? item_category.split(",") : null,
         closed === "all" ? null : (closed === "true" ? "true" : "false"),
-        user_id ? Number(user_id) : null,
+        !isNaN(Number(user_id))? Number(user_id) : null,
         created_from || null,
         created_to || null,
         search || null,
         price_min ? parseFloat(price_min) : null,
         price_max ? parseFloat(price_max) : null,
-        college_name ? college_name.split(",") : null,
+        college_name && !user_id ? college_name.split(",") : null,
         limit,
         isNaN(offset) ? 0 : offset
     ];
@@ -102,7 +111,7 @@ const getItems = async (req, res) => {
             LEFT(i.description, 64) AS description,
             i.price,
             i.type,
-            u.college_name,
+            c.name AS college_name,
             i.closed,
             i.created_at,
             i.modified_at,
@@ -120,7 +129,8 @@ const getItems = async (req, res) => {
             END AS rank
         FROM items i
         LEFT JOIN item_images img ON i.id = img.item_id AND img.order_idx = 0
-        LEFT JOIN users u on u.id = i.user_id
+        LEFT JOIN users u ON u.id = i.user_id
+        LEFT JOIN colleges c ON c.id = u.college_id
         WHERE
             ($1::item_type_enum[] IS NULL OR i.type = ANY($1::item_type_enum[]))
             AND ($2::text[] IS NULL OR i.item_category = ANY($2))
@@ -131,7 +141,7 @@ const getItems = async (req, res) => {
             AND ($7::text IS NULL OR i.document @@ plainto_tsquery('english', $7))
             AND ($8::numeric IS NULL OR i.price >= $8)
             AND ($9::numeric IS NULL OR i.price <= $9)
-            AND ($10::text[] IS NULL OR u.college_name = ANY($10))
+            AND ($10::text[] IS NULL OR c.name = ANY($10))
         ORDER BY ${orderByClause}
         LIMIT $11
         OFFSET $12
@@ -242,11 +252,13 @@ const uploadImages = async (req, res) => {
         throw new CustomAPIError("No item_images uploaded", StatusCodes.BAD_REQUEST);
     }
 
+    let imgIndex = []
     for (let i = 0; i < files.length; i++) {
-        await pool.query(
-            "INSERT INTO item_images (item_id, name, url, order_idx) VALUES ($1, $2, $3, $4)",
+        const { rows: img } = await pool.query(
+            "INSERT INTO item_images (item_id, name, url, order_idx) VALUES ($1, $2, $3, $4) RETURNING id",
             [item_id, files[i].originalname, files[i].path, existingCount + i]
         );
+        imgIndex.push(img.id);
     }
 
     await pool.query("UPDATE items SET image_count = $1 WHERE id = $2",
@@ -256,7 +268,8 @@ const uploadImages = async (req, res) => {
     res.status(StatusCodes.CREATED).json({
         msg: `${req.fileCount} images uploaded`,
         fileCount: req.fileCount,
-        fileNames: files.map((file) => file.originalname)
+        fileNames: files.map((file) => file.originalname),
+        recentImgIndexes: imgIndex
     });
 
 }
