@@ -36,10 +36,23 @@ const cardList = document.querySelector("#card_list");
 const defaultOpenBadge = document.querySelector("#open_badge_hidden");
 const defaultClosedBadge = document.querySelector("#closed_badge_hidden");
 
+var userId;
+
 async function fillDetails() {
 
+
     try {
-        const { data } = await axios.get(`/api/items?user_id=${3}&sort=-modified_at&closed=all`);
+
+        const { data } = await apiAuth.get("/api/users");
+
+        userId = data.user.id;
+
+    } catch (error) {
+        console.error(error);
+    }
+
+    try {
+        const { data } = await axios.get(`/api/items?user_id=${userId}&sort=-modified_at&closed=all`);
 
         if (data.itemCount > 0) {
             document.querySelector("#itemInfo").classList.add("hidden");
@@ -54,7 +67,7 @@ async function fillDetails() {
             card.querySelector("#title").innerText = item.title;
             card.querySelector("#item_name").innerText = item.item_name;
             card.querySelector("#item_category").innerText = item.item_category;
-            card.querySelector("#price").innerText = item.price == 0 ? item.price : "Free";
+            card.querySelector("#price").innerText = item.price == 0 ? "Free" : item.price;
             card.querySelector("#type").innerText = item.type;
             card.querySelector("#editBtn").href = `/edit-item/${item.id}`;
             card.querySelector("#created_at").innerText = formatTimestamp(item.created_at);
