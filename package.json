@@ -28,6 +28,7 @@
     "pg": "^8.14.1",
     "pg-copy-streams": "^6.0.6",
     "tailwindcss": "^4.1.2",
+    "ua-parser-js": "^2.0.3",
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {

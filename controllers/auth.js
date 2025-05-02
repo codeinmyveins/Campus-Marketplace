@@ -3,11 +3,13 @@ const CustomAPIError = require("../errors/custom-api");
 const { StatusCodes } = require("http-status-codes");
 const pool = require("../db/database");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken")
 const redis = require("../redis/redis");
 const crypto = require("crypto");
 const emailTransporter = require("../mailer/transporter");
 const { getCountryCallingCode } = require("libphonenumber-js");
+const UAParser = require('ua-parser-js');
+const axios = require("axios");
 const {
     validateRegisterInitial,
     validateOTP,
@@ -671,7 +673,7 @@ const refreshAccessToken = async (req, res) => {
 
 const getSession = async (req, res) => {
 
-    const { userId } = req.user;
+    const { userId, sid } = req.user;
     const sessionId = req.params.id;
 
     const { rowCount, rows: sessions} = await pool.query(
@@ -683,12 +685,39 @@ const getSession = async (req, res) => {
         throw new CustomAPIError("Session not found", StatusCodes.NOT_FOUND);
     }
 
-    res.status(StatusCodes.OK).json({ session: sessions[0] });
+    const session = sessions[0];
+
+    const parser = new UAParser(session.user_agent);
+    const device = parser.getDevice();
+    const os = parser.getOS();
+    const browser = parser.getBrowser();
+
+    session.device_type = device.type || "desktop";
+    session.device_name = device.model || device.vendor;
+    session.os = os.name;
+    session.os_version = os.version;
+    session.browser = browser.name;
+    session.browser_version = browser.version;
+    session.current = session.id === sid;
+
+    try {
+
+        const { data } = await axios.get(`https://freeipapi.com/api/json/${session.ip_address}`);
+
+        session.country = data.countryName;
+        session.region = data.regionName;
+        session.city = data.cityName;
+
+    } catch (error) {
+        console.error(error);
+    }
+
+    res.status(StatusCodes.OK).json({ session });
 }
 
 const getAllSessions = async (req, res) => {
 
-    const { userId } = req.user;
+    const { userId, sid } = req.user;
 
     const { rowCount, rows: sessions} = await pool.query(
         `SELECT id, user_agent, ip_address, created_at, last_used_at FROM sessions
@@ -699,6 +728,35 @@ const getAllSessions = async (req, res) => {
         res.clearCookie('access_token');
         res.clearCookie('refresh_token');
         throw new CustomAPIError("No session ???!!!!", StatusCodes.NOT_FOUND);
+    }
+
+    for (let i = 0; i < sessions.length; i++) {
+        const session = sessions[i];
+        const parser = new UAParser(session.user_agent);
+        const device = parser.getDevice();
+        const os = parser.getOS();
+        const browser = parser.getBrowser();
+
+        session.device_type = device.type || "desktop";
+        session.device_name = device.model || device.vendor;
+        session.os = os.name;
+        session.os_version = os.version;
+        session.browser = browser.name;
+        session.browser_version = browser.version;
+        session.current = session.id === sid;
+
+        try {
+
+            const { data } = await axios.get(`https://freeipapi.com/api/json/${session.ip_address}`);
+    
+            session.country = data.countryName;
+            session.region = data.regionName;
+            session.city = data.cityName;
+    
+        } catch (error) {
+            console.error(error);
+        }
+
     }
 
     res.status(StatusCodes.OK).json({ sessions });
