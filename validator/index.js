@@ -58,9 +58,9 @@ const UserInfo = Joi.object({
 });
 
 const itemPostInfoObj = {
-    item_name: Joi.string().trim().max(32).custom(toTitleCase, "Title Case Transformer"),
+    item_name: Joi.string().trim().max(32),
     item_category: Joi.string().trim().max(32).custom(toTitleCase, "Title Case Transformer"),
-    title: Joi.string().trim().max(64).custom(toTitleCase, "Title Case Transformer"),
+    title: Joi.string().trim().max(64),
     description: Joi.string().trim().max(16384),
 };
 

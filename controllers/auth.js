@@ -415,7 +415,7 @@ const registerComplete = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
-            // maxAge: 1000 * 60 * 60 * 24 * 7, // 7 day
+            maxAge: 1000 * 60 * 60 * 24 * 30, // 30 day
             path: "/",
         })
         .cookie("refresh_token", refresh_token, {
@@ -463,7 +463,7 @@ const login = async (req, res) => {
                 maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
                 path: "/",
             })
-            .json({ msg: "Logged in as incomplete user successfully" });
+            .json({ msg: "Logged in as incomplete user successfully", code: 31 });
     }
 
     const { rowCount: rowCount2, rows: users } = await pool.query("SELECT id, role, password FROM users WHERE username = $1 OR email = $2",
@@ -538,7 +538,7 @@ const login = async (req, res) => {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
                 sameSite: "strict",
-                // maxAge: 1000 * 60 * 60 * 24 * 7, // 7 day
+                maxAge: 1000 * 60 * 60 * 24 * 30, // 30 day
                 path: "/",
             })
             .cookie("refresh_token", refresh_token, {
@@ -619,24 +619,22 @@ const refreshAccessToken = async (req, res) => {
     const refresh_token = crypto.randomBytes(64).toString('hex');
     const hashedRefToken = crypto.createHash('sha256').update(refresh_token).digest('hex');
 
-    var session_id;
-    try {
-        session_id = crypto.randomUUID();
-
-        await pool.query("INSERT INTO sessions (id, user_id, hashed_refresh_token, device_fingerprint, user_agent, ip_address) VALUES ($1, $2, $3, $4, $5, $6)",
+    let session_id = crypto.randomUUID();
+    
+        const { rows: session2 } = await pool.query(
+            `INSERT INTO sessions
+                (id, user_id, hashed_refresh_token, device_fingerprint, user_agent, ip_address)
+                VALUES ($1, $2, $3, $4, $5, $6)
+                ON CONFLICT (user_id, device_fingerprint) DO UPDATE SET
+                hashed_refresh_token = EXCLUDED.hashed_refresh_token,
+                user_agent = EXCLUDED.user_agent,
+                ip_address = EXCLUDED.ip_address,
+                last_used_at = NOW(),
+                expires_at = NOW() + INTERVAL '30 days'
+            RETURNING id`,
             [session_id, session.user_id, hashedRefToken, device_fingerprint, user_agent, ip_address]
         );
-    } catch (error) {
-        if (error.code === "23505") {
-            const { rows: sessions } = await pool.query("UPDATE sessions SET hashed_refresh_token = $1, device_fingerprint = $2, user_agent = $3, ip_address = $4, last_used_at = NOW(), expires_at = (NOW() + INTERVAL '30 days') WHERE id = $5 RETURNING id",
-                [hashedRefToken, device_fingerprint, user_agent, ip_address, session.id]
-            );
-            session_id = sessions[0].id;
-        } else {
-            console.error(error);
-            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
-        }
-    }
+        session_id = session2[0].id;
 
     const { rows: users } = await pool.query("SELECT role FROM users WHERE id = $1", [session.user_id]);
 
@@ -657,7 +655,7 @@ const refreshAccessToken = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
-            // maxAge: 1000 * 60 * 60 * 24 * 7, // 7 day
+            maxAge: 1000 * 60 * 60 * 24 * 30, // 30 day
             path: "/",
         })
         .cookie("refresh_token", refresh_token, {
