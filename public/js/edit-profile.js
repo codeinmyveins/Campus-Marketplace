@@ -14,143 +14,175 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-const editButtons = document.querySelectorAll(".editable-btn");
+const showMsg = getShowMsg(document.getElementById("infoErrorMsg"));
 
-editButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-        const container = button.parentElement;
-        const valuePara = container.querySelector("p.font-medium");
+const popup = document.getElementById('editPopup');
+const label = document.getElementById('popupLabel');
+const inputContainer = document.getElementById('popupInput');
 
-        // Already in edit mode
-        if (button.getAttribute("data-editing") === "true") {
-            const input = container.querySelector("input");
-            valuePara.textContent = input.value || "[Hidden]";
-            input.remove();
-            valuePara.classList.remove("hidden");
-            button.innerHTML = getEditIcon();
-            button.setAttribute("data-editing", "false");
-        } else {
-            const input = document.createElement("input");
-            input.type = "text";
-            input.className = "border p-1 text-sm rounded";
-            input.value = valuePara.textContent === "[Hidden]" ? "" : valuePara.textContent;
-            valuePara.classList.add("hidden");
-            valuePara.insertAdjacentElement("afterend", input);
-            button.innerHTML = getSaveIcon();
-            button.setAttribute("data-editing", "true");
+let currentInputDiv = null;
+let currentInput = null;
+let originalContainer = null;
+
+document.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        if (currentInputDiv && originalContainer) {
+            document.getElementById('popupCancel').click();
+            return;
         }
+        const field = btn.closest('.field');
+        const labelText = field.querySelector('p.text-sm').textContent;
+        const inputDiv = field.querySelector('.input-div');
+        currentInput = inputDiv.querySelector(".input-el");
+        // const valueDisplay = field.querySelector('.field-value');
+
+        // Move input to popup
+        originalContainer = inputDiv.parentElement;
+        currentInputDiv = inputDiv;
+        inputDiv.classList.remove('hidden');
+        inputContainer.appendChild(inputDiv);
+        // input.value = valueDisplay.innerText;
+
+        // Set popup label and input value
+        label.textContent = labelText;
+
+        // Position and show popup
+        // const rect = field.getBoundingClientRect();
+        // popup.style.top = `${window.scrollY + rect.bottom + 8}px`;
+        // popup.style.left = `${rect.left}px`;
+        // popup.style.width = `${rect.width}px`;
+
+        popup.classList.remove('hidden');
+        setTimeout(() => {
+            popup.classList.add('opacity-100', 'scale-100');
+            popup.classList.remove('opacity-0', 'scale-95');
+        });
     });
 });
 
-function getEditIcon() {
-    return `
-<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-    stroke="currentColor" stroke-width="2">
-<path stroke-linecap="round" stroke-linejoin="round"
-        d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11-11a2.828 2.828 0 00-4-4L5 17v4z" />
-</svg>`;
+document.getElementById('popupCancel').addEventListener('click', () => {
+    if (currentInputDiv && originalContainer) {
+        originalContainer.appendChild(currentInputDiv);
+        // currentInputDiv.appendChild(currentInput);
+        currentInputDiv.classList.add('hidden');
+        currentInput = null;
+        currentInputDiv = null;
+        originalContainer = null;
+    }
+    popup.classList.remove('opacity-100', 'scale-100');
+    popup.classList.add('opacity-0', 'scale-95');
+    setTimeout(() => popup.classList.add('hidden'), 150);
+});
+
+document.getElementById('popupSave').addEventListener('click', () => {
+    if (currentInputDiv && originalContainer) {
+        const value = currentInput?.value || getSelectedCollegeId();
+        originalContainer.querySelector('.field-value').textContent = value;
+        // originalContainer.appendChild(currentInputDiv);
+        // currentInputDiv.appendChild(currentInput);
+        // currentInputDiv.classList.add('hidden');
+        // currentInput = null;
+        // currentInputDiv = null;
+        // originalContainer = null;
+    }
+
+    document.getElementById('popupCancel').click();
+});
+
+// Close when clicking outside
+document.addEventListener('click', (e) => {
+    if (!popup.contains(e.target) && !e.target.closest('.edit-btn')) {
+        document.getElementById('popupCancel').click();
+    }
+});
+
+// college Setup
+
+const collegeInput = document.getElementById('college');
+const dropdown = document.getElementById('college-options');
+
+let selectedCollegeId = null;
+
+collegeInput.addEventListener('input', async () => {
+    const query = collegeInput.value.trim();
+    if (query.length < 2) {
+        dropdown.classList.add('hidden');
+        return;
+    }
+
+    try {
+        const { data: { nbHits, colleges } } = await axios.get(`/api/colleges?search=${encodeURIComponent(query)}`);
+
+        if (nbHits === 0) {
+            showMsg("No colleges matched", INFO);
+            return;
+        }
+
+        dropdown.innerHTML = colleges.map(college => `
+        <li class="cursor-pointer px-4 py-2 hover:bg-[var(--color2)] hover:text-[var(--color3)]" data-id="${college.id}">
+          ${college.name}
+        </li>
+      `).join('');
+
+        dropdown.classList.remove('hidden');
+
+    } catch (error) {
+        console.error(error);
+        showMsg("Server is Down", ERROR);
+    }
+
+});
+
+dropdown.addEventListener('click', e => {
+    const li = e.target.closest('li');
+    if (!li) return;
+    collegeInput.value = li.textContent.trim();
+    selectedCollegeId = li.dataset.id;
+    dropdown.classList.add('hidden');
+});
+
+// Optional: click outside to close dropdown
+document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target) && e.target !== collegeInput) {
+        dropdown.classList.add('hidden');
+    }
+});
+
+// To access the selected college ID in form submission
+function getSelectedCollegeId() {
+    return selectedCollegeId;
 }
 
-function getSaveIcon() {
-    return `
-<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none"
-    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-<path stroke-linecap="round" stroke-linejoin="round"
-        d="M5 13l4 4L19 7" />
-</svg>`;
-}
+const countryCodeDOM = document.getElementById("country");
+// ✅ Truncate helper
+const truncateString = (str, max) =>
+    str.length > max ? str.slice(0, max) + "…" : str;
 
-// Get elements
-// Get elements
-const editPfpBtn = document.getElementById('editPfpBtn');
-const profileImage = document.getElementById('profileImage');
-const pfpInput = document.getElementById('pfpInput');
+// ✅ Fetch and Fill Countries
+const fillCountryCodes = async () => {
+    try {
+        const { data } = await axios.get(
+            "https://restcountries.com/v3.1/all?fields=name,cca2,idd"
+        );
 
-// Flag to track if image is selected
-let isImageSelected = false;
+        data
+            .sort((a, b) => a.name.common.localeCompare(b.name.common))
+            .forEach(c => {
+                const name = truncateString(c.name.common, 18);
+                const option = document.createElement("option");
+                option.value = c.cca2;
 
-// Toggle edit and save functionality
-editPfpBtn.addEventListener('click', () => {
-    if (!isImageSelected) {
-        // Show file input to choose a new profile picture
-        pfpInput.click();
-    } else {
-        // If image is selected, simulate save action (or actually save if you integrate server-side logic)
-        // Reset to Edit button after saving
-        editPfpBtn.innerHTML = `
-<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-   stroke="currentColor" stroke-width="2">
-<path stroke-linecap="round" stroke-linejoin="round"
-      d="M5 13l4 4L19 7" />
-</svg>
-`;
-        editPfpBtn.classList.add('text-(--color3) ');
-        editPfpBtn.classList.remove('text-green-600');
-        editPfpBtn.innerText = 'Edit';
-        isImageSelected = false; // Reset the flag after saving
+                const code =
+                    c.idd?.root && c.idd?.suffixes
+                        ? `${c.idd.root}${c.idd.suffixes[0]}`.trim()
+                        : "";
+
+                option.innerText = `${name} ${code ? `(${code})` : ""}`;
+                countryCodeDOM.appendChild(option);
+            });
+    } catch (error) {
+        console.error("Failed to fetch countries:", error);
     }
-});
+};
 
-// Handle file selection
-pfpInput.addEventListener('change', (event) => {
-    const file = event.target.files[0];
-    if (file) {
-        // Create a new image URL from the selected file
-        const reader = new FileReader();
-        reader.onload = () => {
-            profileImage.src = reader.result; // Update profile picture
-            // Set the image selected flag to true
-            isImageSelected = true;
-
-            // Change "Edit" button to "Tick" (for saving)
-            editPfpBtn.innerHTML = `
-<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-     stroke="currentColor" stroke-width="2">
-  <path stroke-linecap="round" stroke-linejoin="round"
-        d="M5 13l4 4L19 7" />
-</svg>
-`;
-            editPfpBtn.classList.add('text-green-600'); // Change color to indicate save
-            editPfpBtn.classList.remove('text-blue-600');
-            editPfpBtn.innerText = 'Save';
-        };
-        reader.readAsDataURL(file);
-    }
-});
-
-const editButton = document.getElementById('editButton');
-const birthdayDisplay = document.getElementById('birthdayDisplay');
-const birthdayInput = document.getElementById('birthdayInput');
-
-// Toggle between view and edit mode
-editButton.addEventListener('click', () => {
-    if (birthdayInput.classList.contains('hidden')) {
-        // Switch to edit mode
-        birthdayDisplay.classList.add('hidden');
-        birthdayInput.classList.remove('hidden');
-        birthdayInput.focus();
-
-        // Change button to tick
-        editButton.innerHTML = `
-<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-     stroke="currentColor" stroke-width="2">
-  <path stroke-linecap="round" stroke-linejoin="round"
-        d="M5 13l4 4L19 7" />
-</svg>
-`;
-    } else {
-        // Switch back to view mode
-        birthdayDisplay.classList.remove('hidden');
-        birthdayInput.classList.add('hidden');
-        birthdayDisplay.textContent = birthdayInput.value; // Update display text with selected value
-
-        // Change button back to edit
-        editButton.innerHTML = `
-<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-     stroke="currentColor" stroke-width="2">
-  <path stroke-linecap="round" stroke-linejoin="round"
-        d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11-11a2.828 2.828 0 00-4-4L5 17v4z" />
-</svg>
-`;
-    }
-});
+fillCountryCodes();
