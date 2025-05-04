@@ -100,6 +100,27 @@ fillUserDetails();
 
 const showMsg = getShowMsg(document.getElementById("infoErrorMsg"));
 
+const avatarInputDOM = document.querySelector("#avatar-input");
+const avatarInputCamDOM = document.querySelector("#avatar-input-cam");
+const avatarImgDOM = document.querySelector("#pfp");
+
+avatarInputDOM.addEventListener("change", function (e) {
+    avatarImgDOM.src = URL.createObjectURL(e.target.files[0]);
+    avatarImgDOM.onload = function() {
+        URL.revokeObjectURL(avatarImgDOM.src) // free memory
+    }
+    avatarInputCamDOM.length = 0;
+    saveAvatar();
+});
+avatarInputCamDOM.addEventListener("change", function (e) {
+    avatarImgDOM.src = URL.createObjectURL(e.target.files[0]);
+    avatarImgDOM.onload = function() {
+        URL.revokeObjectURL(avatarImgDOM.src) // free memory
+    }
+    avatarInputDOM.length = 0;
+    saveAvatar();
+});
+
 const popup = document.getElementById("editPopup");
 const label = document.getElementById("popupLabel");
 const inputContainer = document.getElementById("popupInput");
@@ -176,7 +197,6 @@ document.addEventListener("click", (e) => {
 });
 
 // college Setup
-
 const collegeInput = document.getElementById("collegeInput");
 const dropdown = document.getElementById("college-options");
 
@@ -312,3 +332,33 @@ popup.addEventListener("submit", async (e) => {
 
     }
 });
+
+const showMsgAvatar = getShowMsg(document.querySelector("#avatarField #infoErrorMsg"));
+
+async function saveAvatar() {
+    
+    const formData = new FormData();
+    const name = avatarInputDOM.files[0]? avatarInputDOM.name : avatarInputCamDOM.name
+    formData.append(name, avatarInputDOM.files[0]||avatarInputCamDOM.files[0]);
+    
+    showMsgAvatar("Loading...", INFO);
+    try {
+        const { data } = await axios.put(`/api/users/avatar`,
+            formData,
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                }
+            }
+        );
+        
+        showMsgAvatar(data.msg, SUCCESS);
+
+        avatarImgDOM.src = data.avatar_url;
+
+    } catch (error) {
+        if (error.response?.data?.msg)
+            showMsgAvatar(error.response.data.msg, ERROR);
+        else console.error(error);
+    }
+}

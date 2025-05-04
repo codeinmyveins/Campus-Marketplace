@@ -127,17 +127,24 @@
 
       <!-- Profile Info -->
       <div class="pb-4 flex justify-between items-center">
-        <div class="flex items-center space-x-6">
+        <div id="avatarField" class="flex items-center space-x-6">
           <img id="pfp" src="./assets/images/default-user.jpg" alt="Profile Picture"
-            class="w-30 h-30 rounded-full object-cover border" />
-          <div>
+            class="w-30 h-30 aspect-square rounded-full object-cover border" />
+          <div class="grid grid-col-1 grid-rows-4">
+            <p class="select-none text-transparent">`</p>
             <p class="font-medium">Profile picture</p>
             <p class="text-sm text-gray-500">A profile picture helps personalize your account</p>
+            <p id="infoErrorMsg" class="font-medium hidden">Loading...</p>
           </div>
         </div>
-        <button id="editPfpBtn" class="text-(--color3) cursor-pointer font-medium hover:underline">Edit</button>
+        <div class="flex flex-col justify-around h-full">
+          <label class="cursor-pointer" for="avatar-input"><img class="w-8 h-8" src="./assets/icons/image-icon.svg"></label>
+          <label class="cursor-pointer" for="avatar-input-cam"><img class="w-8 h-8" src="./assets/icons/camera-circle.svg"></label>
+        </div>
+        <!-- <button id="editPfpBtn" class="text-(--color3) cursor-pointer font-medium hover:underline">Edit</button> -->
       </div>
-      <input type="file" id="pfpInput" accept="image/*" class="hidden" />
+      <input type="file" name="avatar" id="avatar-input" accept="image/*" class="hidden" />
+      <input type="file" name="avatar" id="avatar-input-cam" capture="camera" accept="image/*" class="hidden" />
 
       <!-- Basic Info -->
       <div class="space-y-4">
