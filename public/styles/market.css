@@ -1,0 +1,20 @@
+/* Mobile Styles */
+@media (max-width: 768px) {
+.market-container {
+    flex-direction: column;
+}
+
+.filters {
+    width: 100%;
+}
+
+.left-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.left-sidebar.open {
+    transform: translateX(0);
+}
+}
+
