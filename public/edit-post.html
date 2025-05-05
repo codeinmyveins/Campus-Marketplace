@@ -178,13 +178,13 @@
       <div id="imgSection" class="space-y-4">
         <label class="cursor-pointer border border-[#d1d5db] text-[#6b7280] px-4 py-3 rounded-md flex items-center gap-2 transition-all duration-300 hover:bg-(--color3) hover:text-(--color5)">
           <i class="fas fa-image text-xl"></i>
-          <input type="file" accept="image/*" multiple class="hidden" onchange="handleImageSelection(event)" />
+          <input type="file" accept="image/png, image/jpeg, image/webp" multiple class="hidden" onchange="handleImageSelection(event)" />
           <span class="text-sm">Upload from gallery</span>
         </label>
   
         <label class="cursor-pointer border border-[#d1d5db] text-[#6b7280] px-4 py-3 rounded-md flex items-center gap-2 transition-all duration-300 hover:bg-(--color3) hover:text-(--color5)">
           <i class="fas fa-camera text-xl"></i>
-          <input type="file" accept="image/*" capture="environment" class="hidden" onchange="handleImageSelection(event)">
+          <input type="file" accept="image/png, image/jpeg, image/webp" capture="environment" class="hidden" onchange="handleImageSelection(event)">
           <span class="text-sm">Capture from camera</span>
         </label>
 
