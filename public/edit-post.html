@@ -93,7 +93,7 @@
   </header>
   
   <form class="w-9/10">
-    <div class="bg-[var(--color6)] z-10 rounded-2xl p-8 w-full transition-all grid grid-cols-1 md:grid-cols-[7fr_3fr] gap-8 w-full">
+    <div class="bg-[var(--color6)] z-10 rounded-2xl p-8 w-full transition-all grid grid-cols-1 md:grid-cols-[7fr_3fr] gap-8">
       
       <!-- Form Section - Left -->
       <div class="space-y-4 w-full">
@@ -172,20 +172,20 @@
   
       <!-- Image Upload Section - Right -->
       <div class="space-y-4">
-        <label class="block cursor-pointer border border-[#d1d5db] text-[#6b7280] px-4 py-3 rounded-md flex items-center gap-2 transition-all duration-300 hover:bg-(--color3) hover:text-(--color5)">
+        <label class="block cursor-pointer border border-[#d1d5db] text-[#6b7280] px-4 py-3 rounded-md  items-center gap-2 transition-all duration-300 hover:bg-(--color3) hover:text-(--color5)">
           <i class="fas fa-image text-xl"></i>
           <input type="file" accept="image/*" multiple class="hidden" onchange="handleImageSelection(event)" />
           <span class="text-sm">Upload from gallery</span>
         </label>
   
-        <label class="block cursor-pointer border border-[#d1d5db] text-[#6b7280] px-4 py-3 rounded-md flex items-center gap-2 transition-all duration-300 hover:bg-(--color3) hover:text-(--color5)">
+        <label class="cursor-pointer border border-[#d1d5db] text-[#6b7280] px-4 py-3 rounded-md flex items-center gap-2 transition-all duration-300 hover:bg-(--color3) hover:text-(--color5)">
           <i class="fas fa-camera text-xl"></i>
           <input type="file" accept="image/*" capture="environment" class="hidden" onchange="previewCapturedImage(event)">
           <span class="text-sm">Capture from camera</span>
         </label>
 
         <input type="hidden" name="coverImageIndex" id="coverImageIndex" />
-        <div id="imageModal" class="fixed inset-0 bg-black/50 items-center justify-center hidden z-50 flex h-full"
+        <div id="imageModal" class="fixed inset-0 bg-black/50 items-center justify-center hidden z-50 h-full"
           onclick="closeImageModal()">
           <img id="modalImage"
             class="max-w-full max-h-full rounded shadow-lg transition-transform duration-200 ease-in-out" />

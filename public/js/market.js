@@ -3,11 +3,17 @@ const sidebar = document.getElementById("sidebar");
 sidebar.classList.toggle("translate-x-full");
 }
 
+// function toggleFilterSidebar() {
+// const sidebar = document.getElementById("filterSidebar");
+// sidebar.classList.toggle("translate-x-0");
+// sidebar.classList.toggle("-translate-x-full");
+// }
+
 function toggleFilterSidebar() {
-const sidebar = document.getElementById("filterSidebar");
-sidebar.classList.toggle("translate-x-0");
-sidebar.classList.toggle("-translate-x-full");
+  const sidebar = document.getElementById("filterSidebar");
+  sidebar.classList.toggle("-translate-x-full");
 }
+
 
 document.addEventListener("keydown", function (e) {
 if (e.key === "Escape") {
