@@ -82,8 +82,14 @@ form.addEventListener("submit", async function (e) {
     const { data } = await axios.post('/api/auth/login', reqBody);
     // Handle response
     showMsg(data.msg, SUCCESS); // Replace with actual success handling
-    // Redirect to dashboard or show success message  
-    window.location.href = "loader.html"; // Uncomment to redirect
+    // Redirect to dashboard or show success message 
+
+    if (data.code === 31) {
+      window.location.href = "./signup2.html";
+    } else {
+      window.location.href = "./dashboard.html";
+    }
+
   } catch (error) {
     if (error.response?.data?.msg)
       showMsg(error.response.data.msg, ERROR);

@@ -2,259 +2,202 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Profile - Personal Info</title>
-    <link rel="stylesheet" href="./styles/output.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile - Security</title>
+  <link rel="stylesheet" href="./styles/output.css">
+  <link rel="shortcut icon" href="./assets/icons/Campus Marketplace Logo.svg" type="image/x-icon" />
 </head>
 
 <body class="bg-(--color2) text-gray-800 font-sans">
-    <header>
-        <nav
-            class="select-none fixed top-0 left-0 right-0 z-[999] bg-(--color2) bg-opacity-100 text-(--color3) w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md">
-            <!-- nav content here -->
-            <!-- Logo -->
-            <div class="flex items-center logo-icon">
-                <a href="./index.html" class="flex items-center space-x-3">
-                    <img src="./assets/icons/Campus Marketplace Logo.svg" alt="Campus Logo"
-                        class="w-10 h-10 object-contain mb-3.5" />
-                    <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
-                        Campus Marketplace
-                    </h1>
-                </a>
-            </div>
+  <header>
+    <nav
+      class="select-none fixed top-0 left-0 right-0 z-[999] bg-(--color2) bg-opacity-100 text-(--color3) w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md">
+      <!-- nav content here -->
+      <!-- Logo -->
+      <div class="flex items-center logo-icon">
+        <a href="./index.html" class="flex items-center space-x-3">
+          <img src="./assets/icons/Campus Marketplace Logo.svg" alt="Campus Logo"
+            class="w-10 h-10 object-contain mb-3.5" />
+          <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
+            Campus Marketplace
+          </h1>
+        </a>
+      </div>
 
-            <!-- Mobile Menu Button -->
-            <button class="select-none md:hidden text-3xl focus:outline-none" onclick="toggleMenu()">
-                ☰
-            </button>
+      <!-- Mobile Menu Button -->
+      <button class="select-none md:hidden text-3xl focus:outline-none" onclick="toggleMenu()">
+        ☰
+      </button>
 
-            <!-- Navigation Links (Desktop) -->
-            <div class="hidden md:flex flex-row items-center gap-10 capitalize font-semibold">
-                <ul class="flex gap-10">
-                    <li>
-                        <a href="./index.html" class="inline-block py-2 hover:scale-110 duration-300">Home</a>
-                    </li>
-                    <li>
-                        <a href="./index.html#about" class="inline-block py-2 hover:scale-110 duration-300">About</a>
-                    </li>
-                    <li>
-                        <a href="./index.html#market" class="inline-block py-2 hover:scale-110 duration-300">Market</a>
-                    </li>
-                    <li>
-                        <a href="./index.html#contact"
-                            class="inline-block py-2 hover:scale-110 duration-300">Contact</a>
-                    </li>
-                </ul>
+      <!-- Navigation Links (Desktop) -->
+      <div class="hidden md:flex flex-row items-center gap-10 capitalize font-semibold">
+        <ul class="flex gap-10">
+          <li>
+            <a href="./index.html" class="inline-block py-2 hover:scale-110 duration-300">Home</a>
+          </li>
+          <li>
+            <a href="./index.html#about" class="inline-block py-2 hover:scale-110 duration-300">About</a>
+          </li>
+          <li>
+            <a href="./index.html#market" class="inline-block py-2 hover:scale-110 duration-300">Market</a>
+          </li>
+          <li>
+            <a href="./index.html#contact" class="inline-block py-2 hover:scale-110 duration-300">Contact</a>
+          </li>
+        </ul>
 
-                <!-- Login/Signup (Desktop) -->
-                <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
-                    <li>
-                        <a href="./login.html"
-                            class="border-2 border-(--color3) py-2 px-4 rounded-xl hover:bg-(--color3) hover:text-(--color5) transition">Login</a>
-                    </li>
-                    <li>
-                        <a href="./signup1.html"
-                            class="bg-(--color3) text-(--color5) text-nowrap py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign
-                            Up</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <!-- Login/Signup (Desktop) -->
+        <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
+          <li>
+            <a href="./login.html"
+              class="border-2 border-(--color3) py-2 px-4 rounded-xl hover:bg-(--color3) hover:text-(--color5) transition">Login</a>
+          </li>
+          <li>
+            <a href="./signup1.html"
+              class="bg-(--color3) text-nowrap text-(--color5) py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign
+              Up</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-        <div id="mobileMenu"
-            class="select-none fixed top-[66px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl">
-            <ul class="space-y-6 text-center">
-                <li>
-                    <a href="./index.html" class="block py-2 hover:scale-110 duration-300">Home</a>
-                </li>
-                <li>
-                    <a href="./index.html#about" class="block py-2 hover:scale-110 duration-300">About</a>
-                </li>
-                <li>
-                    <a href="./index.html#market" class="block py-2 hover:scale-110 duration-300">Market</a>
-                </li>
-                <li>
-                    <a href="./index.html#contact" class="block py-2 hover:scale-110 duration-300">Contact</a>
-                </li>
-            </ul>
+    <div id="mobileMenu"
+      class="select-none fixed top-[73px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl">
+      <ul class="space-y-3 text-center">
+        <li>
+          <a href="./index.html" class="block hover:scale-110 duration-300">Home</a>
+        </li>
+        <li>
+          <a href="./index.html#about" class="block hover:scale-110 duration-300">About</a>
+        </li>
+        <li>
+          <a href="./index.html#market" class="block hover:scale-110 duration-300">Market</a>
+        </li>
+        <li>
+          <a href="./index.html#contact" class="block hover:scale-110 duration-300">Contact</a>
+        </li>
+      </ul>
 
-            <ul class="flex flex-col gap-5 mt-8 text-center">
-                <li>
-                    <a href="./login.html"
-                        class="border-2 border-(--color3) py-2 px-4 rounded-xl hover:bg-(--color3) hover:text-(--color5) transition">Login</a>
-                </li>
-                <li>
-                    <a href="./signup1.html"
-                        class="bg-(--color3) text-(--color5) py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign
-                        Up</a>
-                </li>
-            </ul>
-        </div>
-    </header>
-    <br><br>
-    <div class="min-h-screen flex mt-10">
-        <!-- Sidebar -->
-        <aside class="w-64 border-r bg-(--color6) px-6 py-8">
-            <h1 class="text-xl font-semibold mb-8">My Profile</h1>
-            <nav class="flex flex-col space-y-4">
-                <a href="./edit-profile.html"
-                    class="flex items-center space-x-3 text-gray-700 hover:text-black px-4 py-2 rounded-lg">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path
-                            d="M12 11c0 1.1-.9 2-2 2H6v6h12v-6h-4c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2h4V4H6v3h4c1.1 0 2 .9 2 2v2z" />
-                    </svg>
-                    <span>Personal info</span>
-                </a>
+      <ul class="flex flex-col space-y-7 mt-6 text-center">
+        <li>
+          <a href="./login.html"
+            class="border-2 border-(--color3) py-2 px-4 rounded-xl hover:bg-(--color3) hover:text-(--color5) transition">Login</a>
+        </li>
+        <li>
+          <a href="./signup1.html"
+            class="bg-(--color3) text-(--color5) py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign
+            Up</a>
+        </li>
+      </ul>
+    </div>
+  </header>
+  <br><br>
+  <div class="min-h-screen flex mt-10">
+    <!-- Sidebar -->
+    <aside class="w-64 border-r bg-(--color6) px-6 py-8">
+      <h1 class="text-xl font-semibold mb-8">My Profile</h1>
+      <nav class="flex flex-col space-y-4">
+        <a href="./edit-profile.html"
+          class="flex items-center space-x-3 text-gray-700 hover:text-black px-4 py-2 rounded-lg">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 11c0 1.1-.9 2-2 2H6v6h12v-6h-4c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2h4V4H6v3h4c1.1 0 2 .9 2 2v2z" />
+          </svg>
+          <span>Personal info</span>
+        </a>
 
-                <a href="./security.html"
-                    class="flex items-center space-x-3 bg-(--color3) text-(--color6) px-4 py-2 rounded-lg font-medium">
-                    <svg class="w-5 h-5 text-(--color6)" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 17v-2m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>Security</span>
-                </a>
+        <a href="./security.html"
+          class="flex items-center space-x-3 bg-(--color3) text-(--color6) px-4 py-2 rounded-lg font-medium">
+          <svg class="w-5 h-5 text-(--color6)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 17v-2m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>Security</span>
+        </a>
+      </nav>
+    </aside>
 
+    <!-- Main content -->
+    <main class="flex-1 px-10 py-8 text-xl">
 
-            </nav>
-        </aside>
+      <h1 class="text-2xl font-semibold mb-2">Your devices</h1>
+      <p class="mb-6 text-sm text-gray-600">
+        You’re signed in on these devices or have been in the last 30 days.
+        There might be multiple activity sessions from the same device.
+      </p>
 
-        <!-- Main content -->
-        <main class="flex-1 px-10 py-8 text-xl">
+      <div id="defaultCard" hidden class="bg-(--color1) text-(--color5) rounded-lg shadow-md p-4 mb-4 flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <!-- Laptop Icon -->
+          <img src="https://img.icons8.com/ios-filled/50/014d4e/laptop.png" class="w-10 h-10" alt="Laptop Icon" />
 
-            <h1 class="text-2xl font-semibold mb-2">Your devices</h1>
-            <p class="mb-6 text-sm text-gray-600">
-                You’re signed in on these devices or have been in the last 30 days.
-                There might be multiple activity sessions from the same device.
+          <div>
+            <p id="device" class="font-medium">Device Type· Device Name</p>
+            <p class="text-sm flex flex-wrap gap-x-1 text-(--color5)">
+              <span id="location">City, Region, Country</span> · <span id="browser">Browser</span>
             </p>
 
-            <!-- Windows Session -->
-            <div class="bg-(--color1) text-(--color5) border rounded-lg shadow-sm p-4 mb-4 flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <!-- Laptop Icon -->
-                    <img src="https://img.icons8.com/ios-filled/50/014d4e/laptop.png" class="w-10 h-10" alt="Laptop Icon" />
-            
-                    <div>
-                        <p class="font-medium">Windows</p>
-                    
-                        <!-- Location + Timestamps in one line -->
-                        <p class="text-sm flex flex-wrap gap-x-1 text-(--color5)">
-                            Hyderabad, Telangana, India · Google Chrome
-                        </p>
-                    
-                        <p class="text-(--color3) text-sm font-semibold">✔ Your current session</p>
-                    </div>
-                    
-                </div>
-            
-                <!-- Sign Out Icon Button -->
-                <button
-                    class="flex items-center h-8 gap-2 text-(--color5) bg-(--color3) font-medium px-2 py-0.5 text-sm rounded hover:bg-red-50 hover:text-red-800 transition-colors duration-200 w-fit">
-                    
-                    <!-- Door Icon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M15.75 9V5.25A2.25 2.25 0 0013.5 3H6.75A2.25 2.25 0 004.5 5.25v13.5A2.25 2.25 0 006.75 21h6.75a2.25 2.25 0 002.25-2.25V15m3-3h-9m0 0l3-3m-3 3l3 3" />
-                    </svg>
-
-                    <!-- Button Text -->
-                    <span>Sign out</span>
-                </button>
-
+            <div id="activity" class="text-sm flex space-x-5 flex-wrap">
+              <p class="flex items-center gap-1">
+                <span class="text-(--color3)">First Sign-in:</span> <span id="created_at">May 10, 2025</span>
+              </p>
+              <p class="flex items-center gap-1">
+                <span class="text-(--color3)">Last Activity:</span> <span id="last_used_at">May 12, 2025</span>
+              </p>
             </div>
-            
-            <!-- Galaxy S22+ Session -->
-            <div class="bg-(--color1) text-(--color5) border rounded-lg shadow-sm p-4 mb-4 flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <!-- Mobile Icon -->
-                    <img src="https://img.icons8.com/ios-filled/50/014d4e/smartphone-tablet.png" class="w-10 h-10" alt="Mobile Icon" />
-            
-                    <div>
-                        <p class="font-medium">Oneplus-Nord</p>
-                    
-                        <!-- Location + Timestamps in one line -->
-                        <p class="text-sm flex flex-wrap gap-x-1 text-(--color5)">
-                            Hyderabad, Telangana, India · 34 minutes ago
-                        </p>
-                    
-                        <p class="text-sm">Android device, Among Us... +8</p>
-                    </div>
-                    
-                </div>
-            
-                <!-- Sign Out Icon Button -->
-                <button
-                    class="flex items-center h-8 gap-2 text-(--color5) bg-(--color3) font-medium px-2 py-0.5 text-sm rounded hover:bg-red-50 hover:text-red-800 transition-colors duration-200 w-fit">
-                    
-                    <!-- Door Icon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M15.75 9V5.25A2.25 2.25 0 0013.5 3H6.75A2.25 2.25 0 004.5 5.25v13.5A2.25 2.25 0 006.75 21h6.75a2.25 2.25 0 002.25-2.25V15m3-3h-9m0 0l3-3m-3 3l3 3" />
-                    </svg>
 
-                    <!-- Button Text -->
-                    <span>Sign out</span>
-                </button>
-
+            <div id="currentSession" hidden class="text-(--color3) mt-1 gap-1 text-sm font-semibold flex items-center">
+              <svg width="20" height="20" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-4-4 1.4-1.4 2.6 2.6 6.6-6.6L18 9l-8 8z"></path>
+              </svg>
+              <span>Your current session</span>
             </div>
-            
+          </div>
+        </div>
 
-            <!-- SM-S906E Session -->
-            <div class="bg-(--color1) text-(--color5) border rounded-lg shadow-sm p-4 mb-4 flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <!-- Mobile Icon -->
-                    <img src="https://img.icons8.com/ios-filled/50/014d4e/smartphone-tablet.png" class="w-10 h-10" alt="Mobile Icon" />
-            
-                    <div>
-                        <p class="font-medium">Rmx-14289</p>
-                    
-                        <!-- Location + Timestamps in one line -->
-                        <p class="text-sm flex flex-wrap gap-x-1 text-(--color5)">
-                            Hyderabad, Telangana, India · 1 hour ago
-                        </p>
-                    
-                        <p class="text-sm">Chrome Webview</p>
-                    </div>
-                    
-                </div>
-            
-                <!-- Sign Out Icon Button -->
-                <button
-                    class="flex items-center gap-2 text-(--color5) bg-(--color3) font-medium px-2 py-0.5 text-sm rounded hover:bg-red-50 hover:text-red-800 transition-colors duration-200 w-fit h-8">
-                    
-                    <!-- Door Icon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M15.75 9V5.25A2.25 2.25 0 0013.5 3H6.75A2.25 2.25 0 004.5 5.25v13.5A2.25 2.25 0 006.75 21h6.75a2.25 2.25 0 002.25-2.25V15m3-3h-9m0 0l3-3m-3 3l3 3" />
-                    </svg>
+        <button id="signout_btn"
+          class="text-nowrap flex items-center gap-2 text-(--color5) bg-(--color3) font-medium px-2 py-0.5 text-sm rounded hover:bg-red-50 hover:text-red-800 transition-colors duration-200 w-fit h-8">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15.75 9V5.25A2.25 2.25 0 0013.5 3H6.75A2.25 2.25 0 004.5 5.25v13.5A2.25 2.25 0 006.75 21h6.75a2.25 2.25 0 002.25-2.25V15m3-3h-9m0 0l3-3m-3 3l3 3" />
+          </svg>
+          <span>Sign out</span>
+        </button>
 
-                    <!-- Button Text -->
-                    <span>Sign out</span>
-                </button>
+        <!-- <button class="flex items-center gap-2 text-(--color5) bg-(--color3) font-medium p-2 text-sm rounded hover:bg-red-50 hover:text-red-800 transition-colors duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </button> -->
+      </div>
 
-            </div>
-            
+      <div id="session_collection"></div>
 
+      <div class="flex justify-between">
+        <p id="infoErrorMsg" class="font-medium hidden"></p>
 
+        <button id="signout_all_btn"
+          class="ml-auto flex items-center gap-2 text-(--color5) bg-(--color3) font-medium px-2 py-0.5 text-sm rounded hover:bg-red-50 hover:text-red-800 transition-colors duration-200 w-fit h-8">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15.75 9V5.25A2.25 2.25 0 0013.5 3H6.75A2.25 2.25 0 004.5 5.25v13.5A2.25 2.25 0 006.75 21h6.75a2.25 2.25 0 002.25-2.25V15m3-3h-9m0 0l3-3m-3 3l3 3" />
+          </svg>
+          <span>Sign out from all Devices</span>
+        </button>
+      </div>
+    </main>
 
-        </main>
+  </div>
 
-    </div>
-    <script>
-function toggleMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            // Toggle 'hidden' class to show/hide menu
-            mobileMenu.classList.toggle('hidden');
-}
-
-    </script>
-
-
+  <script src="./js/lib/axios.min.js"></script>
+  <script src="./js/utility/deviceFingerprintGen.js"></script>
+  <script src="./js/utility/refresh-token.js"></script>
+  <script src="./js/utility/formatTimestamp.js"></script>
+  <script src="./js/utility/infoErrorMsg.js"></script>
+  <script src="./js/security.js"></script>
 </body>
 
 </html>

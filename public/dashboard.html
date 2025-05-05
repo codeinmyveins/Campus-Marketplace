@@ -99,40 +99,40 @@
 
       <div
         id="mobileMenu"
-        class="select-none fixed top-[66px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl"
+        class="select-none fixed top-[73px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl"
       >
-        <ul class="space-y-6 text-center">
+        <ul class="space-y-3 text-center">
           <li>
             <a
               href="./index.html"
-              class="block py-2 hover:scale-110 duration-300"
+              class="block hover:scale-110 duration-300"
               >Home</a
             >
           </li>
           <li>
             <a
               href="./index.html#about"
-              class="block py-2 hover:scale-110 duration-300"
+              class="block hover:scale-110 duration-300"
               >About</a
             >
           </li>
           <li>
             <a
               href="./index.html#market"
-              class="block py-2 hover:scale-110 duration-300"
+              class="block hover:scale-110 duration-300"
               >Market</a
             >
           </li>
           <li>
             <a
               href="./index.html#contact"
-              class="block py-2 hover:scale-110 duration-300"
+              class="block hover:scale-110 duration-300"
               >Contact</a
             >
           </li>
         </ul>
 
-        <ul class="flex flex-col gap-5 mt-8 text-center">
+        <ul class="flex flex-col space-y-7 mt-6 text-center">
           <li>
             <a
               href="./login.html"
@@ -154,12 +154,12 @@
     <br>
     <h1 class="text-3xl font-semibold text-[#0b2c2d] mb-8 ml-[5%]">My Listings Dashboard</h1>
 
-    <!-- Active Badge -->
-    <span id="active_badge_hidden" hidden class="relative top-[-10px] text-xs font-medium px-2 py-1 rounded-full bg-green-50 text-green-600 border border-green-200 flex items-center gap-1 z-10">
+    <!-- Open Badge -->
+    <span id="open_badge_hidden" hidden class="relative top-[-10px] text-xs font-medium px-2 py-1 rounded-full bg-green-50 text-green-600 border border-green-200 flex items-center gap-1 z-10">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
       </svg>
-      Active
+      Open
     </span>
 
     <!-- Closed Badge -->
@@ -170,148 +170,85 @@
       Closed
     </span>
 
-
-    <div id="card_list" class="space-y-6">
-
-      <div id="card" class="bg-(--color5) rounded-xl shadow-md hover:shadow-lg transition-shadow p-0 flex max-w-9/10 mx-auto relative overflow-hidden border border-gray-200">
-        
-      
-        <!-- Image Section -->
-        <div class="min-w-48 max-w-48 h-48 flex-shrink-0 self-center">
-          <img src="./assets/images/book.jpg" alt="Engineering Mechanics" class="w-full h-full object-cover rounded-xl" />
-        </div>
-      
-        <!-- Content Section -->
-        <div class="flex flex-col justify-between w-full p-4">
-          <!-- Title & Name -->
-          <div class="mb-0">
-            <span class="flex justify-between">
-              <h2 class="text-2xl font-bold text-[#0b2c2d]">Engineering Mechanics</h2>
-              <span id="badge_container">
-                <!-- Active Badge -->
-                <span class="relative top-[-10px] text-xs font-medium px-2 py-1 rounded-full bg-green-50 text-green-600 border border-green-200 flex items-center gap-1 z-10">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Active
-                </span>
-              </span>
+    <div id="defaultCard" hidden class="bg-(--color5) rounded-xl shadow-md hover:shadow-lg transition-shadow p-0 flex max-w-9/10 mx-auto relative overflow-hidden border border-gray-200">
+  
+      <!-- Image Section -->
+      <div class="min-w-48 max-w-48 h-48 flex-shrink-0 self-center">
+        <img id=coverImg src="./assets/images/no_image.webp" class="w-full h-full object-cover rounded-xl" />
+      </div>
+    
+      <!-- Content Section -->
+      <div class="flex flex-col justify-between w-full p-4">
+        <!-- Title & Name -->
+        <div class="mb-0">
+          <span class="flex justify-between">
+            <h2 id="title" class="text-2xl font-bold text-[#0b2c2d]">Title</h2>
+            <span id="badge_container">
+              <!-- Js will set -->
             </span>
-            <h2 class="text-lg text-gray-600 mb-1">Book (Lend)</h2>
+          </span>
+          <h2 id="item_name" class="text-lg text-gray-600 mb-1">Item Name</h2>
+        </div>
+        <hr class="border-t border-gray-200 mb-2" />
+    
+        <!-- Details Section -->
+        <div class="text-sm text-gray-700 space-y-0">
+          <!-- Capsules & Price Highlight -->
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="item_category" class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium border border-blue-200">
+              Item Category
+            </span>
+            <span id="type" class="inline-flex items-center gap-1 px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium border border-gray-200">
+              Type
+            </span>
+            <span id="price" class="ml-auto inline-flex items-center gap-1 text-emerald-600 text-xl font-semibold">
+              0.00
+            </span>
           </div>
-          <hr class="border-t border-gray-200 mb-2" />
-      
-          <!-- Details Section -->
-          <div class="text-sm text-gray-700 space-y-0">
-            <!-- Capsules & Price Highlight -->
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="inline-flex items-center gap-1 px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium border border-gray-200">
-                Lend
-              </span>
-              <span class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium border border-blue-200">
-                Books
-              </span>
-              <span class="ml-auto inline-flex items-center gap-1 text-emerald-600 text-xl font-semibold">
-                Free
-              </span>
-            </div>
-          </div>
-      
-          <!-- Bottom Info & Button -->
-          <div class="flex justify-between items-center pt-2 flex-wrap gap-1 text-sm text-gray-700">
-            <div class="flex gap-3 flex-wrap">
-              <p class="flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 4h10M5 11h14M5 19h14M5 15h14" />
-                </svg>
-                <span class="font-medium text-gray-800">Created:</span> Apr 10, 2025
-              </p>
-              <p class="flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span class="font-medium text-gray-800">Updated:</span> Apr 12, 2025
-              </p>
-            </div>
-            <a class="bg-[#00bfa6] text-(--color5) px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 hover:bg-[#009e8c] transition">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-(--color5)" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v14l4-4h6a2 2 0 002-2v-1" />
+        </div>
+    
+        <!-- Bottom Info & Button -->
+        <div class="flex justify-between items-center pt-2 flex-wrap gap-1 text-sm text-gray-700">
+          <div class="flex gap-3 flex-wrap">
+            <p class="flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 4h10M5 11h14M5 19h14M5 15h14" />
               </svg>
-              Edit Listing
-            </a>
+              <span class="font-medium text-gray-800">Created:</span> <span id="created_at">Apr 10, 2025</span>
+            </p>
+            <p class="flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="font-medium text-gray-800">Updated:</span> <span id="modified_at">Apr 12, 2025</span>
+            </p>
           </div>
+          <a id="editBtn" class="bg-[#00bfa6] text-(--color5) px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 hover:bg-[#009e8c] transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-(--color5)" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v14l4-4h6a2 2 0 002-2v-1" />
+            </svg>
+            Edit Listing
+          </a>
         </div>
       </div>
-      
-      <div id="card" class="bg-(--color5) rounded-xl shadow-md hover:shadow-lg transition-shadow p-0 flex max-w-9/10 mx-auto relative overflow-hidden border border-gray-200">
-      
-        <!-- Image Section -->
-        <div class="min-w-48 max-w-48 h-48 flex-shrink-0 self-center">
-          <img src="./assets/images/drafter.jpg" alt="Drafting Set" class="w-full h-full object-cover rounded-xl" />
-        </div>
-        
-        <!-- Content Section -->
-        <div class="flex flex-col justify-between w-full p-4">
-          <!-- Title & Name -->
-          <div class="mb-0">
-            <span class="flex justify-between">
-              <h2 class="text-2xl font-bold text-[#0b2c2d]">This is a red color drafter used for drawing</h2>
-              <span id="badge_container">
-                <!-- Closed Badge -->
-                <span class="relative top-[-10px] text-xs font-medium px-2 py-1 rounded-full bg-red-50 text-red-600 border border-red-200 flex items-center gap-1 z-10">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                  Closed
-                </span>
-              </span>
-            </span>
-            <h2 class="text-lg text-gray-600 mb-1">Drafter set</h2> <!-- Reduced margin-bottom -->
-          </div>
-          <hr class="border-t border-gray-200 mb-2" /> <!-- Reduced margin-bottom for hr -->
-      
-          <!-- Details Section -->
-          <div class="text-sm text-gray-700 space-y-0">
-            <!-- Capsules & Price Highlight -->
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="inline-flex items-center gap-1 px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium border border-gray-200">
-                Sell
-              </span>
-              <span class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium border border-blue-200">
-                Stationery
-              </span>
-              <span class="ml-auto inline-flex items-center gap-1 text-emerald-600 text-xl font-semibold">
-                $10
-              </span>
-            </div>
-          </div>
-      
-          <!-- Bottom Info & Button in a single line -->
-          <div class="flex justify-between items-center pt-2 flex-wrap gap-1 text-sm text-gray-700"> <!-- Reduced gap and padding -->
-            <div class="flex gap-3 flex-wrap">
-              <p class="flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 4h10M5 11h14M5 19h14M5 15h14" />
-                </svg>
-                <span class="font-medium text-gray-800">Created:</span> Mar 25, 2025
-              </p>
-              <p class="flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span class="font-medium text-gray-800">Updated:</span> Apr 01, 2025
-              </p>
-            </div>
-            <a class="bg-[#00bfa6] text-(--color5) px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 hover:bg-[#009e8c] transition">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-(--color5)" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v14l4-4h6a2 2 0 002-2v-1" />
-              </svg>
-              Edit Listing
-            </a>
-          </div>
-        </div>
 
-      </div>
-      
+    </div>
+
+    <p id="itemInfo" class="font-semibold text-[#0b2c2d] mb-8 ml-[5%]">No item posts created</p>
+    <div id="card_list" class="space-y-6"></div>
+
+    <a href="./create-post.html" class="bg-(--color3) text-(--color5) my-6 mx-auto w-fit px-4 py-2 rounded-xl text-2xl font-medium flex justify-center items-center text-center gap-2 border-2 border-(--color3) hover:text-(--color3) hover:bg-(--color2) transition">
+      <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-(--color5)" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v14l4-4h6a2 2 0 002-2v-1" />
+      </svg> -->
+      Create New Item
+    </a>
+    
+    <script src="./js/lib/axios.min.js"></script>
+    <script src="./js/utility/deviceFingerprintGen.js"></script>
+    <script src="./js/utility/refresh-token.js"></script>
+    <!-- <script src="./js/utility/infoErrorMsg.js"></script> -->
+    <script src="./js/utility/formatTimestamp.js"></script>
+    <script src="./js/dashboard.js"></script>
   </body>
 </html>

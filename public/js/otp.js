@@ -195,11 +195,11 @@ otpForm.addEventListener("submit", async (e) => {
     const { data } = await axios.post("/api/auth/verify-email", { otp });
 
     otpShowMsg(data.msg, SUCCESS);
-    localStorage.removeItem("userEmail");
-    localStorage.removeItem("otpTime");
-
+    
     setTimeout(() => {
       window.location.href = "./signup2.html";
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("otpTime");
     }, 1000);
   } catch (error) {
     

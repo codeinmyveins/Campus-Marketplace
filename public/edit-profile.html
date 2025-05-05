@@ -2,266 +2,397 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Profile - Personal Info</title>
-    <link rel="stylesheet" href="./styles/output.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile - Personal Info</title>
+  <link rel="stylesheet" href="./styles/output.css">
+  <link rel="shortcut icon" href="./assets/icons/Campus Marketplace Logo.svg" type="image/x-icon" />
 </head>
 
 <body class="bg-(--color2) text-gray-800 font-sans">
-    <header>
-        <nav
-            class="select-none fixed top-0 left-0 right-0 z-[999] bg-(--color2) bg-opacity-100 text-(--color3) w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md">
-            <!-- nav content here -->
-            <!-- Logo -->
-            <div class="flex items-center logo-icon">
-                <a href="./index.html" class="flex items-center space-x-3">
-                    <img src="./assets/icons/Campus Marketplace Logo.svg" alt="Campus Logo"
-                        class="w-10 h-10 object-contain mb-3.5" />
-                    <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
-                        Campus Marketplace
-                    </h1>
-                </a>
-            </div>
+  <header>
+    <nav
+      class="select-none fixed top-0 left-0 right-0 z-[999] bg-(--color2) bg-opacity-100 text-(--color3) w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md">
+      <!-- nav content here -->
+      <!-- Logo -->
+      <div class="flex items-center logo-icon">
+        <a href="./index.html" class="flex items-center space-x-3">
+          <img src="./assets/icons/Campus Marketplace Logo.svg" alt="Campus Logo"
+            class="w-10 h-10 object-contain mb-3.5" />
+          <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
+            Campus Marketplace
+          </h1>
+        </a>
+      </div>
 
-            <!-- Mobile Menu Button -->
-            <button class="select-none md:hidden text-3xl focus:outline-none" onclick="toggleMenu()">
-                ☰
-            </button>
+      <!-- Mobile Menu Button -->
+      <button class="select-none md:hidden text-3xl focus:outline-none" onclick="toggleMenu()">
+        ☰
+      </button>
 
-            <!-- Navigation Links (Desktop) -->
-            <div class="hidden md:flex flex-row items-center gap-10 capitalize font-semibold">
-                <ul class="flex gap-10">
-                    <li>
-                        <a href="./index.html" class="inline-block py-2 hover:scale-110 duration-300">Home</a>
-                    </li>
-                    <li>
-                        <a href="./index.html#about" class="inline-block py-2 hover:scale-110 duration-300">About</a>
-                    </li>
-                    <li>
-                        <a href="./index.html#market" class="inline-block py-2 hover:scale-110 duration-300">Market</a>
-                    </li>
-                    <li>
-                        <a href="./index.html#contact"
-                            class="inline-block py-2 hover:scale-110 duration-300">Contact</a>
-                    </li>
-                </ul>
+      <!-- Navigation Links (Desktop) -->
+      <div class="hidden md:flex flex-row items-center gap-10 capitalize font-semibold">
+        <ul class="flex gap-10">
+          <li>
+            <a href="./index.html" class="inline-block py-2 hover:scale-110 duration-300">Home</a>
+          </li>
+          <li>
+            <a href="./index.html#about" class="inline-block py-2 hover:scale-110 duration-300">About</a>
+          </li>
+          <li>
+            <a href="./index.html#market" class="inline-block py-2 hover:scale-110 duration-300">Market</a>
+          </li>
+          <li>
+            <a href="./index.html#contact" class="inline-block py-2 hover:scale-110 duration-300">Contact</a>
+          </li>
+        </ul>
 
-                <!-- Login/Signup (Desktop) -->
-                <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
-                    <li>
-                        <a href="./login.html"
-                            class="border-2 border-(--color3) py-2 px-4 rounded-xl hover:bg-(--color3) hover:text-(--color5) transition">Login</a>
-                    </li>
-                    <li>
-                        <a href="./signup1.html"
-                            class="bg-(--color3) text-nowrap text-(--color5) py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign
-                            Up</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <!-- Login/Signup (Desktop) -->
+        <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
+          <li>
+            <a href="./login.html"
+              class="border-2 border-(--color3) py-2 px-4 rounded-xl hover:bg-(--color3) hover:text-(--color5) transition">Login</a>
+          </li>
+          <li>
+            <a href="./signup1.html"
+              class="bg-(--color3) text-nowrap text-(--color5) py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign
+              Up</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-        <div id="mobileMenu"
-            class="select-none fixed top-[66px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl">
-            <ul class="space-y-6 text-center">
-                <li>
-                    <a href="./index.html" class="block py-2 hover:scale-110 duration-300">Home</a>
-                </li>
-                <li>
-                    <a href="./index.html#about" class="block py-2 hover:scale-110 duration-300">About</a>
-                </li>
-                <li>
-                    <a href="./index.html#market" class="block py-2 hover:scale-110 duration-300">Market</a>
-                </li>
-                <li>
-                    <a href="./index.html#contact" class="block py-2 hover:scale-110 duration-300">Contact</a>
-                </li>
-            </ul>
+    <div id="mobileMenu"
+      class="select-none fixed top-[73px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl">
+      <ul class="space-y-3 text-center">
+        <li>
+          <a href="./index.html" class="block hover:scale-110 duration-300">Home</a>
+        </li>
+        <li>
+          <a href="./index.html#about" class="block hover:scale-110 duration-300">About</a>
+        </li>
+        <li>
+          <a href="./index.html#market" class="block hover:scale-110 duration-300">Market</a>
+        </li>
+        <li>
+          <a href="./index.html#contact" class="block hover:scale-110 duration-300">Contact</a>
+        </li>
+      </ul>
 
-            <ul class="flex flex-col gap-5 mt-8 text-center">
-                <li>
-                    <a href="./login.html"
-                        class="border-2 border-(--color3) py-2 px-4 rounded-xl hover:bg-(--color3) hover:text-(--color5) transition">Login</a>
-                </li>
-                <li>
-                    <a href="./signup1.html"
-                        class="bg-(--color3) text-(--color5) py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign
-                        Up</a>
-                </li>
-            </ul>
+      <ul class="flex flex-col space-y-7 mt-6 text-center">
+        <li>
+          <a href="./login.html"
+            class="border-2 border-(--color3) py-2 px-4 rounded-xl hover:bg-(--color3) hover:text-(--color5) transition">Login</a>
+        </li>
+        <li>
+          <a href="./signup1.html"
+            class="bg-(--color3) text-(--color5) py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign
+            Up</a>
+        </li>
+      </ul>
+    </div>
+  </header>
+  <br><br>
+  <div class="min-h-screen flex mt-10">
+    <!-- Sidebar -->
+    <aside class="w-64 border-r bg-(--color6) px-6 py-8">
+      <h1 class="text-xl font-semibold mb-8">My Profile</h1>
+      <nav class="flex flex-col space-y-4">
+        <a href="#" class="flex items-center space-x-3 bg-(--color3) text-(--color6) px-4 py-2 rounded-lg font-medium">
+          <svg class="w-5 h-5 text-(--color6)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 11c0 1.1-.9 2-2 2H6v6h12v-6h-4c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2h4V4H6v3h4c1.1 0 2 .9 2 2v2z" />
+          </svg>
+          <span>Personal info</span>
+        </a>
+
+        <a href="./security.html"
+          class="flex items-center space-x-3 text-gray-700 hover:text-black px-4 py-2 rounded-lg">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 17v-2m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>Security</span>
+        </a>
+
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="flex-1 px-10 py-8 text-xl">
+      <div class="mb-6">
+        <h2 class="text-2xl font-semibold">Basic Info</h2>
+        <div class="border-t w-full"></div>
+      </div>
+
+      <!-- Profile Info -->
+      <div class="pb-4 flex justify-between items-center">
+        <div id="avatarField" class="flex items-center space-x-6">
+          <img id="pfp" src="./assets/images/default-user.jpg" alt="Profile Picture"
+            class="w-30 h-30 aspect-square rounded-full object-cover border" />
+          <div class="relative">
+            <p class="font-medium">Profile picture</p>
+            <p class="text-sm text-gray-500">A profile picture helps personalize your account</p>
+            <p id="infoErrorMsg" class="absolute font-medium hidden">Loading...</p>
+          </div>
         </div>
-    </header>
-    <br><br>
-    <div class="min-h-screen flex mt-10">
-        <!-- Sidebar -->
-        <aside class="w-64 border-r bg-(--color6) px-6 py-8">
-            <h1 class="text-xl font-semibold mb-8">My Profile</h1>
-            <nav class="flex flex-col space-y-4">
-                <a href="#"
-                    class="flex items-center space-x-3 bg-(--color3) text-(--color6) px-4 py-2 rounded-lg font-medium">
-                    <svg class="w-5 h-5 text-(--color6)" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                        <path
-                            d="M12 11c0 1.1-.9 2-2 2H6v6h12v-6h-4c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2h4V4H6v3h4c1.1 0 2 .9 2 2v2z" />
-                    </svg>
-                    <span>Personal info</span>
-                </a>
+        <div class="flex flex-col justify-around min-h-20">
+          <label class="mb-auto cursor-pointer" for="avatar-input"><img class="w-8 h-8" src="./assets/icons/image-icon.svg"></label>
+          <label class="mt-auto cursor-pointer" for="avatar-input-cam"><img class="w-8 h-8" src="./assets/icons/camera-circle.svg"></label>
+        </div>
+        <!-- <button id="editPfpBtn" class="text-(--color3) cursor-pointer font-medium hover:underline">Edit</button> -->
+      </div>
+      <input type="file" name="avatar" id="avatar-input" accept="image/png, image/jpeg, image/webp" class="hidden" />
+      <input type="file" name="avatar" id="avatar-input-cam" capture="camera" accept="image/png, image/jpeg, image/webp" class="hidden" />
 
-                <a href="./security.html" class="flex items-center space-x-3 text-gray-700 hover:text-black px-4 py-2 rounded-lg">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 17v-2m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>Security</span>
-                </a>
-
-            </nav>
-        </aside>
-
-        <!-- Main content -->
-        <main class="flex-1 px-10 py-8 text-xl">
-            <div class="mb-6">
-                <h2 class="text-2xl font-semibold">Basic Info</h2>
-                <div class="border-t w-full"></div>
+      <!-- Basic Info -->
+      <div class="space-y-4">
+        <div class="field flex justify-between items-center">
+          <div>
+            <p class="text-sm text-gray-500">Name</p>
+            <p id="full_name" class="field-value font-medium">Full Name</p>
+            <div class="input-div hidden">
+              <input name="full_name" type="text" class="input-el text-(--color2) w-full border rounded p-2" value="Full Name" />
             </div>
+          </div>
+          <button class="edit-btn flex items-center gap-2 text-(--color3) p-2 cursor-pointer hover:scale-120 transition duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
 
-            <!-- Profile Info -->
-            <div class="pb-4 flex justify-between items-center">
-                <div class="flex items-center space-x-6">
-                    <img id="profileImage" src="./assets/images/default-user.jpg" alt="Profile Picture"
-                        class="w-30 h-30 rounded-full object-cover border" />
-                    <div>
-                        <p class="font-medium text-gray-700">Profile picture</p>
-                        <p class="text-sm text-gray-500">A profile picture helps personalize your account</p>
-                    </div>
-                </div>
-                <button id="editPfpBtn" class="text-(--color3)  font-medium hover:underline">Edit</button>
+        <div class="field flex justify-between items-center">
+          <div>
+            <p class="text-sm text-gray-500">Birthday</p>
+            <!-- Birthday field (initially text) -->
+            <span id="dob" class="field-value font-medium">01/12/2000</span>
+
+            <!-- Birthday input (hidden by default) -->
+            <div class="input-div relative hidden">
+              <input type="date" name="dob"
+                class="appearance-none input-el font-medium text-(--color2) border border-gray-300 rounded-lg px-3 py-2 w-full" value="2000-12-01" />
+              <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-(--color2) pointer-events-none" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10m-11 4h12M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
             </div>
-            <input type="file" id="pfpInput" accept="image/*" class="hidden" />
+          </div>
 
-            <!-- Basic Info -->
-            <div class="space-y-4">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <p class="text-sm text-gray-500">Name</p>
-                        <p class="font-medium">Mohiuddin Syed</p>
-                    </div>
-                    <button class="editable-btn text-(--color3)  hover:underline">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11-11a2.828 2.828 0 00-4-4L5 17v4z" />
-                        </svg>
-                    </button>
+          <!-- Edit button -->
+          <button class="edit-btn flex items-center gap-2 text-(--color3) p-2 cursor-pointer hover:scale-120 transition duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
 
-                </div>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <p class="text-sm text-gray-500">Birthday</p>
-                        <!-- Birthday field (initially text) -->
-                        <span id="birthdayDisplay" class="font-medium">January 1, 2000</span>
-
-                        <!-- Birthday input (hidden by default) -->
-                        <input type="date" id="birthdayInput"
-                            class="font-medium border border-gray-300 rounded-lg px-3 py-2 w-full hidden"
-                            value="2000-01-01" />
-                    </div>
-
-                    <!-- Edit button -->
-                    <button id="editButton" class="editable-btn text-(--color3)  hover:underline">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11-11a2.828 2.828 0 00-4-4L5 17v4z" />
-                        </svg>
-                    </button>
-                </div>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <p class="text-sm text-gray-500">Gender</p>
-                        <p class="font-medium">Male</p>
-                    </div>
-                    <button class="editable-btn text-(--color3)  hover:underline">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11-11a2.828 2.828 0 00-4-4L5 17v4z" />
-                        </svg>
-                    </button>
-
-                </div>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <p class="text-sm text-gray-500">Country</p>
-                        <p class="font-medium">India</p>
-                    </div>
-                    <button class="editable-btn text-(--color3)  hover:underline">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11-11a2.828 2.828 0 00-4-4L5 17v4z" />
-                        </svg>
-                    </button>
-
-                </div>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <p class="text-sm text-gray-500">College</p>
-                        <p class="font-medium">Shadan College of Engineering and Technology</p>
-                    </div>
-                    <button class="editable-btn text-(--color3) hover:underline">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11-11a2.828 2.828 0 00-4-4L5 17v4z" />
-                        </svg>
-                    </button>
-
-                </div>
+        <div class="field flex justify-between items-center">
+          <div>
+            <p class="text-sm text-gray-500">Gender</p>
+            <p id="gender" class="field-value font-medium">Gender</p>
+            <div class="relative input-div hidden">
+              <select
+                id="gender"
+                name="gender"
+                class="input-el w-full border border-(--color2) rounded-lg px-3 py-2 pr-10 text-(--color2) bg-(--color3) focus:ring-1 focus:ring-teal-600 focus:outline-none appearance-none"
+              >
+                <option value="" class="bg-(--color3)">
+                  Select Gender
+                </option>
+                <option value="male" class="bg-(--color3)">Male</option>
+                <option value="female" class="bg-(--color3)">
+                  Female
+                </option>
+                <option value="other" class="bg-(--color3)">Other</option>
+              </select>
+              <!-- Custom Dropdown Icon -->
+              <span class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-(--color2)">
+                ▼
+              </span>
             </div>
+          </div>
 
-            <!-- Contact Info -->
-            <div class="pt-6 space-y-4 mt-4">
-                <div class="mb-6">
-                    <h2 class="text-2xl font-semibold">Contact Info</h2>
-                    <div class="border-t w-full"></div>
-                </div>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <p class="text-sm text-gray-500">Email</p>
-                        <p class="font-medium">mail@gmail.com</p>
-                    </div>
-                    <button class="editable-btn text-(--color3) hover:underline">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11-11a2.828 2.828 0 00-4-4L5 17v4z" />
-                        </svg>
-                    </button>
+          <button class="edit-btn flex items-center gap-2 text-(--color3) p-2 cursor-pointer hover:scale-120 transition duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
 
-                </div>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <p class="text-sm text-gray-500">Phone</p>
-                        <p class="font-medium">9876543210</p>
-                    </div>
-                    <button class="editable-btn text-(--color3)  hover:underline">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11-11a2.828 2.828 0 00-4-4L5 17v4z" />
-                        </svg>
-                    </button>
-
-                </div>
+        <div class="field flex justify-between items-center">
+          <div>
+            <p class="text-sm text-gray-500">Country</p>
+            <p id="country_code" class="field-value font-medium">Country</p>
+            <div class="relative input-div hidden">
+              <select
+                id="countrySelect"
+                name="country_code"
+                class="input-el w-full border border-(--color2) rounded-lg px-3 py-2 pr-10 text-(--color2) bg-(--color3) focus:ring-1 focus:ring-teal-600 focus:outline-none appearance-none"
+              >
+                <option value="" class="bg-(--color3)">Select Country</option>
+                <!-- Js wil Populate -->
+              </select>
+              <!-- Custom Dropdown Icon -->
+              <span class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-(--color2)">
+                ▼
+              </span>
             </div>
-    </div>
+          </div>
+          <button class="edit-btn flex items-center gap-2 text-(--color3) p-2 cursor-pointer hover:scale-120 transition duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="field flex justify-between items-center">
+          <div>
+            <p class="text-sm text-gray-500">College</p>
+            <p id="college_id" class="field-value font-medium">College</p>
+            <div class="relative input-div hidden">
+              <input
+                type="text"
+                id="collegeInput"
+                name="college_id"
+                autocomplete="off"
+                placeholder="Search college..."
+                class="input-el w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none"
+              />
+              <ul
+                id="college-options"
+                class="absolute z-10 mt-1 w-full max-h-60 overflow-auto rounded-md bg-[var(--color3)] border border-[var(--color1)] text-[var(--color2)] shadow-lg hidden"
+              ></ul>
+              <span class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]">🔍</span>
+            </div>
+          </div>
+          <button class="edit-btn flex items-center gap-2 text-(--color3) p-2 cursor-pointer hover:scale-120 transition duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="field flex justify-between items-center">
+          <div>
+            <p class="text-sm text-gray-500">Bio</p>
+            <p id="bio" class="field-value font-medium">No bio</p>
+            <div class="input-div hidden">
+              <textarea
+                name="bio" type="text" rows="8" placeholder="Enter Your Bio"
+                class="input-el text-(--color2) w-full border rounded p-2">My Bio
+              </textarea>
+            </div>
+          </div>
+          <button class="edit-btn flex items-center gap-2 text-(--color3) p-2 cursor-pointer hover:scale-120 transition duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Account Info -->
+      <div class="pt-6 space-y-4 mt-4">
+        <div class="mb-6">
+          <h2 class="text-2xl font-semibold">Account Info</h2>
+          <div class="border-t w-full"></div>
+        </div>
+        <div class="field flex justify-between items-center">
+          <div>
+            <p class="text-sm text-gray-500">Username</p>
+            <p id="username" class="field-value font-medium">Username</p>
+            <div class="input-div hidden">
+              <input
+                type="text"
+                name="username"
+                value="Username"
+                class="input-el w-full border border-(--color1) text-(--color2) rounded-lg px-3 py-2 focus:ring focus:ring-teal-300"
+              />
+            </div>
+          </div>
+          <button class="edit-btn flex items-center gap-2 text-(--color3) p-2 cursor-pointer hover:scale-120 transition duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Contact Info -->
+      <div class="pt-6 space-y-4 mt-4">
+        <div class="mb-6">
+          <h2 class="text-2xl font-semibold">Contact Info</h2>
+          <div class="border-t w-full"></div>
+        </div>
+        <div class="field flex justify-between items-center">
+          <div>
+            <p class="text-sm text-gray-500">Email</p>
+            <p id="email" class="field-value font-medium">mail@mail.com</p>
+            <!-- <div class="input-div hidden">
+              <input
+                type="email"
+                name="email"
+                value="mail@mail.com"
+                title="Please enter a valid email address."
+                class="input-el w-full border border-(--color1) text-(--color2) rounded-lg px-3 py-2 focus:ring focus:ring-teal-300"
+              />
+            </div> -->
+          </div>
+          <!-- <button class="edit-btn flex items-center gap-2 text-(--color3) p-2 cursor-pointer hover:scale-120 transition duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button> -->
+        </div>
+
+        <div class="field flex justify-between items-center">
+          <div>
+            <p class="text-sm text-gray-500">Phone</p>
+            <p id="phone" class="field-value font-medium">1234567890</p>
+            <div class="input-div hidden">
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                pattern="[0-9]{08,15}"
+                placeholder="Phone Number"
+                value="1234567890"
+                class="input-el w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none"
+              />
+            </div>
+          </div>
+          <button class="edit-btn flex items-center gap-2 text-(--color3) p-2 cursor-pointer hover:scale-120 transition duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Shared Edit Popup -->
+      <form id="editPopup" class="hidden w-[80vw] fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-(--color3) border shadow-lg rounded-lg p-4 transition-all transform scale-95 opacity-0">
+        <label class="block text-sm font-medium text-(--color2) mb-2" id="popupLabel"></label>
+        <div id="popupInput"></div>
+        <div class="mt-3 flex justify-end gap-2">
+          <p id="infoErrorMsg" class="justify-self-start mr-auto hidden font-medium">Loading...</p>
+          <button id="popupCancel" class="px-3 py-1 text-(--color6) text-sm border rounded cursor-pointer">Cancel</button>
+          <button type="submit" id="popupSave" class="px-3 py-1 text-sm bg-teal-600 text-(--color6) rounded cursor-pointer">Save</button>
+        </div>
+      </form>
     </main>
+  </div>
 
-    </div>
+  </div>
 
-    <script src="./js/edit-profile.js"></script>
+  <script src="./js/lib/axios.min.js"></script>
+  <script src="./js/utility/deviceFingerprintGen.js"></script>
+  <script src="./js/utility/refresh-token.js"></script>
+  <script src="./js/utility/infoErrorMsg.js"></script>
+  <script src="./js/edit-profile.js"></script>
 </body>
 
 </html>

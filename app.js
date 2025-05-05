@@ -5,6 +5,7 @@ const express = require('express');
 const path = require('path');
 const fs = require("fs");
 const pool = require("./db/database");
+const loadCSVData = require("./db/loadCSVData");
 const cookieParser = require('cookie-parser');
 
 // security 
@@ -17,6 +18,7 @@ const xss = require("xss-clean");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
 const itemRoutes = require("./routes/items");
+const cllgRoutes = require("./routes/colleges");
 
 //middleware
 const notFound = require("./middleware/not-found");
@@ -34,7 +36,7 @@ app.use(cors());
 app.use(xss());
 
 // Public frontend
-const uploadDir = path.join(__dirname, "../uploads");
+const uploadDir = path.join(__dirname, "./uploads");
 app.use("/uploads", express.static(uploadDir));
 
 app.use(express.static(path.join(__dirname, "./public")));
@@ -44,6 +46,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/items", itemRoutes);
+app.use("/api/colleges", cllgRoutes);
 
 // Main route
 app.get('/', (req, res) => {
@@ -60,6 +63,10 @@ app.get('/user/:username', (req, res) => {
     res.sendFile(path.join(__dirname, "./public/profile.html"));
 });
 
+app.get('/edit-item/:id', (req, res) => {
+    res.sendFile(path.join(__dirname, "./public/edit-post.html"));
+});
+
 app.get("/surprise", (req, res) => {
     res.redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 });
@@ -72,6 +79,8 @@ const start = async () => {
 
     try {
         await pool.query(fs.readFileSync("./db/init.sql").toString());
+        await loadCSVData("universities", "id,name", "universities.csv", "uni_list_data");
+        await loadCSVData("colleges", null, "colleges.csv", "cllg_list_data");
         app.listen(PORT, "0.0.0.0", () => {
             console.log(`Server listening on port http://localhost:${PORT}...`);
         });

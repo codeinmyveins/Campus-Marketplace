@@ -3,11 +3,13 @@ const CustomAPIError = require("../errors/custom-api");
 const { StatusCodes } = require("http-status-codes");
 const pool = require("../db/database");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken")
 const redis = require("../redis/redis");
 const crypto = require("crypto");
 const emailTransporter = require("../mailer/transporter");
 const { getCountryCallingCode } = require("libphonenumber-js");
+const UAParser = require('ua-parser-js');
+const axios = require("axios");
 const {
     validateRegisterInitial,
     validateOTP,
@@ -28,12 +30,12 @@ function generateOTP() {
 const registerInitial = async (req, res) => {
 
     // Joi validation
-    const { error } = validateRegisterInitial(req.body);
+    const { error, value: joiValue } = validateRegisterInitial(req.body);
     if (error) {
         throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
     }
 
-    const { username, email:inputEmail, password } = req.body;
+    const { username, email:inputEmail, password } = joiValue;
     const email = inputEmail.toLowerCase();
 
     // prune unverified pre_users older than one hour
@@ -117,9 +119,9 @@ const registerInitial = async (req, res) => {
 
 const verifyEmail = async (req, res) =>  {
 
-    const { body: { otp: candidateOTP }, user: { userId, otpId, role } } = req;
+    const { body: { otp }, user: { userId, otpId, role } } = req;
 
-    const { error } = validateOTP(candidateOTP);
+    const { error, value: candidateOTP } = validateOTP(otp);
     // otp validation
     if (error) {
         throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
@@ -176,7 +178,6 @@ const verifyEmail = async (req, res) =>  {
 const changeEmailInitial = async (req, res) => {
 
     const { body: { email: inputEmail }, user: { userId, otpId, role, lastEmailTime } } = req;
-    const email = inputEmail.toLowerCase();
 
     const epochNow = Math.floor(Date.now() / 1000); // current epoch in seconds
     if (lastEmailTime + 60 > epochNow) {
@@ -186,7 +187,7 @@ const changeEmailInitial = async (req, res) => {
     }
     
     // Joi validation
-    const { error } = validateEmail(email);
+    const { error, value: email } = validateEmail(inputEmail);
     if (error) {
         throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
     }
@@ -328,12 +329,12 @@ const registerComplete = async (req, res) => {
         throw new CustomAPIError("Forbidden, user unverified", StatusCodes.FORBIDDEN);
     }
 
-    const { error } = validateRegisterComplete(req.body);
+    const { error, value: joiValue } = validateRegisterComplete(req.body);
     if (error) {
         throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
     }
     
-    const { full_name, dob, gender, country_code, phone, college_name, device_fingerprint } = req.body;
+    const { full_name, dob, gender, country_code, phone, college_id, device_fingerprint } = joiValue;
     const user_agent = req.headers['user-agent'];
     if (!user_agent) {
         throw new CustomAPIError("user-agent header not present", StatusCodes.BAD_REQUEST);
@@ -380,8 +381,13 @@ const registerComplete = async (req, res) => {
             StatusCodes.CONFLICT);
     }
 
-    const { rows: newUser } = await pool.query("INSERT INTO users (username, full_name, email, password, dob, gender, country_code, phone, college_name) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id, role",
-        [username, full_name, email, password, dob, gender, country_code, completePhone, college_name]
+    const { rowCount: cllg_exists } = await pool.query("SELECT 1 FROM colleges WHERE id = $1", [college_id]);
+    if (cllg_exists === 0) {
+        throw new CustomAPIError("Unknown college provided", StatusCodes.BAD_REQUEST);
+    }
+
+    const { rows: newUser } = await pool.query("INSERT INTO users (username, full_name, email, password, dob, gender, country_code, phone, college_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id, role",
+        [username, full_name, email, password, dob, gender, country_code, completePhone, college_id]
     );
 
     await pool.query("DELETE FROM pre_users WHERE id = $1", [userId]);
@@ -411,7 +417,7 @@ const registerComplete = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
-            // maxAge: 1000 * 60 * 60 * 24 * 7, // 7 day
+            maxAge: 1000 * 60 * 60 * 24 * 30, // 30 day
             path: "/",
         })
         .cookie("refresh_token", refresh_token, {
@@ -427,12 +433,12 @@ const registerComplete = async (req, res) => {
 
 const login = async (req, res) => {
 
-    const { error } = validateLogin(req.body);
+    const { error, value: joiValue } = validateLogin(req.body);
     if (error) {
         throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
     }
 
-    const { username, email, password, device_fingerprint } = req.body;
+    const { username, email, password, device_fingerprint } = joiValue;
 
     const { rowCount, rows: preUsers } = await pool.query("SELECT id, status, password FROM pre_users WHERE status = 'verified' AND (username = $1 OR email = $2)",
         [username, email]
@@ -459,7 +465,7 @@ const login = async (req, res) => {
                 maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
                 path: "/",
             })
-            .json({ msg: "Logged in as incomplete user successfully" });
+            .json({ msg: "Logged in as incomplete user successfully", code: 31 });
     }
 
     const { rowCount: rowCount2, rows: users } = await pool.query("SELECT id, role, password FROM users WHERE username = $1 OR email = $2",
@@ -534,7 +540,7 @@ const login = async (req, res) => {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
                 sameSite: "strict",
-                // maxAge: 1000 * 60 * 60 * 24 * 7, // 7 day
+                maxAge: 1000 * 60 * 60 * 24 * 30, // 30 day
                 path: "/",
             })
             .cookie("refresh_token", refresh_token, {
@@ -553,8 +559,8 @@ const login = async (req, res) => {
 
 const refreshAccessToken = async (req, res) => {
 
-    const { device_fingerprint } = req.body;
-    const { error } = validateDeviceFingerprint(device_fingerprint);
+    const { device_fingerprint: inputDeviceFingerprint } = req.body;
+    const { error, value: device_fingerprint } = validateDeviceFingerprint(inputDeviceFingerprint);
     if (error) {
         throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
     }
@@ -615,24 +621,22 @@ const refreshAccessToken = async (req, res) => {
     const refresh_token = crypto.randomBytes(64).toString('hex');
     const hashedRefToken = crypto.createHash('sha256').update(refresh_token).digest('hex');
 
-    var session_id;
-    try {
-        session_id = crypto.randomUUID();
-
-        await pool.query("INSERT INTO sessions (id, user_id, hashed_refresh_token, device_fingerprint, user_agent, ip_address) VALUES ($1, $2, $3, $4, $5, $6)",
+    let session_id = crypto.randomUUID();
+    
+        const { rows: session2 } = await pool.query(
+            `INSERT INTO sessions
+                (id, user_id, hashed_refresh_token, device_fingerprint, user_agent, ip_address)
+                VALUES ($1, $2, $3, $4, $5, $6)
+                ON CONFLICT (user_id, device_fingerprint) DO UPDATE SET
+                hashed_refresh_token = EXCLUDED.hashed_refresh_token,
+                user_agent = EXCLUDED.user_agent,
+                ip_address = EXCLUDED.ip_address,
+                last_used_at = NOW(),
+                expires_at = NOW() + INTERVAL '30 days'
+            RETURNING id`,
             [session_id, session.user_id, hashedRefToken, device_fingerprint, user_agent, ip_address]
         );
-    } catch (error) {
-        if (error.code === "23505") {
-            const { rows: sessions } = await pool.query("UPDATE sessions SET hashed_refresh_token = $1, device_fingerprint = $2, user_agent = $3, ip_address = $4, last_used_at = NOW(), expires_at = (NOW() + INTERVAL '30 days') WHERE id = $5 RETURNING id",
-                [hashedRefToken, device_fingerprint, user_agent, ip_address, session.id]
-            );
-            session_id = sessions[0].id;
-        } else {
-            console.error(error);
-            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
-        }
-    }
+        session_id = session2[0].id;
 
     const { rows: users } = await pool.query("SELECT role FROM users WHERE id = $1", [session.user_id]);
 
@@ -653,7 +657,7 @@ const refreshAccessToken = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
-            // maxAge: 1000 * 60 * 60 * 24 * 7, // 7 day
+            maxAge: 1000 * 60 * 60 * 24 * 30, // 30 day
             path: "/",
         })
         .cookie("refresh_token", refresh_token, {
@@ -669,7 +673,7 @@ const refreshAccessToken = async (req, res) => {
 
 const getSession = async (req, res) => {
 
-    const { userId } = req.user;
+    const { userId, sid } = req.user;
     const sessionId = req.params.id;
 
     const { rowCount, rows: sessions} = await pool.query(
@@ -681,12 +685,39 @@ const getSession = async (req, res) => {
         throw new CustomAPIError("Session not found", StatusCodes.NOT_FOUND);
     }
 
-    res.status(StatusCodes.OK).json({ session: sessions[0] });
+    const session = sessions[0];
+
+    const parser = new UAParser(session.user_agent);
+    const device = parser.getDevice();
+    const os = parser.getOS();
+    const browser = parser.getBrowser();
+
+    session.device_type = device.type || "desktop";
+    session.device_name = device.model || device.vendor;
+    session.os = os.name;
+    session.os_version = os.version;
+    session.browser = browser.name;
+    session.browser_version = browser.version;
+    session.current = session.id === sid;
+
+    try {
+
+        const { data } = await axios.get(`https://freeipapi.com/api/json/${session.ip_address}`);
+
+        session.country = data.countryName;
+        session.region = data.regionName;
+        session.city = data.cityName;
+
+    } catch (error) {
+        console.error(error);
+    }
+
+    res.status(StatusCodes.OK).json({ session });
 }
 
 const getAllSessions = async (req, res) => {
 
-    const { userId } = req.user;
+    const { userId, sid } = req.user;
 
     const { rowCount, rows: sessions} = await pool.query(
         `SELECT id, user_agent, ip_address, created_at, last_used_at FROM sessions
@@ -697,6 +728,35 @@ const getAllSessions = async (req, res) => {
         res.clearCookie('access_token');
         res.clearCookie('refresh_token');
         throw new CustomAPIError("No session ???!!!!", StatusCodes.NOT_FOUND);
+    }
+
+    for (let i = 0; i < sessions.length; i++) {
+        const session = sessions[i];
+        const parser = new UAParser(session.user_agent);
+        const device = parser.getDevice();
+        const os = parser.getOS();
+        const browser = parser.getBrowser();
+
+        session.device_type = device.type || "desktop";
+        session.device_name = device.model || device.vendor;
+        session.os = os.name;
+        session.os_version = os.version;
+        session.browser = browser.name;
+        session.browser_version = browser.version;
+        session.current = session.id === sid;
+
+        try {
+
+            const { data } = await axios.get(`https://freeipapi.com/api/json/${session.ip_address}`);
+    
+            session.country = data.countryName;
+            session.region = data.regionName;
+            session.city = data.cityName;
+    
+        } catch (error) {
+            console.error(error);
+        }
+
     }
 
     res.status(StatusCodes.OK).json({ sessions });

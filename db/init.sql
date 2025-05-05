@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS users (
     country_code TEXT NOT NULL CHECK (char_length(country_code) = 2 AND country_code ~ '^[A-Z]+$'),
     phone TEXT UNIQUE NOT NULL CHECK (phone ~ '^(\+|\d)\d{1,4}\s[0-9]{7,16}$'),
 
-    college_name TEXT NOT NULL CHECK (char_length(college_name) <= 128 AND college_name ~ '^[a-zA-Z\s]+$'),
+    college_id INTEGER NOT NULL,
 
     gender GENDER_ENUM NOT NULL,
     avatar_url TEXT,
@@ -74,9 +74,9 @@ CREATE TABLE IF NOT EXISTS pre_users (
     country_code TEXT CHECK (char_length(country_code) = 2 AND country_code ~ '^[A-Z]+$'),
     phone TEXT CHECK (phone ~ '^(\+|\d)\d{1,4}\s[0-9]{7,16}$'),
 
-    college_name TEXT CHECK (char_length(college_name) <= 128 AND college_name ~ '^[a-zA-Z\s]+$'),
-    gender GENDER_ENUM,
+    college_id INTEGER,
 
+    gender GENDER_ENUM,
     avatar_url TEXT,
     bio TEXT CHECK (char_length(bio) <= 2048),
 
@@ -163,3 +163,33 @@ BEGIN
     END IF;
 END
 $$ LANGUAGE plpgsql;
+
+CREATE TABLE IF NOT EXISTS data_flags (
+  id TEXT PRIMARY KEY,
+  loaded_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS universities (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    state TEXT,
+    district TEXT
+);
+
+CREATE TABLE IF NOT EXISTS colleges (
+    id INTEGER PRIMARY KEY,
+    uni_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    type TEXT NOT NULL,
+    state TEXT NOT NULL,
+    district TEXT NOT NULL,
+
+    document tsvector GENERATED ALWAYS AS (to_tsvector('english', name)) STORED,
+
+    FOREIGN KEY (uni_id) REFERENCES universities(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_cllgs_document ON colleges USING GIN (document);
+
+ALTER TABLE pre_users ADD FOREIGN KEY (college_id) REFERENCES colleges(id);
+ALTER TABLE users ADD FOREIGN KEY (college_id) REFERENCES colleges(id);
