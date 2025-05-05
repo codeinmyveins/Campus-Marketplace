@@ -319,6 +319,9 @@
   .right-4 {
     right: calc(var(--spacing) * 4);
   }
+  .right-5 {
+    right: calc(var(--spacing) * 5);
+  }
   .right-\[2rem\] {
     right: 2rem;
   }
@@ -540,6 +543,9 @@
   }
   .aspect-square {
     aspect-ratio: 1 / 1;
+  }
+  .h-3 {
+    height: calc(var(--spacing) * 3);
   }
   .h-4 {
     height: calc(var(--spacing) * 4);
@@ -1539,6 +1545,10 @@
     --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+  .ring-1 {
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
   .outline {
     outline-style: var(--tw-outline-style);
     outline-width: 1px;
@@ -1942,6 +1952,11 @@
   .focus\:outline-teal-500 {
     &:focus {
       outline-color: var(--color-teal-500);
+    }
+  }
+  .focus\:outline-teal-600 {
+    &:focus {
+      outline-color: var(--color-teal-600);
     }
   }
   .focus\:outline-none {

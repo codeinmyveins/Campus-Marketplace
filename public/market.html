@@ -51,7 +51,7 @@
     <!-- <div class="h-[70px]"></div> -->
     <!-- Right Sidebar -->
     <div id="sidebar"
-      class="fixed top-0 right-0 h-full w-64 bg-[var(--color1)] text-white shadow-lg transform translate-x-full transition-transform duration-300 z-50"
+      class="fixed top-0 right-0 h-full w-64 bg-(--color1) text-white shadow-lg transform translate-x-full transition-transform duration-300 z-50"
       role="menu" aria-label="User menu">
       <div class="flex flex-col h-full p-6 space-y-6">
         <!-- Close Button -->
@@ -81,7 +81,7 @@
 
         <!-- Updated Logout Button -->
         <button onclick="confirmLogout()"
-          class="mt-auto flex items-center justify-center gap-3 bg-white text-[var(--color1)] px-4 py-2 rounded hover:bg-red-100 hover:cursor-pointer transition text-base font-medium"
+          class="mt-auto flex items-center justify-center gap-3 bg-white text-(--color1) px-4 py-2 rounded hover:bg-red-100 hover:cursor-pointer transition text-base font-medium"
           role="menuitem">
           <i data-lucide="log-out" class="w-5 h-5 text-red-500"></i>
           Logout
@@ -92,13 +92,21 @@
 
     <!-- Filter Sidebar -->
     <aside id="filterSidebar"
-      class="absolute h-full w-full md:w-75 bg-white border-r border-gray-200 p-6 space-y-6 shadow-md md:fixed left-0 z-30 hidden md:block">
+      class="absolute h-full w-full md:w-75 bg-(--color6) border-r border-gray-200 p-6 space-y-6 shadow-md md:fixed left-0 z-30 hidden md:block">
+      <!-- close btn -->
+      <button class="absolute right-5 flex md:hidden items-center gap-2 text-(--color3) p-2 cursor-pointer hover:scale-120 transition duration-200"
+        onclick="toggleFilterSidebar()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" transform="scale(1, -1)" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+
       <!-- Type -->
       <div>
         <h3 class="text-lg font-semibold mb-2">Type</h3>
         <div class="space-y-2">
           <label class="flex items-center gap-2">
-            <input type="checkbox" name="type" value="sell" class="accent-teal-600" />
+            <input type="checkbox" name="type" value="sell" class="accent-teal-600" checked />
             Buy
           </label>
           <label class="flex items-center gap-2">
@@ -112,7 +120,7 @@
       <div>
         <label for="item_category" class="block text-lg font-semibold mb-2">Item Category</label>
         <select id="item_category"
-          class="w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500">
+          class="w-full h-8 rounded-md outline-none border border-gray-300 shadow-sm focus:border-teal-500 focus:ring-1 focus:ring-teal-500 focus:outline-teal-600">
           <!-- Js will populate -->
         </select>
       </div>
@@ -124,38 +132,45 @@
           <div class="flex-1 relative">
             <span class="absolute left-3 top-2.5 text-gray-500">₹</span>
             <input type="number" min="0" placeholder="Min Price"
-              class="pl-6 pr-2 py-2 w-full border rounded-md focus:outline-teal-500" />
+              class="pl-6 pr-2 py-2 w-full outline-none border rounded-md focus:border-teal-500 focus:ring-teal-500 focus:ring-1 focus:outline-teal-600" />
           </div>
           <div class="flex-1 relative">
             <span class="absolute left-3 top-2.5 text-gray-500">₹</span>
             <input type="number" min="0" placeholder="Max Price"
-              class="pl-6 pr-2 py-2 w-full border rounded-md focus:outline-teal-500" />
+              class="pl-6 pr-2 py-2 w-full outline-none border rounded-md focus:border-teal-500 focus:ring-teal-500 focus:ring-1 focus:outline-teal-600" />
           </div>
         </div>
       </div>
 
       <!-- College Name -->
-      <div>
-        <label for="college" class="block text-lg font-semibold mb-2">College Name</label>
-        <select id="college"
-          class="w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500">
-          <option>Shadan College of Engineering and Technology</option>
-          <option>CBIT</option>
-          <option>VNR VJIET</option>
-          <option>Vasavi College of Engineering</option>
-          <option>JNTU Hyderabad</option>
-        </select>
+      <div class="relative">
+        <label for="college" class="block text-lg font-semibold mb-2">College</label>
+        <div class="relative">
+          <input
+            type="text"
+            id="college"
+            name="college"
+            autocomplete="off"
+            placeholder="Search college..."
+            class="p-1 h-8 w-full rounded-md outline-none border border-gray-300 shadow-sm focus:border-teal-500 focus:ring-1 focus:ring-teal-500 focus:outline-teal-600"
+          />
+          <ul
+            id="college-options"
+            class="absolute z-10 mt-1 w-full max-h-60 overflow-auto rounded-md bg-(--color6) border border-gray-300 shadow-lg hidden"
+          ></ul>
+          <span class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">🔍</span>
+        </div>
       </div>
 
       <!-- Sort By -->
       <div>
         <label for="sort" class="block text-lg font-semibold mb-2">Sort By</label>
-        <select id="sort" class="w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500">
-          <option>Relevance</option>
-          <option>Item Name</option>
-          <option>Created At</option>
-          <option>Modified At</option>
-          <option>Price</option>
+        <select id="sort" class="h-8 w-full rounded-md outline-none border border-gray-300 shadow-sm focus:border-teal-500 focus:ring-1 focus:ring-teal-500 focus:outline-teal-600">
+          <option value="" class="bg-(--color6)">Relevance</option>
+          <option value="" class="bg-(--color6)">Item Name</option>
+          <option value="" class="bg-(--color6)">Created At</option>
+          <option value="" class="bg-(--color6)">Modified At</option>
+          <option value="" class="bg-(--color6)">Price</option>
         </select>
       </div>
     </aside>
@@ -166,12 +181,11 @@
 
         <!-- Filter Toggle (Mobile only) -->
         <button onclick="toggleFilterSidebar()"
-          class="md:hidden bg-[var(--color1)] text-white px-4 py-2 rounded mb-4 ml-4 w-fit">
+          class="md:hidden bg-(--color1) text-white px-4 py-2 rounded mb-4 ml-4 w-fit">
           ☰ Filters
         </button>
         
         <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
-
 
           <!-- Enhanced Product Card -->
           <div
@@ -319,6 +333,7 @@
     lucide.createIcons();
   </script>
 
+  <script src="./js/lib/axios.min.js"></script>
   <script src="./js/market.js"></script>
 </body>
 
