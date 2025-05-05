@@ -56,6 +56,23 @@ const getUser = async (req, res) => {
 
 }
 
+const contactUser = async (req, res) => {
+
+    const userId = req.params.id;
+
+    const { rowCount, rows: users } = await pool.query("SELECT phone FROM users WHERE id = $1",
+        [userId]
+    );
+    if (rowCount === 0) {
+        throw CustomAPIError("User not found", StatusCodes.NOT_FOUND);
+    }
+
+    res.status(StatusCodes.OK).json({
+        user_phone :users[0].phone
+    });
+
+}
+
 const editUser = async (req, res) => {
 
     const { error, value: joiValue } = validateUserInfo(req.body);
@@ -193,4 +210,5 @@ const putAvatarImage = async (req, res) => {
 
 module.exports = {
     getUser, getCurrentUser, editUser, putAvatarImage,
+    contactUser
 };
