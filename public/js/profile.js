@@ -18,6 +18,8 @@ const pathParts = window.location.pathname.split('/');
 const is_me = !(pathParts.length === 3);
 const username = !is_me ? pathParts[pathParts.length - 1] : "";
 
+document.getElementById("edit-btn").hidden = !is_me;
+
 
 async function getCountryNameFromCode(code) {
   try {

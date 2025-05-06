@@ -35,7 +35,7 @@ async function fillDetails() {
     }
 
     try {
-        const { data } = await axios.get(`/api/items?user_id=${userId}&sort=-modified_at&closed=all`);
+        const { data } = await axios.get(`/api/items?user_id=${userId}&sort=-modified_at&closed=all&type=sell,buy,lend,borrow`);
 
         if (data.itemCount > 0) {
             document.querySelector("#itemInfo").classList.add("hidden");
