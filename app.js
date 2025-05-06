@@ -67,6 +67,10 @@ app.get('/edit-item/:id', (req, res) => {
     res.sendFile(path.join(__dirname, "./public/edit-post.html"));
 });
 
+app.get('/item/:id', (req, res) => {
+    res.sendFile(path.join(__dirname, "./public/item.html"));
+});
+
 app.get("/surprise", (req, res) => {
     res.redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 });

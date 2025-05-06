@@ -82,7 +82,7 @@
   <!-- Enhanced Profile Section -->
   <section class="px-6 py-12 md:px-20 bg-[var(--color2)] enhanced-profile flex flex-col md:flex-row items-center gap-12">
     <!-- Left Column: Larger Profile Image -->
-    <div class="flex-1 flex justify-center">
+    <div class="flex-1 flex justify-center self-start">
       <img id="pfp" 
         src="./assets/images/default-user.jpg" 
         alt="default profile picture" 
@@ -94,9 +94,7 @@
     <div class="flex-1 text-center md:text-left space-y-6">
       <h1 id="fullname" class="text-4xl md:text-5xl font-bold"></h1>
       <p class="text-lg text-gray-700">@<span id="username"></span></p>
-      <p id="bio" class="text-lg text-gray-700">
-        
-      </p>
+      
       <div class="space-y-4">
         <p class="text-gray-700 flex items-baseline text-left">
           <i class="fas fa-globe text-gray-500 mr-2"></i><span id="country"></span>
@@ -105,6 +103,8 @@
           <i class="fas fa-university text-gray-500 mr-2"></i><span id="college"></span>
         </p>
       </div>
+      <p id="bio" class="text-lg text-gray-700">
+      </p>
       <button class="mt-6 px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition text-lg">
         Edit Profile
       </button>
