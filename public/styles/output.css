@@ -1916,6 +1916,13 @@
       }
     }
   }
+  .hover\:ring-teal-600 {
+    &:hover {
+      @media (hover: hover) {
+        --tw-ring-color: var(--color-teal-600);
+      }
+    }
+  }
   .hover\:brightness-75 {
     &:hover {
       @media (hover: hover) {
