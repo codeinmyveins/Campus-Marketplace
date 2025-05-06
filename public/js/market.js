@@ -120,3 +120,4 @@ document.addEventListener('click', (e) => {
 function getSelectedCollegeId() {
     return selectedCollegeId;
 }
+

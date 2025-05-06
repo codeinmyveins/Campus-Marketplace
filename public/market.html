@@ -14,7 +14,7 @@
 
   <header>
     <nav
-      class="select-none fixed top-0 left-0 right-0 z-50 bg-(--color2) shadow px-4 py-4 flex items-center gap-2 sm:gap-4 flex-wrap sm:flex-nowrap">
+      class="select-none fixed top-0 left-0 right-0 z-50 bg-(--color2) shadow px-4 py-4 flex items-center gap-2 sm:gap-4 flex-nowrap">
       <!-- Logo + Text -->
       <div class="flex items-center space-x-2 flex-shrink-0">
         <img src="./assets/icons/Campus Marketplace Logo.svg" alt="Campus Logo"
@@ -25,17 +25,18 @@
       </div>
 
       <!-- Search Input Container -->
-      <div class="relative flex-grow min-w-[100px] sm:min-w-[160px]">
+      <div class="input_container flex-grow">
         <input type="text" placeholder=" Search items at campus..."
-          class="w-full pl-3 py-2 border rounded-full text-sm focus:outline-none" />
+          class="input appearance-none p-2 text-sm" />
+          <div class="background border rounded-2xl"></div>
+          <!-- Search Button -->
+          <button
+            class="bg-teal-600 hover:bg-teal-700 text-(--color3) rounded-r-2xl p-2 text-sm flex items-center justify-center">
+            <i data-lucide="search" class="h-full sm:hidden block"></i>
+            <span class="hidden sm:block">Search</span>
+          </button>
       </div>
 
-      <!-- Search Button -->
-      <button
-        class="bg-teal-600 hover:bg-teal-700 text-white px-2 sm:px-4 py-2 rounded text-sm flex items-center justify-center">
-        <i data-lucide="search" class="w-4 h-4 sm:hidden block"></i>
-        <span class="hidden sm:block">Search</span>
-      </button>
 
       <div class="flex items-center space-x-1 cursor-pointer" onclick="toggleSidebar()">
         <img src="./assets/images/default-user.jpg" alt="Profile"
@@ -334,6 +335,10 @@
   </script>
 
   <script src="./js/lib/axios.min.js"></script>
+  <script src="./js/utility/deviceFingerprintGen.js"></script>
+  <script src="./js/utility/refresh-token.js"></script>
+  <script src="./js/utility/infoErrorMsg.js"></script>
+  <script src="./js/utility/formatTimestamp.js"></script>
   <script src="./js/market.js"></script>
 </body>
 
