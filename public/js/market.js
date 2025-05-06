@@ -66,15 +66,15 @@ categories.forEach(c => {
 
 // college Setup
 
-const collegeInput = document.getElementById('college');
-const dropdown = document.getElementById('college-options');
+const collegeInput = document.getElementById("college_name");
+const dropdown = document.getElementById("college-options");
 
 let selectedCollegeId = null;
 
-collegeInput.addEventListener('input', async () => {
+collegeInput.addEventListener("input", async () => {
     const query = collegeInput.value.trim();
     if (query.length < 2) {
-        dropdown.classList.add('hidden');
+        dropdown.classList.add("hidden");
         return;
     }
 
@@ -90,9 +90,9 @@ collegeInput.addEventListener('input', async () => {
         <li class="cursor-pointer px-4 py-2 hover:bg-(--color2) hover:text-(--color3)" data-id="${college.id}">
           ${college.name}
         </li>
-      `).join('');
+      `).join("");
 
-        dropdown.classList.remove('hidden');
+        dropdown.classList.remove("hidden");
 
     } catch (error) {
         console.error(error);
@@ -101,18 +101,19 @@ collegeInput.addEventListener('input', async () => {
 
 });
 
-dropdown.addEventListener('click', e => {
-    const li = e.target.closest('li');
+dropdown.addEventListener("click", e => {
+    const li = e.target.closest("li");
     if (!li) return;
     collegeInput.value = li.textContent.trim();
+    updateURLFromFilters();
     selectedCollegeId = li.dataset.id;
-    dropdown.classList.add('hidden');
+    dropdown.classList.add("hidden");
 });
 
 // Optional: click outside to close dropdown
-document.addEventListener('click', (e) => {
+document.addEventListener("click", (e) => {
     if (!dropdown.contains(e.target) && e.target !== collegeInput) {
-        dropdown.classList.add('hidden');
+        dropdown.classList.add("hidden");
     }
 });
 
@@ -121,3 +122,120 @@ function getSelectedCollegeId() {
     return selectedCollegeId;
 }
 
+const inputMap = {
+    search: document.getElementById("search"),
+    item_category: document.getElementById("item_category"),
+    price_min: document.getElementById("price_min"),
+    price_max: document.getElementById("price_max"),
+    college_name: document.getElementById("college_name"),
+    sort: document.getElementById("sort"),
+};
+
+const checkboxGroupName = "type";
+
+// --- A. Set Inputs From URL ---
+function applyFiltersFromURL() {
+    const params = new URLSearchParams(window.location.search);
+
+    for (const [key, input] of Object.entries(inputMap)) {
+        const val = params.get(key);
+        if (val !== null) input.value = val;
+    }
+
+    const types = (params.get(checkboxGroupName) || "").split(",").filter(Boolean);
+    document.querySelectorAll(`input[name="${checkboxGroupName}"]`).forEach(cb => {
+        cb.checked = types.includes(cb.value);
+    });
+
+    fetchItems();
+}
+
+// --- B. Update URL From Inputs ---
+function updateURLFromFilters() {
+    const params = new URLSearchParams();
+
+    for (const [key, input] of Object.entries(inputMap)) {
+        if (input.value) params.set(key, input.value);
+    }
+
+    const selectedTypes = [...document.querySelectorAll(`input[name="${checkboxGroupName}"]:checked`)]
+        .map(cb => cb.value);
+    if (selectedTypes.length) {
+        params.set(checkboxGroupName, selectedTypes.join(","));
+    }
+
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    history.replaceState(null, "", newUrl); // Update URL without reloading
+}
+
+// --- C. Hook Input Changes ---
+function attachFilterListeners() {
+    for (const input of Object.values(inputMap)) {
+        if (input.id === "college_name" || input.id === "search") continue;
+        input.addEventListener("change", updateURLFromFilters);
+    }
+
+    document.querySelectorAll(`input[name="${checkboxGroupName}"]`).forEach(cb => {
+        cb.addEventListener("change", updateURLFromFilters);
+    });
+}
+
+
+// --- D. Sync on load ---
+applyFiltersFromURL();
+attachFilterListeners();
+
+function clearFilters(filtersOnly=false){
+    // Clear input values
+    for (const input of Object.values(inputMap)) {
+        if (filtersOnly && input.id === "search") continue;
+        input.value = "";
+    }
+
+    // Uncheck all checkboxes in the type group
+    document.querySelectorAll(`input[name="${checkboxGroupName}"]`).forEach(cb => {
+        cb.checked = false;
+    });
+
+    updateURLFromFilters();
+    // // Remove query params from the URL
+    // const baseUrl = window.location.pathname;
+    // history.replaceState(null, "", baseUrl);
+}
+
+const  itemList = document.getElementById("product-list");
+const defaultCard = document.getElementById("defaultCard");
+
+async function fetchItems() {
+
+    try {
+        
+        const { data: { itemCount, items } } = await axios.get(`/api/items/${window.location.search}`);
+
+        items.forEach(item => {
+
+            const card = defaultCard.cloneNode(true);
+            card.dataset.id = item.id;
+            card.querySelector("#card-title").textContent = item.title;
+            card.querySelector("#card-item_name").textContent = item.item_name;
+            card.querySelector("#card-item_category").textContent = item.item_category;
+            card.querySelector("#card-type").textContent = item.type;
+            card.querySelector("#card-price").textContent = item.price ? `₹ ${item.price}` : "Free";
+            card.querySelector("#card-created_at").textContent = formatTimestamp(item.created_at);
+            if (item.cover_img) {
+                const coverImg = card.querySelector("#card-cover");
+                coverImg.src = item.cover_img.url;
+                coverImg.alt = item.cover_img.name;
+            }
+            card.querySelector("#view-btn").href = `/item/${item.id}`;
+
+            card.hidden = false;
+            itemList.appendChild(card);
+
+        });
+
+    } catch (error) {
+        console.error(error);
+    }
+
+}
