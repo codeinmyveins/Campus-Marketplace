@@ -25,17 +25,17 @@
       </div>
 
       <!-- Search Input Container -->
-      <div class="input_container flex-grow">
+      <form id="searchForm" class="input_container flex-grow">
         <input id="search" type="text" placeholder=" Search items at campus..."
           class="input appearance-none p-2 text-sm" />
           <div class="background border rounded-2xl"></div>
           <!-- Search Button -->
-          <button onclick="updateURLFromFilters()"
+          <button onclick="updateURLFromFilters()" type="submit"
             class="bg-teal-600 hover:bg-teal-700 text-(--color3) rounded-r-2xl p-2 text-sm flex items-center justify-center">
             <i data-lucide="search" class="h-full sm:hidden block"></i>
             <span class="hidden sm:block">Search</span>
           </button>
-      </div>
+      </form>
 
 
       <div class="flex items-center space-x-1 cursor-pointer" onclick="toggleSidebar()">
@@ -63,19 +63,19 @@
 
         <!-- Menu Links -->
         <!-- Inside your Sidebar Links -->
-        <a href="#" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-200" role="menuitem">
+        <a href="/me" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-200" role="menuitem">
           <i data-lucide="user" class="w-5 h-5 text-teal-300"></i>
           Profile
         </a>
-        <a href="#" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300" role="menuitem">
+        <a href="./dashboard.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300" role="menuitem">
           <i data-lucide="layout-dashboard" class="w-5 h-5 text-blue-300"></i>
           Dashboard
         </a>
-        <a href="#" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300" role="menuitem">
+        <a href="./edit-profile.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300" role="menuitem">
           <i data-lucide="settings" class="w-5 h-5 text-yellow-300"></i>
           Manage Account
         </a>
-        <a href="#" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300" role="menuitem">
+        <a href="./create-post.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300" role="menuitem">
           <i data-lucide="plus-circle" class="w-5 h-5 text-purple-300"></i>
           Post Item
         </a>

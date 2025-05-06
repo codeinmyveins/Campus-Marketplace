@@ -35,9 +35,14 @@ document.addEventListener("keydown", function (e) {
 });
 
 
-function confirmLogout() {
-    if (confirm("Are you sure you want to logout?")) {
+async function confirmLogout() {
+    if (!confirm("Are you sure you want to logout?")) return;
+
+    try {
+        await apiAuth.delete("/api/auth/logout");
         window.location.href = "index.html";
+    } catch (error) {
+        console.error(error);
     }
 }
 
@@ -122,6 +127,8 @@ function getSelectedCollegeId() {
     return selectedCollegeId;
 }
 
+
+// filters
 const inputMap = {
     search: document.getElementById("search"),
     item_category: document.getElementById("item_category"),
@@ -168,6 +175,11 @@ function updateURLFromFilters() {
     history.replaceState(null, "", newUrl); // Update URL without reloading
     fetchItems();
 }
+
+document.getElementById("searchForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    updateURLFromFilters();
+});
 
 // --- C. Hook Input Changes ---
 function attachFilterListeners() {
