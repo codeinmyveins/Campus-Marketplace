@@ -241,10 +241,12 @@
       <p id="seller-heading" class="mt-6 text-2xl text-left">Seller Info</p>
       <hr>
       <div id="seller_info" class="flex items-center gap-4 mr-6">
-        <img id="avatar" class="max-w-48 aspect-square rounded-full object-cover border"
+        <a id="avatar_a_tag">
+          <img id="avatar" class="max-w-48 aspect-square rounded-full object-cover border"
           src="./assets/images/default-user.jpg">
+        </a>
         <div>
-          <div id="full_name" class="font-semibold">Full Name</div>
+          <a id="full_name" class="font-semibold">Full Name</a>
           <div id="username" class="text-gray-600 text-sm">@username</div>
           <button onclick="contactSeller()"
            class="mt-2 bg-(--color3) hover:bg-teal-600 text-white text-sm px-4 py-2 rounded-full">

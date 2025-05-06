@@ -78,10 +78,12 @@ async function fillDetails() {
 
         itemUser = user;
         document.getElementById("full_name").textContent = user.full_name;
+        document.getElementById("full_name").href = `/user/${user.username}`
         document.getElementById("username").textContent = "@" + user.username;
         if (user.avatar_url) {
             document.getElementById("avatar").src = user.avatar_url;
         }
+        document.getElementById("avatar_a_tag").href = `/user/${user.username}`
 
     } catch (error) {
         console.error(error);
