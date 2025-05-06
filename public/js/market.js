@@ -166,6 +166,7 @@ function updateURLFromFilters() {
 
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     history.replaceState(null, "", newUrl); // Update URL without reloading
+    fetchItems();
 }
 
 // --- C. Hook Input Changes ---
@@ -208,10 +209,12 @@ const defaultCard = document.getElementById("defaultCard");
 
 async function fetchItems() {
 
+    // itemList.innerHTML = "Loading...";
     try {
         
         const { data: { itemCount, items } } = await axios.get(`/api/items/${window.location.search}`);
 
+        itemList.innerHTML = "";
         items.forEach(item => {
 
             const card = defaultCard.cloneNode(true);

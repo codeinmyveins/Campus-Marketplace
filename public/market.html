@@ -168,11 +168,13 @@
         <label for="sort" class="block text-lg font-semibold mb-2">Sort By</label>
         <select id="sort" value="relevance" class="h-8 w-full rounded-md outline-none border border-gray-300 shadow-sm focus:border-teal-500 focus:ring-1 focus:ring-teal-500 focus:outline-teal-600">
           <option value="" class="bg-(--color6)">Sort Options</option>
-          <option value="relevance" class="bg-(--color6)">Relevance</option>
+          <option value="-relevance" class="bg-(--color6)">Relevance</option>
           <option value="price" class="bg-(--color6)">Price</option>
-          <option value="created_at" class="bg-(--color6)">Created At</option>
-          <option value="modified_at" class="bg-(--color6)">Modified At</option>
-          <option value="item_name" class="bg-(--color6)">Item Name</option>
+          <option value="-created_at" class="bg-(--color6)">New First</option>
+          <option value="created_at" class="bg-(--color6)">Old First</option>
+          <option value="-modified_at" class="bg-(--color6)">Modified At</option>
+          <option value="item_name" class="bg-(--color6)">Item Name Acending</option>
+          <option value="-item_name" class="bg-(--color6)">Item Name Decending</option>
         </select>
       </div>
       <div>
@@ -232,7 +234,7 @@
         </div>
 
         <!-- <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full"></div> -->
-        <div id="product-list" class="flex space-x-6 flex-wrap gap-6 w-full"></div>
+        <div id="product-list" class="flex space-x-6 flex-wrap gap-6 w-full justify-around"></div>
         </div>
 
       </section>
