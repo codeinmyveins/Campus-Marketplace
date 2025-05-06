@@ -22,6 +22,9 @@
         justify-content: center;
         text-align: center;
       }
+      #seller-heading {
+        text-align: center;
+      }
     }
     @media (width >= 640px) {
       #seller_info {
@@ -170,37 +173,37 @@
 
   <!-- Main Grid Layout -->
   <!-- <div class="p-6 grid grid-cols-1 lg:grid-cols-[700px_1fr] md:grid-cols-[600px_1fr] gap-6 mt-6" -->
-  <div class="p-6 grid grid-cols-1 md:flex gap-6 mt-6"
-    x-data="{ selectedImage: './assets/images/book.jpg', images: ['./assets/images/book.jpg', './assets/images/casio.jpg', './assets/images/default-user.jpg', './assets/images/trumpet.png', './assets/images/drafter.jpg'], currentIndex: 0 }">
+  <div class="p-6 grid grid-cols-1 md:flex gap-6 mt-6">
 
     <!-- <div class="flex flex-col-reverse lg:block"> -->
     <div class="flex flex-col-reverse lg:flex-row gap-4">
 
       <!-- Left Side Thumbnails -->
-      <div class="flex space-x-4 lg:flex-col lg:space-y-4 md:w-[500px] h-auto lg:h-[500px] lg:max-h-[500px] lg:w-auto">
-        <div @click="selectedImage = images[0]; currentIndex = 0" class="lg:w-22 flex-1 aspect-square overflow-hidden rounded cursor-pointer border hover:ring-2 hover:ring-blue-400 transition">
-          <img :src="images[0]" class="w-full h-full object-cover">
+      <!-- <div class="flex space-x-4 lg:flex-col lg:space-y-4 md:w-[500px] h-auto lg:h-[500px] lg:max-h-[500px] lg:w-auto"> -->
+      <div class="grid gap-2 grid-cols-5 grid-rows-1 lg:grid-cols-1 lg:grid-rows-5 md:w-[500px] h-auto lg:h-[500px] lg:max-h-[500px] lg:w-auto lg:mr-2">
+        <div hidden id="img1" class="lg:w-22 flex-1 aspect-square overflow-hidden rounded cursor-pointer border hover:ring-2 hover:ring-blue-400 transition">
+          <img src="./assets/images/no_image.webp" class="w-full h-full object-cover">
         </div>
-        <div @click="selectedImage = images[1]; currentIndex = 1" class="lg:w-22 flex-1 aspect-square overflow-hidden rounded cursor-pointer border hover:ring-2 hover:ring-blue-400 transition">
-          <img :src="images[1]" class="w-full h-full object-cover">
+        <div hidden id="img2" class="lg:w-22 flex-1 aspect-square overflow-hidden rounded cursor-pointer border hover:ring-2 hover:ring-blue-400 transition">
+          <img src="./assets/images/no_image.webp" class="w-full h-full object-cover">
         </div>
-        <div @click="selectedImage = images[2]; currentIndex = 2" class="lg:w-22 flex-1 aspect-square overflow-hidden rounded cursor-pointer border hover:ring-2 hover:ring-blue-400 transition">
-          <img :src="images[2]" class="w-full h-full object-cover">
+        <div hidden id="img3" class="lg:w-22 flex-1 aspect-square overflow-hidden rounded cursor-pointer border hover:ring-2 hover:ring-blue-400 transition">
+          <img src="./assets/images/no_image.webp" class="w-full h-full object-cover">
         </div>
-        <div @click="selectedImage = images[3]; currentIndex = 3" class="lg:w-22 flex-1 aspect-square overflow-hidden rounded cursor-pointer border hover:ring-2 hover:ring-blue-400 transition">
-          <img :src="images[3]" class="w-full h-full object-cover">
+        <div hidden id="img4" class="lg:w-22 flex-1 aspect-square overflow-hidden rounded cursor-pointer border hover:ring-2 hover:ring-blue-400 transition">
+          <img src="./assets/images/no_image.webp" class="w-full h-full object-cover">
         </div>
-        <div @click="selectedImage = images[4]; currentIndex = 4" class="lg:w-22 flex-1 aspect-square overflow-hidden rounded cursor-pointer border hover:ring-2 hover:ring-blue-400 transition">
-          <img :src="images[4]" class="w-full h-full object-cover">
+        <div hidden id="img5" class="lg:w-22 flex-1 aspect-square overflow-hidden rounded cursor-pointer border hover:ring-2 hover:ring-blue-400 transition">
+          <img src="./assets/images/no_image.webp" class="w-full h-full object-cover">
         </div>
       </div>
     
       <!-- Main Cover Image with Navigation -->
-      <div class="md:w-[500px] md:h-[500px] rounded-lg overflow-hidden relative">
-        <img :src="selectedImage" alt="Cover Image" class="w-full h-full object-cover transition-all duration-300">
+      <div id="cover-section" class="md:w-[500px] md:h-[500px] rounded-lg overflow-hidden relative">
+        <img src="./assets/images/no_image.webp" alt="Cover Image" class="w-full h-full object-cover transition-all duration-300">
         <!-- Left Button -->
-        <button 
-          @click="currentIndex = (currentIndex === 0 ? images.length - 1 : currentIndex - 1); selectedImage = images[currentIndex]" 
+        <button id="next-img" 
+          onclick="currentIndex = (currentIndex === 0 ? images.length - 1 : currentIndex - 1); selectedImage = images[currentIndex]" 
           class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white text-gray-800 p-3 rounded-full shadow-lg hover:bg-gray-200 hover:text-gray-900 focus:outline-none transition duration-300 ease-in-out">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
@@ -208,8 +211,8 @@
         </button>
 
         <!-- Right Button -->
-        <button 
-          @click="currentIndex = (currentIndex === images.length - 1 ? 0 : currentIndex + 1); selectedImage = images[currentIndex]" 
+        <button id="prev-img" 
+          onclick="currentIndex = (currentIndex === images.length - 1 ? 0 : currentIndex + 1); selectedImage = images[currentIndex]" 
           class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white text-gray-800 p-3 rounded-full shadow-lg hover:bg-gray-200 hover:text-gray-900 focus:outline-none transition duration-300 ease-in-out">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -222,33 +225,36 @@
     <!-- Product Details -->
     <div class="flex flex-col gap-4">
       <div>
-        <h1 class="text-3xl font-bold mb-2">Title of the Product</h1>
-        <p class="text-xl mb-2">Item name</p>
+        <h1 id="title" class="text-3xl font-bold mb-2">Title of the Product</h1>
+        <p id="item_name" class="text-xl mb-2">Item name</p>
         <div class="flex gap-2 mb-2">
-          <span class="bg-orange-400 text-white text-xs px-2 py-1 rounded-full">Category</span>
-          <span class="bg-orange-400 text-white text-xs px-2 py-1 rounded-full">Type</span>
+          <span id="item_category" class="bg-orange-400 text-white text-xs px-2 py-1 rounded-full">Category</span>
+          <span id="type" class="bg-orange-400 text-white text-xs px-2 py-1 rounded-full">Type</span>
         </div>
       </div>
 
-      <div class="text-3xl text-teal-600 font-extrabold">
-        $ Price
+      <div id="price" class="text-3xl text-teal-600 font-extrabold">
+        ₹ Price
       </div>
 
       <!-- Seller Info -->
-      <div id="seller_info" class="flex items-center gap-4 mt-6 mr-6">
-        <img class="max-w-48 aspect-square rounded-full object-cover border"
+      <p id="seller-heading" class="mt-6 text-2xl text-left">Seller Info</p>
+      <hr>
+      <div id="seller_info" class="flex items-center gap-4 mr-6">
+        <img id="avatar" class="max-w-48 aspect-square rounded-full object-cover border"
           src="./assets/images/default-user.jpg">
         <div>
-          <div class="font-semibold">Full Name</div>
-          <div class="text-gray-600 text-sm">@username</div>
-          <button class="mt-2 bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded-full">
+          <div id="full_name" class="font-semibold">Full Name</div>
+          <div id="username" class="text-gray-600 text-sm">@username</div>
+          <button onclick="contactSeller()"
+           class="mt-2 bg-(--color3) hover:bg-teal-600 text-white text-sm px-4 py-2 rounded-full">
             Contact Seller
           </button>
         </div>
       </div>
 
       <div class="text-xl text-gray-600 mt-10">
-        <p><strong>Posted On:</strong> April 28, 2025</p> <!-- Update with the actual date -->
+        <p><strong>Posted On:</strong> <span id="created_at">April 28, 2025</span></p> <!-- Update with the actual date -->
       </div>
 
     </div>
@@ -258,10 +264,15 @@
   <!-- Description Section -->
   <div class="w-[97%] mx-auto mt-8 mb-8 p-6 bg-[#152c2e] text-[#f2f2f2] rounded-lg shadow-md">
     <h2 class="text-2xl font-bold mb-4">Description</h2>
-    <p class="text-(--color5)">Here goes the detailed description of the product...</p>
+    <p id="description" class="text-(--color5)">Here goes the detailed description of the product...</p>
   </div>
 
-<script src="//unpkg.com/alpinejs" defer></script>
-<script src="./js/item.js"></script>
+  <script src="//unpkg.com/alpinejs" defer></script>
+  <script src="./js/lib/axios.min.js"></script>
+  <script src="./js/utility/deviceFingerprintGen.js"></script>
+  <script src="./js/utility/refresh-token.js"></script>
+  <script src="./js/utility/infoErrorMsg.js"></script>
+  <script src="./js/utility/formatTimestamp.js"></script>
+  <script src="./js/item.js"></script>
 </body>
 </html>

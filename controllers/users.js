@@ -33,21 +33,25 @@ const getCurrentUser = async (req, res) => {
 
 const getUser = async (req, res) => {
 
-    const { username } = req.params;
-    if (!username) {
-        throw new CustomAPIError("No username provided", StatusCodes.BAD_REQUEST);
+    const { identfier } = req.params;
+    let type = "username";
+    if (req.query?.id?.toLowerCase() === "true") {
+        type = "id";
+    }
+    if (!identfier) {
+        throw new CustomAPIError(`No ${type} provided`, StatusCodes.BAD_REQUEST);
     }
 
     const { rowCount, rows: users } = await pool.query(
         `SELECT u.id, u.username, u.full_name, u.country_code, c.name college_name, u.avatar_url, u.bio
         FROM users u
         LEFT JOIN colleges c ON u.college_id = c.id
-        WHERE u.username = $1`,
-        [username.toLowerCase()]
+        WHERE u.${type} = $1`,
+        [identfier.toLowerCase()]
     );
 
     if (rowCount === 0) {
-        throw new CustomAPIError(`No user with username: ${username} found`, StatusCodes.NOT_FOUND);
+        throw new CustomAPIError(`No user with ${type}: ${identfier} found`, StatusCodes.NOT_FOUND);
     }
 
     res.status(StatusCodes.OK).json({
