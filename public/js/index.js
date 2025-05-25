@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     links.forEach(link => {
         link.addEventListener("click", () => {
             const menu = document.getElementById("mobileMenu");
-            if (!menu.classList.contains("hidden")) {
-                menu.classList.add("hidden");
+            if (!menu.classList.contains("-translate-y-full")) {
+                menu.classList.add("-translate-y-full");
             }
         });
     });

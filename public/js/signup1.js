@@ -1,17 +1,19 @@
 const showMsg = getShowMsg(document.getElementById("infoErrorMsg"));
 
-// Toggle the mobile menu func
+// Function to toggle the mobile menu
 function toggleMenu() {
-    document.getElementById("mobileMenu").classList.toggle("hidden");
+    const mobileMenu = document.getElementById("mobileMenu")
+    mobileMenu.classList.toggle("-translate-y-full");
 }
+
 // Auto-close menu on link click (only on mobile)
 document.addEventListener("DOMContentLoaded", function () {
     const links = document.querySelectorAll("#mobileMenu a");
-    const menu = document.getElementById("mobileMenu");
     links.forEach(link => {
         link.addEventListener("click", () => {
-            if (!menu.classList.contains("hidden")) {
-                menu.classList.add("hidden");
+            const menu = document.getElementById("mobileMenu");
+            if (!menu.classList.contains("-translate-y-full")) {
+                menu.classList.add("-translate-y-full");
             }
         });
     });

@@ -10,10 +10,10 @@
   <link rel="shortcut icon" href="./assets/icons/Campus Marketplace Logo.svg" type="image/x-icon" />
 </head>
 
-<body class="bg-[var(--color2)] min-h-screen flex items-center justify-center px-4">
+<body class="bg-(--color2) min-h-screen flex items-center justify-center px-4">
   <header>
     <nav
-      class="select-none fixed top-0 left-0 right-0 z-48 bg-[var(--color2)] text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md">
+      class="select-none fixed top-0 left-0 right-0 z-48 bg-(--color2) text-(--color3) w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md">
       <!-- Logo -->
       <div class="flex items-center space-x-3 logo-icon">
         <img src="./assets/icons/Campus Marketplace Logo.svg" alt="Campus Logo"
@@ -25,14 +25,14 @@
     </nav>
   </header>
   <!-- OTP Card -->
-  <div class="bg-[var(--color3)] shadow-lg rounded-3xl p-6 w-full max-w-sm text-center">
-    <h2 class="text-2xl font-bold text-[var(--color2)]">Verify Your Email</h2>
-    <p class="text-[var(--color2)] mt-2">
+  <div class="bg-(--color3) shadow-lg rounded-3xl p-6 w-full max-w-sm text-center">
+    <h2 class="text-2xl font-bold text-(--color2)">Verify Your Email</h2>
+    <p class="text-(--color2) mt-2">
       Enter the 6-digit OTP sent to
       <span id="currentEmail" class="font-semibold">student@example.com</span>
     </p>
 
-    <p class="text-sm text-[var(--color2)]">
+    <p class="text-sm text-(--color2)">
       OTP expires in <span id="otpExpTimer" class="font-semibold">00:00</span>
     </p>
 
@@ -40,17 +40,17 @@
     <form id="otpForm" class="mt-4">
       <div class="flex justify-center gap-2">
         <input type="text" inputmode="numeric" name="otp1" id="otp1" maxlength="1" required
-          class="otp-input w-10 h-12 text-center text-[var(--color2)] text-xl border border-[var(--color1)] rounded-lg focus:ring focus:ring-teal-300 outline-none" />
+          class="otp-input w-10 h-12 text-center text-(--color2) text-xl border border-(--color1) rounded-lg focus:ring focus:ring-teal-300 outline-none" />
         <input type="text" inputmode="numeric" name="otp2" id="otp2" maxlength="1" required
-          class="otp-input w-10 h-12 text-center text-[var(--color2)] text-xl border border-[var(--color1)] rounded-lg focus:ring focus:ring-teal-300 outline-none" />
+          class="otp-input w-10 h-12 text-center text-(--color2) text-xl border border-(--color1) rounded-lg focus:ring focus:ring-teal-300 outline-none" />
         <input type="text" inputmode="numeric" name="otp3" id="otp3" maxlength="1" required
-          class="otp-input w-10 h-12 text-center text-[var(--color2)] text-xl border border-[var(--color1)] rounded-lg focus:ring focus:ring-teal-300 outline-none" />
+          class="otp-input w-10 h-12 text-center text-(--color2) text-xl border border-(--color1) rounded-lg focus:ring focus:ring-teal-300 outline-none" />
         <input type="text" inputmode="numeric" name="otp4" id="otp4" maxlength="1" required
-          class="otp-input w-10 h-12 text-center text-[var(--color2)] text-xl border border-[var(--color1)] rounded-lg focus:ring focus:ring-teal-300 outline-none" />
+          class="otp-input w-10 h-12 text-center text-(--color2) text-xl border border-(--color1) rounded-lg focus:ring focus:ring-teal-300 outline-none" />
         <input type="text" inputmode="numeric" name="otp5" id="otp5" maxlength="1" required
-          class="otp-input w-10 h-12 text-center text-[var(--color2)] text-xl border border-[var(--color1)] rounded-lg focus:ring focus:ring-teal-300 outline-none" />
+          class="otp-input w-10 h-12 text-center text-(--color2) text-xl border border-(--color1) rounded-lg focus:ring focus:ring-teal-300 outline-none" />
         <input type="text" inputmode="numeric" name="otp6" id="otp6" maxlength="1" required
-          class="otp-input w-10 h-12 text-center text-[var(--color2)] text-xl border border-[var(--color1)] rounded-lg focus:ring focus:ring-teal-300 outline-none" />
+          class="otp-input w-10 h-12 text-center text-(--color2) text-xl border border-(--color1) rounded-lg focus:ring focus:ring-teal-300 outline-none" />
       </div>
 
       <!-- 🔘 Actions -->
@@ -68,10 +68,10 @@
             Resend OTP
           </button>
           <span style="width: 0.3rem"></span>
-          <span id="otpResndTimer" class="text-sm text-[var(--color2)] font-semibold"> in 00:00</span>
+          <span id="otpResndTimer" class="text-sm text-(--color2) font-semibold"> in 00:00</span>
         </div>
 
-        <button type="button" id="changeEmailBtn" class="w-full text-[var(--color2)] font-medium hover:underline">
+        <button type="button" id="changeEmailBtn" class="w-full text-(--color2) font-medium hover:underline">
           Change Email
         </button>
       </div>
@@ -82,7 +82,7 @@
   <div id="overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-40"></div>
 
   <form id="emailPopup"
-    class="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[var(--color5)] text-[var(--color3)] p-6 rounded-xl shadow-lg w-[90%] max-w-md hidden transition duration-300 scale-95">
+    class="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-(--color5) text-(--color3) p-6 rounded-xl shadow-lg w-[90%] max-w-md hidden transition duration-300 scale-95">
     <!-- Wrap heading and close button inside a flex container -->
     <div class="flex items-center justify-between mb-4">
       <h3 class="text-lg font-semibold">Change Email</h3>
