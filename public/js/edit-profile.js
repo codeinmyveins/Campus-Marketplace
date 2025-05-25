@@ -1,6 +1,9 @@
+// Function to toggle the mobile menu
 function toggleMenu() {
-    document.getElementById("mobileMenu").classList.toggle("hidden");
+    const mobileMenu = document.getElementById("mobileMenu")
+    mobileMenu.classList.toggle("-translate-y-full");
 }
+
 // Auto-close menu on link click (only on mobile)
 document.addEventListener("DOMContentLoaded", function () {
     const links = document.querySelectorAll("#mobileMenu a");
@@ -13,6 +16,53 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+const sidebar = document.getElementById("sidebar");
+
+function toggleSidebar() {
+    sidebar.classList.toggle("translate-x-full");
+}
+
+document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+        sidebar.classList.add("translate-x-full");
+    }
+});
+
+async function confirmLogout() {
+    if (!confirm("Are you sure you want to logout?")) return;
+
+    try {
+        await apiAuth.delete("/api/auth/logout");
+        window.location.href = "index.html";
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function getUserDropdown() {
+
+    try {
+
+        const { data: { user } } = await apiAuth.get("/api/users");
+
+        document.getElementById("user-dropdown-full_name").textContent = user.full_name;
+        document.getElementById("user-dropdown-username").textContent = user.username;
+
+        // console.log(user);
+        if (user.avatar_url) {
+            document.getElementById("user-dropdown-avatar1").src = user.avatar_url;
+            document.getElementById("user-dropdown-avatar2").src = user.avatar_url;
+        }
+
+    } catch (error) {
+        console.error(error);
+        document.getElementById("user-dropdown").hidden = true;
+    }
+
+}
+
+getUserDropdown();
 
 async function getCountryNameFromCode(code) {
     try {
@@ -31,7 +81,7 @@ function capitalizeWords(str) {
 }
 
 // ✅ Truncate helper
-function truncateString (str, max) {
+function truncateString(str, max) {
     return str.length > max ? str.slice(0, max) + "…" : str;
 }
 
@@ -106,7 +156,7 @@ const avatarImgDOM = document.querySelector("#pfp");
 
 avatarInputDOM.addEventListener("change", function (e) {
     avatarImgDOM.src = URL.createObjectURL(e.target.files[0]);
-    avatarImgDOM.onload = function() {
+    avatarImgDOM.onload = function () {
         URL.revokeObjectURL(avatarImgDOM.src) // free memory
     }
     avatarInputCamDOM.length = 0;
@@ -114,7 +164,7 @@ avatarInputDOM.addEventListener("change", function (e) {
 });
 avatarInputCamDOM.addEventListener("change", function (e) {
     avatarImgDOM.src = URL.createObjectURL(e.target.files[0]);
-    avatarImgDOM.onload = function() {
+    avatarImgDOM.onload = function () {
         URL.revokeObjectURL(avatarImgDOM.src) // free memory
     }
     avatarInputDOM.length = 0;
@@ -150,7 +200,7 @@ document.querySelectorAll(".edit-btn").forEach(btn => {
         } else if (inputEl.tagName === "SELECT") {
             inputEl.value = valueDisplay.dataset.value;
         }
-        
+
         // Move input to popup
         currentInput = inputEl;
         originalContainer = inputDiv.parentElement;
@@ -287,7 +337,7 @@ popup.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (currentInputDiv && originalContainer) {
         const name = currentInput.name;
-        const value = (currentInput.tagName === "INPUT" && currentInput.id === "collegeInput")? getSelectedCollegeId():currentInput.value;
+        const value = (currentInput.tagName === "INPUT" && currentInput.id === "collegeInput") ? getSelectedCollegeId() : currentInput.value;
 
         showMsg("Loading...", INFO);
 
@@ -306,7 +356,7 @@ popup.addEventListener("submit", async (e) => {
                 textDisplay.textContent = truncateString(value, 32);
                 textDisplay.dataset.value = value;
             }
-            else if (name === "country_code" || name === "gender"){
+            else if (name === "country_code" || name === "gender") {
                 textDisplay.textContent = currentInput.options[currentInput.selectedIndex].text.split(" ")[0];
                 textDisplay.dataset.value = value;
             }
@@ -336,11 +386,11 @@ popup.addEventListener("submit", async (e) => {
 const showMsgAvatar = getShowMsg(document.querySelector("#avatarField #infoErrorMsg"));
 
 async function saveAvatar() {
-    
+
     const formData = new FormData();
-    const name = avatarInputDOM.files[0]? avatarInputDOM.name : avatarInputCamDOM.name
-    formData.append(name, avatarInputDOM.files[0]||avatarInputCamDOM.files[0]);
-    
+    const name = avatarInputDOM.files[0] ? avatarInputDOM.name : avatarInputCamDOM.name
+    formData.append(name, avatarInputDOM.files[0] || avatarInputCamDOM.files[0]);
+
     showMsgAvatar("Loading...", INFO);
     try {
         const { data } = await axios.put(`/api/users/avatar`,
@@ -351,7 +401,7 @@ async function saveAvatar() {
                 }
             }
         );
-        
+
         showMsgAvatar(data.msg, SUCCESS);
 
         avatarImgDOM.src = data.avatar_url;

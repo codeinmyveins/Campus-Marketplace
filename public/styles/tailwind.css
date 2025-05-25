@@ -1313,6 +1313,9 @@
   .text-nowrap {
     text-wrap: nowrap;
   }
+  .text-wrap {
+    text-wrap: wrap;
+  }
   .text-\(--color1\) {
     color: var(--color1);
   }

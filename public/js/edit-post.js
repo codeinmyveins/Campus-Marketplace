@@ -1,6 +1,9 @@
+// Function to toggle the mobile menu
 function toggleMenu() {
-    document.getElementById("mobileMenu").classList.toggle("hidden");
+    const mobileMenu = document.getElementById("mobileMenu")
+    mobileMenu.classList.toggle("-translate-y-full");
 }
+
 // Auto-close menu on link click (only on mobile)
 document.addEventListener("DOMContentLoaded", function () {
     const links = document.querySelectorAll("#mobileMenu a");
@@ -14,10 +17,57 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+const sidebar = document.getElementById("sidebar");
+
+function toggleSidebar() {
+    sidebar.classList.toggle("translate-x-full");
+}
+
+document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+        sidebar.classList.add("translate-x-full");
+    }
+});
+
+async function confirmLogout() {
+    if (!confirm("Are you sure you want to logout?")) return;
+
+    try {
+        await apiAuth.delete("/api/auth/logout");
+        window.location.href = "index.html";
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function getUserDropdown() {
+
+    try {
+
+        const { data: { user } } = await apiAuth.get("/api/users");
+
+        document.getElementById("user-dropdown-full_name").textContent = user.full_name;
+        document.getElementById("user-dropdown-username").textContent = user.username;
+
+        // console.log(user);
+        if (user.avatar_url) {
+            document.getElementById("user-dropdown-avatar1").src = user.avatar_url;
+            document.getElementById("user-dropdown-avatar2").src = user.avatar_url;
+        }
+
+    } catch (error) {
+        console.error(error);
+        document.getElementById("user-dropdown").hidden = true;
+    }
+
+}
+
+getUserDropdown();
+
 function checkType() {
     const selected = document.querySelector('input[name="type"]:checked')?.value;
     const priceField = document.getElementById("priceField");
-    
+
     if (selected === "lend" || selected === "sell") {
         priceField.classList.remove("hidden");
         priceField.required = true;
@@ -51,9 +101,9 @@ async function handleImageSelection(event) {
             isCover: selectedImages.length === 0
         });
     });
-    
+
     renderImagePreviews(); // Call once after all images are processed
-    
+
     try {
 
         showMsgImg("Loading...", INFOD);
@@ -71,27 +121,27 @@ async function handleImageSelection(event) {
             }
         );
 
-        selectedImages.slice(selectedImages.length-files.length-1).forEach((f, idx) => {
+        selectedImages.slice(selectedImages.length - files.length - 1).forEach((f, idx) => {
             f.id = data.recentImgIndexes[idx];
         });
 
         showMsgImg(data.msg, SUCCESS);
-        
+
     } catch (error) {
 
-        selectedImages.splice(selectedImages.length-files.length, files.length);
+        selectedImages.splice(selectedImages.length - files.length, files.length);
         renderImagePreviews();
 
         if (error.response?.data?.msg)
-        showMsgImg(error.response.data.msg, ERROR);
+            showMsgImg(error.response.data.msg, ERROR);
         else console.error(error);
     }
-    
+
     event.target.value = ''; // Reset file input
 }
 
 async function putReorderImage() {
-    
+
     try {
 
         showMsgImg("Loading...", INFOD);
@@ -105,14 +155,14 @@ async function putReorderImage() {
         );
 
         showMsgImg(data.msg, SUCCESS);
-        
+
     } catch (error) {
 
         if (error.response?.data?.msg)
-        showMsgImg(error.response.data.msg, ERROR);
+            showMsgImg(error.response.data.msg, ERROR);
         else console.error(error);
     }
-    
+
 }
 
 const imgHintDOM = document.querySelector("#imgHint");
@@ -132,7 +182,7 @@ function renderImagePreviews() {
 
     selectedImages.forEach((img, index) => {
         const wrapper = defaultImageDiv.cloneNode(true);
-        
+
         wrapper.ondragstart = e => e.dataTransfer.setData("index", index);
         wrapper.ondrop = e => {
             const fromIndex = e.dataTransfer.getData("index");
@@ -144,7 +194,7 @@ function renderImagePreviews() {
             renderImagePreviews();
         };
         wrapper.ondragover = e => e.preventDefault();
-        
+
         const imgDOM = wrapper.querySelector("img");
         imgDOM.src = img.url;
         imgDOM.alt = img.name;
@@ -157,21 +207,21 @@ function renderImagePreviews() {
         const downBtn = wrapper.querySelector("#downBtn");
         upBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            swap(selectedImages, index, index-1);
+            swap(selectedImages, index, index - 1);
             selectedImages.forEach((img, i) => img.isCover = i === 0);
             renderImagePreviews();
             putReorderImage();
         });
         downBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            swap(selectedImages, index, index+1);
+            swap(selectedImages, index, index + 1);
             selectedImages.forEach((img, i) => img.isCover = i === 0);
             renderImagePreviews();
             putReorderImage();
         });
         if (index === 0)
             upBtn.disabled = true;
-        if (index === selectedImages.length-1)
+        if (index === selectedImages.length - 1)
             downBtn.disabled = true;
 
         wrapper.classList.remove("hidden");
@@ -183,7 +233,7 @@ function swap(array, index1, index2) {
     const temp = array[index1];
     array[index1] = array[index2];
     array[index2] = temp;
-  }
+}
 
 function setAsCover(index) {
     selectedImages.forEach(img => img.isCover = false);
@@ -211,7 +261,7 @@ async function removeImage(index) {
 
     } catch (error) {
         if (error.response?.data?.msg)
-        showMsgImg(error.response.data.msg, ERROR);
+            showMsgImg(error.response.data.msg, ERROR);
         else console.error(error);
     }
 }
@@ -277,7 +327,7 @@ async function confirmDelete() {
 
     } catch (error) {
         if (error.response?.data?.msg)
-        showMsg(error.response.data.msg, ERROR);
+            showMsg(error.response.data.msg, ERROR);
         else console.error(error);
     }
 }
@@ -294,7 +344,7 @@ categories.forEach(c => {
 });
 
 const pathParts = window.location.pathname.split('/');
-const itemId = pathParts[pathParts.length-1];
+const itemId = pathParts[pathParts.length - 1];
 
 const updateItemBtn = document.querySelector("#updateItemBtn");
 let changedCount = 0;
@@ -346,7 +396,7 @@ async function fillPostDetails() {
         });
 
         renderImagePreviews();
-        
+
     } catch (error) {
         console.error(error);
         alert(`Item with ID: ${itemId} not Found`);
