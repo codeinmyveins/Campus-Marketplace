@@ -58,7 +58,7 @@ async function confirmLogout() {
 
     try {
         await apiAuth.delete("/api/auth/logout");
-        window.location.href = "index.html";
+        window.location.href = "/";
     } catch (error) {
         console.error(error);
     }
