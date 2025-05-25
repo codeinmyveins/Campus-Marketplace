@@ -1584,6 +1584,13 @@
       }
     }
   }
+  .hover\:bg-\(--color1\) {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color1);
+      }
+    }
+  }
   .hover\:bg-\(--color2\) {
     &:hover {
       @media (hover: hover) {
@@ -1693,6 +1700,13 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-white);
+      }
+    }
+  }
+  .hover\:text-\(--color2\) {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color2);
       }
     }
   }
@@ -1845,6 +1859,11 @@
   .focus\:ring-\(--color1\) {
     &:focus {
       --tw-ring-color: var(--color1);
+    }
+  }
+  .focus\:ring-\(--color2\) {
+    &:focus {
+      --tw-ring-color: var(--color2);
     }
   }
   .focus\:ring-\[var\(--color2\)\] {

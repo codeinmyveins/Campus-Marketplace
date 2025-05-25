@@ -27,11 +27,11 @@
   </style>
 </head>
 
-<body class="bg-[var(--color2)] text-[#152c2e] pt-24">
+<body class="bg-[var(--color2)] text-(--color3) pt-24">
 
   <!-- Header/Navbar -->
   <header>
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-[var(--color2)] text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[var(--color2)] text-(--color3) w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md">
       <!-- Logo -->
       <div class="flex items-center space-x-3 logo-icon">
         <img
@@ -44,40 +44,95 @@
         </h1>
       </div>
 
-      <!-- Mobile Menu Button -->
-      <button class="md:hidden text-3xl focus:outline-none" onclick="toggleMenu()">
-        ☰
-      </button>
-
-      <!-- Desktop Navigation Links -->
-      <div class="hidden md:flex flex-row items-center gap-10 capitalize font-semibold">
-        <ul class="flex gap-10">
-          <li><a href="./index.html" class="inline-block py-2 hover:scale-110 duration-300">Home</a></li>
-          <li><a href="#about" class="inline-block py-2 hover:scale-110 duration-300">About</a></li>
-          <li><a href="#market" class="inline-block py-2 hover:scale-110 duration-300">Market</a></li>
-          <li><a href="#contact" class="inline-block py-2 hover:scale-110 duration-300">Contact</a></li>
-        </ul>
-        <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
-          <li><a href="./login.html" class="bg-[#152c2e] text-[#f2f2f2] py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Login</a></li>
-          <li><a href="./signup1.html" class="bg-[#152c2e] text-[#f2f2f2] text-nowrap py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign Up</a></li>
-        </ul>
+      <div class="flex flex-row items-center gap-2 md:gap-6 capitalize font-semibold">
+        <!-- Desktop Navigation Links -->
+        <div class="hidden md:flex flex-row items-center gap-10 capitalize font-semibold">
+          <ul class="flex gap-10">
+            <li><a href="/" class="inline-block py-2 hover:scale-110 duration-300">Home</a></li>
+            <li><a href="/#about" class="inline-block py-2 hover:scale-110 duration-300">About</a></li>
+            <li><a href="./market.html" class="inline-block py-2 hover:scale-110 duration-300">Market</a></li>
+            <li><a href="/#contact" class="inline-block py-2 hover:scale-110 duration-300">Contact</a></li>
+          </ul>
+          <ul id="login-signup-desktop" class="flex gap-5 md:gap-8 capitalize font-semibold">
+            <li><a href="./login.html" class="border-2 border-(--color3) py-2 px-4 rounded-xl hover:bg-(--color3) hover:text-(--color5) transition">Login</a></li>
+            <li><a href="./signup1.html" class="bg-(--color3) text-(--color5) text-nowrap py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign Up</a></li>
+          </ul>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden text-3xl focus:outline-none" onclick="toggleMenu()">
+          ☰
+        </button>
+        <!-- user drop down -->
+        <div id="user-dropdown" class="flex items-center space-x-1 cursor-pointer" onclick="toggleSidebar()">
+          <img id="user-dropdown-avatar1" src="./assets/images/default-user.jpg" alt="Profile"
+            class="w-12 h-12 aspect-square rounded-full object-cover border-2 border-teal-600" />
+          <image src="./assets/icons/chevron-down.svg" class="w-4 h-4 text-gray-600"></i>
+        </div>
       </div>
     </nav>
 
     <!-- Mobile Menu -->
-    <div id="mobileMenu" class="select-none fixed top-[73px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl">
+    <div id="mobileMenu" class="select-none fixed top-[73px] left-0 right-0 z-40 md:hidden flex-col items-center bg-(--color2) py-8 px-5 shadow-md rounded-b-2xl -translate-y-full transition-transform">
       <ul class="space-y-3 text-center">
-        <li><a href="./index.html" class="block hover:scale-110 duration-300">Home</a></li>
-        <li><a href="#about" class="block hover:scale-110 duration-300">About</a></li>
-        <li><a href="#market" class="block hover:scale-110 duration-300">Market</a></li>
-        <li><a href="#contact" class="block hover:scale-110 duration-300">Contact</a></li>
+        <li><a href="/" class="block hover:scale-110 duration-300">Home</a></li>
+        <li><a href="/#about" class="block hover:scale-110 duration-300">About</a></li>
+        <li><a href="./market.html" class="block hover:scale-110 duration-300">Market</a></li>
+        <li><a href="/#contact" class="block hover:scale-110 duration-300">Contact</a></li>
       </ul>
-      <ul class="flex flex-col space-y-7 mt-6 text-center">
-        <li><a href="./login.html" class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition">Login</a></li>
-        <li><a href="./signup1.html" class="bg-[#152c2e] text-[#f2f2f2] py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign Up</a></li>
+      <ul id="login-signup-mobile" class="flex flex-col space-y-7 mt-6 text-center">
+        <li><a href="./login.html" class="border-2 border-(--color3) py-2 px-4 rounded-xl hover:bg-(--color3) hover:text-(--color5) transition">Login</a></li>
+        <li><a href="./signup1.html" class="bg-(--color3) text-(--color5) py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign Up</a></li>
       </ul>
     </div>
   </header>
+
+  <div id="sidebar"
+    class="fixed top-0 right-0 h-full min-w-64 max-w-96 bg-(--color1) text-white shadow-lg transform translate-x-full transition-transform duration-300 z-50"
+    role="menu" aria-label="User menu">
+    <div class="flex flex-col h-full p-6 space-y-6">
+      <div class="flex gap-1 items-center">
+        <img id="user-dropdown-avatar2" src="./assets/images/default-user.jpg" alt="Profile"
+            class="aspect-square w-12 h-12 rounded-full object-cover border-2 border-teal-600" />
+
+        <div>
+          <p id="user-dropdown-full_name" class="text-lg">Full Name</p>
+          <p>@<span id="user-dropdown-username" class="text-gray-300" >username</span></p>
+        </div>
+        <!-- Close Button -->
+        <button onclick="toggleSidebar()" class="ml-auto text-white hover:text-teal-200 focus:outline-none cursor-pointer"
+          aria-label="Close sidebar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x" class="lucide lucide-x w-6 h-6"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+        </button>
+      </div>
+
+      <!-- Menu Links -->
+      <!-- Inside your Sidebar Links -->
+      <a href="/me" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-200" role="menuitem">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user" class="lucide lucide-user w-5 h-5 text-teal-300"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        Profile
+      </a>
+      <a href="./dashboard.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300" role="menuitem">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="layout-dashboard" class="lucide lucide-layout-dashboard w-5 h-5 text-blue-300"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
+        Dashboard
+      </a>
+      <a href="./edit-profile.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300" role="menuitem">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="settings" class="lucide lucide-settings w-5 h-5 text-yellow-300"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        Manage Account
+      </a>
+      <a href="./create-post.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300" role="menuitem">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="plus-circle" class="lucide lucide-plus-circle w-5 h-5 text-purple-300"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>
+        Post Item
+      </a>
+
+      <!-- Updated Logout Button -->
+      <button onclick="confirmLogout()"
+        class="mt-auto flex items-center justify-center gap-3 bg-white text-(--color1) px-4 py-2 rounded hover:bg-red-100 hover:cursor-pointer transition text-base font-medium"
+        role="menuitem">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="log-out" class="lucide lucide-log-out w-5 h-5 text-red-500"><path d="m16 17 5-5-5-5"></path><path d="M21 12H9"></path><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path></svg>
+        Logout
+      </button>
+    </div>
+  </div>
 
   <!-- Enhanced Profile Section -->
   <section class="px-6 py-12 md:px-20 bg-[var(--color2)] enhanced-profile flex flex-col md:flex-row items-center gap-12">

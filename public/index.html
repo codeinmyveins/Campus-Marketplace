@@ -14,11 +14,11 @@
     />
   </head>
 
-  <body class="box-border pt-20 md:pt-24 bg-[var(--color2)]">
+  <body class="box-border pt-20 md:pt-24 bg-(--color2)">
     <!-- Header & Navigation -->
     <header>
       <nav
-        class="select-none fixed top-0 left-0 right-0 z-50 bg-[var(--color2)] text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md"
+        class="select-none fixed top-0 left-0 right-0 z-50 bg-(--color2) text-(--color3) w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md"
       >
         <!-- Logo -->
         <div class="flex items-center logo-icon">
@@ -42,14 +42,14 @@
             <ul class="flex gap-10">
               <li>
                 <a
-                  href="./index.html"
+                  href="/"
                   class="inline-block py-2 hover:scale-110 duration-300"
                   >Home</a
                 >
               </li>
               <li>
                 <a
-                  href="./index.html#about"
+                  href="/#about"
                   class="inline-block py-2 hover:scale-110 duration-300"
                   >About</a
                 >
@@ -63,7 +63,7 @@
               </li>
               <li>
                 <a
-                  href="./index.html#contact"
+                  href="/#contact"
                   class="inline-block py-2 hover:scale-110 duration-300"
                   >Contact</a
                 >
@@ -75,14 +75,14 @@
               <li>
                 <a
                   href="./login.html"
-                  class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
+                  class="border-2 border-(--color3) py-2 px-4 rounded-xl hover:bg-(--color3) hover:text-(--color5) transition"
                   >Login</a
                 >
               </li>
               <li>
                 <a
                   href="./signup1.html"
-                  class="bg-[#152c2e] text-[#f2f2f2] text-nowrap py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
+                  class="bg-(--color3) text-(--color5) text-nowrap py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
                   >Sign Up</a
                 >
               </li>
@@ -110,19 +110,19 @@
 
       <div
         id="mobileMenu"
-        class="select-none fixed top-[73px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 shadow-md rounded-b-2xl -translate-y-full transition-transform"
+        class="select-none fixed top-[73px] left-0 right-0 z-40 md:hidden flex-col items-center bg-(--color2) py-8 px-5 shadow-md rounded-b-2xl -translate-y-full transition-transform"
       >
         <ul class="space-y-3 text-center">
           <li>
             <a
-              href="./index.html"
+              href="/"
               class="block hover:scale-110 duration-300"
               >Home</a
             >
           </li>
           <li>
             <a
-              href="./index.html#about"
+              href="/#about"
               class="block hover:scale-110 duration-300"
               >About</a
             >
@@ -136,7 +136,7 @@
           </li>
           <li>
             <a
-              href="./index.html#contact"
+              href="/#contact"
               class="block hover:scale-110 duration-300"
               >Contact</a
             >
@@ -147,14 +147,14 @@
           <li>
             <a
               href="./login.html"
-              class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
+              class="border-2 border-(--color3) py-2 px-4 rounded-xl hover:bg-(--color3) hover:text-(--color5) transition"
               >Login</a
             >
           </li>
           <li>
             <a
               href="./signup1.html"
-              class="bg-[#152c2e] text-[#f2f2f2] py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
+              class="bg-(--color3) text-(--color5) py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
               >Sign Up</a
             >
           </li>
@@ -212,7 +212,7 @@
 
     <!-- Hero Section (Full Landing Page) -->
     <section
-      class="bg-[var(--color2)] flex flex-col-reverse md:flex-row items-center justify-between px-6 pt-12 pb-6 sm:px-10 sm:pt-16 sm:pb-8 md:px-20 md:pt-20 md:pb-12 min-h-[75vh] gap-3 sm:gap-6 md:gap-8"
+      class="bg-(--color2) flex flex-col-reverse md:flex-row items-center justify-between px-6 pt-12 pb-6 sm:px-10 sm:pt-16 sm:pb-8 md:px-20 md:pt-20 md:pb-12 min-h-[75vh] gap-3 sm:gap-6 md:gap-8"
     >
       <!-- Left Text Content -->
       <div
@@ -251,7 +251,7 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="bg-[var(--color2)] py-20 px-4">
+    <section id="about" class="bg-(--color2) py-20 px-4">
       <div
         class="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-12"
       >
@@ -273,7 +273,7 @@
           id="about-text"
         >
           <h2
-            class="text-4xl md:text-5xl font-bold text-[#152c2e] leading-tight"
+            class="text-4xl md:text-5xl font-bold text-(--color3) leading-tight"
           >
             About <span class="text-teal-600">Campus Marketplace</span>
           </h2>
@@ -302,13 +302,13 @@
     </section>
 
     <!-- FEATURES SECTION -->
-    <section class="bg-[var(--color1)] py-16 px-4">
+    <section class="bg-(--color1) py-16 px-4">
       <div class="max-w-6xl mx-auto text-center">
-        <h2 class="text-4xl md:text-5xl font-bold text-[#152c2e] leading-tight">
+        <h2 class="text-4xl md:text-5xl font-bold text-(--color3) leading-tight">
           Why Choose
-          <span class="text-[var(--color2)]">Campus Marketplace?</span>
+          <span class="text-(--color2)">Campus Marketplace?</span>
         </h2>
-        <p class="mt-4 text-lg text-[var(--color3)] max-w-3xl mx-auto">
+        <p class="mt-4 text-lg text-(--color3) max-w-3xl mx-auto">
           We make campus trading easy, secure, and student-friendly. Explore the
           benefits!
         </p>
@@ -320,14 +320,14 @@
       >
         <!-- Feature 1 -->
         <div
-          class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
+          class="flex flex-col items-center p-6 bg-(--color2) rounded-xl shadow-md hover:scale-105 transition duration-300"
         >
           <img
             src="./assets/images/secure.png"
             alt="Secure Transactions"
             class="w-64 h-64"
           />
-          <h3 class="mt-4 text-xl font-bold text-[#152c2e]">Safe & Secure</h3>
+          <h3 class="mt-4 text-xl font-bold text-(--color3)">Safe & Secure</h3>
           <p class="text-gray-700 text-center mt-2">
             Trade with verified campus users in a secure environment.
           </p>
@@ -335,14 +335,14 @@
 
         <!-- Feature 2 -->
         <div
-          class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
+          class="flex flex-col items-center p-6 bg-(--color2) rounded-xl shadow-md hover:scale-105 transition duration-300"
         >
           <img
             src="./assets/images/easy.png"
             alt="Easy to Use"
             class="w-64 h-64"
           />
-          <h3 class="mt-4 text-xl font-bold text-[#152c2e]">Easy to Use</h3>
+          <h3 class="mt-4 text-xl font-bold text-(--color3)">Easy to Use</h3>
           <p class="text-gray-700 text-center mt-2">
             Post listings or find deals in just a few clicks.
           </p>
@@ -350,14 +350,14 @@
 
         <!-- Feature 3 -->
         <div
-          class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
+          class="flex flex-col items-center p-6 bg-(--color2) rounded-xl shadow-md hover:scale-105 transition duration-300"
         >
           <img
             src="./assets/images/affordable.png"
             alt="Affordable Deals"
             class="w-64 h-64"
           />
-          <h3 class="mt-4 text-xl font-bold text-[#152c2e]">
+          <h3 class="mt-4 text-xl font-bold text-(--color3)">
             Affordable Deals
           </h3>
           <p class="text-gray-700 text-center mt-2">
@@ -367,14 +367,14 @@
 
         <!-- Feature 4 -->
         <div
-          class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
+          class="flex flex-col items-center p-6 bg-(--color2) rounded-xl shadow-md hover:scale-105 transition duration-300"
         >
           <img
             src="./assets/images/community.png"
             alt="Campus Community"
             class="w-64 h-64"
           />
-          <h3 class="mt-4 text-xl font-bold text-[#152c2e]">
+          <h3 class="mt-4 text-xl font-bold text-(--color3)">
             Campus Community
           </h3>
           <p class="text-gray-700 text-center mt-2">
@@ -384,14 +384,14 @@
 
         <!-- Feature 5 -->
         <div
-          class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
+          class="flex flex-col items-center p-6 bg-(--color2) rounded-xl shadow-md hover:scale-105 transition duration-300"
         >
           <img
             src="./assets/images/convenience.png"
             alt="Convenience"
             class="w-64 h-64"
           />
-          <h3 class="mt-4 text-xl font-bold text-[#152c2e]">Convenience</h3>
+          <h3 class="mt-4 text-xl font-bold text-(--color3)">Convenience</h3>
           <p class="text-gray-700 text-center mt-2">
             Easily access items without the hassle of external platforms.
           </p>
@@ -399,14 +399,14 @@
 
         <!-- Feature 6 -->
         <div
-          class="flex flex-col items-center p-6 bg-[var(--color2)] rounded-xl shadow-md hover:scale-105 transition duration-300"
+          class="flex flex-col items-center p-6 bg-(--color2) rounded-xl shadow-md hover:scale-105 transition duration-300"
         >
           <img
             src="./assets/images/sustainability.png"
             alt="Sustainability"
             class="w-64 h-64"
           />
-          <h3 class="mt-4 text-xl font-bold text-[#152c2e]">Sustainability</h3>
+          <h3 class="mt-4 text-xl font-bold text-(--color3)">Sustainability</h3>
           <p class="text-gray-700 text-center mt-2">
             Reduce waste by reusing and recycling items within your campus.
           </p>
@@ -415,11 +415,11 @@
     </section>
 
     <!-- HOW IT WORKS SECTION -->
-    <section id="timeline" class="bg-[var(--color1)] py-16 px-4">
+    <section id="timeline" class="bg-(--color1) py-16 px-4">
       <div class="max-w-6xl mx-auto text-center">
-        <h2 class="text-4xl md:text-5xl font-bold text-[#152c2e] leading-tight">
+        <h2 class="text-4xl md:text-5xl font-bold text-(--color3) leading-tight">
           How
-          <span class="text-[var(--color2)]">Campus Marketplace</span> Works?
+          <span class="text-(--color2)">Campus Marketplace</span> Works?
         </h2>
         <p class="mt-4 text-lg text-gray-900 max-w-3xl mx-auto">
           Follow these simple steps to buy, sell, and trade with your campus
@@ -446,7 +446,7 @@
               1
             </div>
             <div class="ml-6 md:mr-6 md:pr-12 text-left md:text-right">
-              <h3 class="text-xl font-bold text-[#152c2e]">Sign Up</h3>
+              <h3 class="text-xl font-bold text-(--color3)">Sign Up</h3>
               <p class="text-gray-900 mt-2">
                 Create your free account using your campus email for
                 verification.
@@ -462,7 +462,7 @@
               2
             </div>
             <div class="ml-6 md:ml-6 md:pl-12">
-              <h3 class="text-xl font-bold text-[#152c2e]">Browse Listings</h3>
+              <h3 class="text-xl font-bold text-(--color3)">Browse Listings</h3>
               <p class="text-gray-900 mt-2">
                 Explore listings from fellow students and find what you need.
               </p>
@@ -479,7 +479,7 @@
               3
             </div>
             <div class="ml-6 md:mr-6 md:pr-12 text-left md:text-right">
-              <h3 class="text-xl font-bold text-[#152c2e]">Post a Listing</h3>
+              <h3 class="text-xl font-bold text-(--color3)">Post a Listing</h3>
               <p class="text-gray-900 mt-2">
                 Sell or trade your books, gadgets, and more with just a few
                 clicks.
@@ -495,7 +495,7 @@
               4
             </div>
             <div class="ml-6 md:ml-6 md:pl-12">
-              <h3 class="text-xl font-bold text-[#152c2e]">
+              <h3 class="text-xl font-bold text-(--color3)">
                 Marketplace with Buyers/Sellers
               </h3>
               <p class="text-gray-900 mt-2">
@@ -514,7 +514,7 @@
               5
             </div>
             <div class="ml-6 md:mr-6 md:pr-12 text-left md:text-right">
-              <h3 class="text-xl font-bold text-[#152c2e]">Make the Deal</h3>
+              <h3 class="text-xl font-bold text-(--color3)">Make the Deal</h3>
               <p class="text-gray-900 mt-2">
                 Meet up on campus, exchange items, and enjoy a hassle-free
                 transaction.
@@ -530,7 +530,7 @@
               6
             </div>
             <div class="ml-6 md:ml-6 md:pl-12">
-              <h3 class="text-xl font-bold text-[#152c2e]">Enjoy & Repeat</h3>
+              <h3 class="text-xl font-bold text-(--color3)">Enjoy & Repeat</h3>
               <p class="text-gray-900 mt-2">
                 Use Campus Marketplace anytime for buying, selling, or trading
                 items easily!
@@ -542,10 +542,10 @@
     </section>
 
     <!-- FEATURED LISTINGS SECTION -->
-    <section id="market" class="bg-[var(--color2)] py-16 px-4">
+    <section id="market" class="bg-(--color2) py-16 px-4">
       <div class="max-w-6xl mx-auto text-center">
-        <h2 class="text-4xl md:text-5xl font-bold text-[#152c2e] leading-tight">
-          Featured <span class="text-[var(--color1)]">Listings</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-(--color3) leading-tight">
+          Featured <span class="text-(--color1)">Listings</span>
         </h2>
         <p class="mt-4 text-lg text-gray-700 max-w-3xl mx-auto">
           Browse some of the top items available for sale or borrowing in your
@@ -559,7 +559,7 @@
       >
         <!-- Listing 1 - Drafting Set -->
         <div
-          class="bg-[#f2f2f2] shadow-lg rounded-xl p-6 flex flex-col scroll-fade"
+          class="bg-(--color5) shadow-lg rounded-xl p-6 flex flex-col scroll-fade"
         >
           <img
             src="./assets/images/drafter.jpg"
@@ -567,7 +567,7 @@
             class="w-full h-48 object-cover rounded-lg"
           />
           <div class="mt-4 flex-grow">
-            <h3 class="text-xl font-bold text-[#152c2e]">Drafting set</h3>
+            <h3 class="text-xl font-bold text-(--color3)">Drafting set</h3>
             <p class="text-gray-600 mt-1">
               Complete kit with scale, compass, and technical pens.
             </p>
@@ -584,7 +584,7 @@
 
         <!-- Listing 2 - Scientific Calculator -->
         <div
-          class="bg-[#f2f2f2] shadow-lg rounded-xl p-6 flex flex-col scroll-fade"
+          class="bg-(--color5) shadow-lg rounded-xl p-6 flex flex-col scroll-fade"
         >
           <img
             src="./assets/images/casio.jpg"
@@ -592,7 +592,7 @@
             class="w-full h-48 object-cover rounded-lg"
           />
           <div class="mt-4 flex-grow">
-            <h3 class="text-xl font-bold text-[#152c2e]">
+            <h3 class="text-xl font-bold text-(--color3)">
               Scientific Calculator
             </h3>
             <p class="text-gray-600 mt-1">
@@ -619,7 +619,7 @@
             class="w-full h-48 object-cover rounded-lg"
           />
           <div class="mt-4 flex-grow">
-            <h3 class="text-xl font-bold text-[#152c2e]">
+            <h3 class="text-xl font-bold text-(--color3)">
               Engineering Mechanics
             </h3>
             <p class="text-gray-600 mt-1">
@@ -640,12 +640,12 @@
 
     <!-- CTA SECTION -->
     <section
-      class="bg-[var(--color2)] text--[var(--color3)] py-16 px-6 text-center"
+      class="bg-(--color2) text--(--color3) py-16 px-6 text-center"
     >
       <div class="max-w-4xl mx-auto join-animate">
         <h2 class="text-4xl md:text-5xl font-bold leading-tight">
           Join
-          <span class="text-[var(--color1)]">Campus Marketplace</span> Today!
+          <span class="text-(--color1)">Campus Marketplace</span> Today!
         </h2>
         <p class="mt-4 text-lg">
           Start buying, selling, and trading with your campus community
@@ -653,7 +653,7 @@
         </p>
         <a
           href="./signup1.html"
-          class="inline-block mt-6 bg-[var(--color1)] text-[var(--color2)] font-bold py-3 px-6 rounded-full text-lg shadow-lg transition-all duration-300 hover:bg-[var(--color3)]"
+          class="inline-block mt-6 bg-(--color1) text-(--color2) font-bold py-3 px-6 rounded-full text-lg shadow-lg transition-all duration-300 hover:bg-(--color3)"
         >
           Get Started
         </a>
@@ -663,7 +663,7 @@
     <!-- CONTACT SECTION -->
     <section
       id="contact"
-      class="bg-[#152c2e] text-white py-16 px-6 scroll-fade"
+      class="bg-(--color3) text-white py-16 px-6 scroll-fade"
     >
       <div class="max-w-5xl mx-auto text-center">
         <h2 class="text-3xl md:text-4xl font-bold">Get in Touch</h2>
@@ -693,21 +693,21 @@
           <input
             type="text"
             placeholder="Your Name"
-            class="w-full p-3 bg-transparent border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color2)]"
+            class="w-full p-3 bg-transparent border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-(--color2)"
           />
           <input
             type="email"
             placeholder="Your Email"
-            class="w-full p-3 bg-transparent border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color2)]"
+            class="w-full p-3 bg-transparent border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-(--color2)"
           />
           <textarea
             placeholder="Your Message"
             rows="4"
-            class="resize-none w-full p-3 bg-transparent border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color2)]"
+            class="resize-none w-full p-3 bg-transparent border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-(--color2)"
           ></textarea>
           <button
             type="submit"
-            class="w-full bg-[var(--color2)] text-[var(--color3)] py-3 rounded-lg font-bold transition-all duration-300 hover:bg-[var(--color1)] hover:text-[var(--color5)]"
+            class="w-full bg-(--color2) text-(--color3) py-3 rounded-lg font-bold transition-all duration-300 hover:bg-(--color1) hover:text-(--color5)"
           >
             Send Message
           </button>
