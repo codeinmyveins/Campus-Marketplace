@@ -25,12 +25,12 @@
   </style>
 </head>
 
-<body class="bg-[var(--color2)] text-(--color3) pt-24">
+<body class="bg-(--color2) text-(--color3) pt-24">
 
   <!-- Header/Navbar -->
   <header>
     <nav
-      class="fixed top-0 left-0 right-0 z-50 bg-[var(--color2)] text-(--color3) w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md">
+      class="fixed top-0 left-0 right-0 z-50 bg-(--color2) text-(--color3) w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md">
       <!-- Logo -->
       <div class="flex items-center space-x-3 logo-icon">
         <img src="./assets/icons/Campus Marketplace Logo.svg" alt="Campus Logo"
@@ -179,7 +179,7 @@
 
   <!-- Enhanced Profile Section -->
   <section
-    class="px-6 py-12 md:px-20 bg-[var(--color2)] enhanced-profile flex flex-col md:flex-row items-center gap-12">
+    class="px-6 py-12 md:px-20 bg-(--color2) enhanced-profile flex flex-col md:flex-row items-center gap-12">
     <!-- Left Column: Larger Profile Image -->
     <div class="flex-1 flex justify-center self-start">
       <img id="pfp" src="./assets/images/default-user.jpg" alt="default profile picture"
@@ -209,18 +209,18 @@
   </section>
 
   <!-- Activity Section -->
-  <section class="bg-[var(--color1)] py-16 px-6 md:px-20">
+  <section hidden class="bg-(--color1) py-16 px-6 md:px-20">
     <div class="max-w-6xl mx-auto text-center">
       <h2 class="text-3xl md:text-4xl font-bold mb-6">Recent Posts</h2>
       <p class="text-lg text-gray-800 mb-10">
         These are the items you've listed on Campus Marketplace.
       </p>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-[var(--color2)] p-6 rounded-xl shadow hover:scale-105 transition">
+        <div class="bg-(--color2) p-6 rounded-xl shadow hover:scale-105 transition">
           <h3 class="text-xl font-semibold mb-2">Used Laptop for Sale</h3>
           <p class="text-gray-700">Rs. 25,000 · Posted 2 days ago</p>
         </div>
-        <div class="bg-[var(--color2)] p-6 rounded-xl shadow hover:scale-105 transition">
+        <div class="bg-(--color2) p-6 rounded-xl shadow hover:scale-105 transition">
           <h3 class="text-xl font-semibold mb-2">Borrow: Engineering Math Book</h3>
           <p class="text-gray-700">Needed for 1 week · Posted 5 hours ago</p>
         </div>
@@ -229,7 +229,7 @@
   </section>
 
   <!-- Support Section -->
-  <!-- <section class="bg-[var(--color2)] py-16 px-6 md:px-20 text-center">
+  <!-- <section class="bg-(--color2) py-16 px-6 md:px-20 text-center">
     <h2 class="text-3xl font-bold">Need Help?</h2>
     <p class="text-lg text-gray-800 mt-2">Contact support or visit the help center for any profile issues.</p>
     <button class="mt-4 px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition">

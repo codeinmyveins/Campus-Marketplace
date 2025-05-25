@@ -436,6 +436,7 @@ form.addEventListener("submit", async (e) => {
         });
 
         showMsg(data.msg, SUCCESS);
+        window.location.href = "./dashboard.html";
     } catch (error) {
         if (error.response?.data?.msg)
             showMsg(error.response.data.msg, ERROR);
