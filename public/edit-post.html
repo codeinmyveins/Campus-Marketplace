@@ -8,11 +8,7 @@
   <base href="/" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="./styles/tailwind.css">
-  <link
-      rel="shortcut icon"
-      href="./assets/icons/Campus Marketplace Logo.svg"
-      type="image/x-icon"
-    />
+  <link rel="shortcut icon" href="./assets/icons/Campus Marketplace Logo.svg" type="image/x-icon" />
 </head>
 
 <body class="bg-(--color2) text-[#1f1f1f] min-h-screen pt-30 px-4 py-6 flex items-center justify-center">
@@ -89,35 +85,68 @@
     <div class="flex flex-col h-full p-6 space-y-6">
       <div class="flex gap-1 items-center">
         <img id="user-dropdown-avatar2" src="./assets/images/default-user.jpg" alt="Profile"
-            class="aspect-square w-12 h-12 rounded-full object-cover border-2 border-teal-600" />
+          class="aspect-square w-12 h-12 rounded-full object-cover border-2 border-teal-600" />
 
         <div>
           <p id="user-dropdown-full_name" class="text-lg">Full Name</p>
-          <p>@<span id="user-dropdown-username" class="text-gray-300" >username</span></p>
+          <p>@<span id="user-dropdown-username" class="text-gray-300">username</span></p>
         </div>
         <!-- Close Button -->
-        <button onclick="toggleSidebar()" class="ml-auto text-white hover:text-teal-200 focus:outline-none cursor-pointer"
-          aria-label="Close sidebar">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x" class="lucide lucide-x w-6 h-6"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+        <button onclick="toggleSidebar()"
+          class="ml-auto text-white hover:text-teal-200 focus:outline-none cursor-pointer" aria-label="Close sidebar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x"
+            class="lucide lucide-x w-6 h-6">
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
         </button>
       </div>
 
       <!-- Menu Links -->
       <!-- Inside your Sidebar Links -->
       <a href="/me" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-200" role="menuitem">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user" class="lucide lucide-user w-5 h-5 text-teal-300"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user"
+          class="lucide lucide-user w-5 h-5 text-teal-300">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
         Profile
       </a>
-      <a href="./dashboard.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300" role="menuitem">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="layout-dashboard" class="lucide lucide-layout-dashboard w-5 h-5 text-blue-300"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
+      <a href="./dashboard.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300"
+        role="menuitem">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          data-lucide="layout-dashboard" class="lucide lucide-layout-dashboard w-5 h-5 text-blue-300">
+          <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+          <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+          <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+          <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+        </svg>
         Dashboard
       </a>
-      <a href="./edit-profile.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300" role="menuitem">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="settings" class="lucide lucide-settings w-5 h-5 text-yellow-300"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+      <a href="./edit-profile.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300"
+        role="menuitem">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="settings"
+          class="lucide lucide-settings w-5 h-5 text-yellow-300">
+          <path
+            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z">
+          </path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
         Manage Account
       </a>
-      <a href="./create-post.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300" role="menuitem">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="plus-circle" class="lucide lucide-plus-circle w-5 h-5 text-purple-300"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>
+      <a href="./create-post.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300"
+        role="menuitem">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          data-lucide="plus-circle" class="lucide lucide-plus-circle w-5 h-5 text-purple-300">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M8 12h8"></path>
+          <path d="M12 8v8"></path>
+        </svg>
         Post Item
       </a>
 
@@ -125,71 +154,85 @@
       <button onclick="confirmLogout()"
         class="mt-auto flex items-center justify-center gap-3 bg-white text-(--color1) px-4 py-2 rounded hover:bg-red-100 hover:cursor-pointer transition text-base font-medium"
         role="menuitem">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="log-out" class="lucide lucide-log-out w-5 h-5 text-red-500"><path d="m16 17 5-5-5-5"></path><path d="M21 12H9"></path><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="log-out"
+          class="lucide lucide-log-out w-5 h-5 text-red-500">
+          <path d="m16 17 5-5-5-5"></path>
+          <path d="M21 12H9"></path>
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+        </svg>
         Logout
       </button>
     </div>
   </div>
-  
+
   <form id="editForm" class="w-9/10 bg-(--color6) z-10 rounded-2xl p-8">
     <div class="transition-all grid grid-cols-1 md:grid-cols-[7fr_1px_3fr] gap-8 w-full">
       <!-- Form Section - Left -->
       <div class="space-y-4 w-full">
         <h2 class="text-2xl font-bold mb-6 text-(--color3) text-center md:text-left">Edit Item</h2>
-        
+
         <div id="item_nameField">
-          <label class="block font-semibold text-(--color3)"><span class="text-(--color1) text-sm mr-2" hidden id="changeDot">●</span>Item Name</label>
+          <label class="block font-semibold text-(--color3)"><span class="text-(--color1) text-sm mr-2" hidden
+              id="changeDot">●</span>Item Name</label>
           <p class="text-sm text-[#6b7280] my-1">Enter the name of your item in one or two words</p>
           <input type="text" name="item_name" placeholder="Enter the item name" required
             class="w-full px-4 py-2 border border-[#d1d5db] rounded-md focus:ring-2 focus:ring-(--color1) focus:outline-none transition duration-300"
             oninput="checkChange(this)" />
         </div>
-        
+
         <div id="item_categoryField">
-          <label class="block font-semibold text-(--color3)"><span class="text-(--color1) text-sm mr-2" hidden id="changeDot">●</span>Category</label>
+          <label class="block font-semibold text-(--color3)"><span class="text-(--color1) text-sm mr-2" hidden
+              id="changeDot">●</span>Category</label>
           <p class="text-sm text-[#6b7280] my-1"></p>
           <select id="item_category" name="item_category" required
             class="w-full px-4 py-2 border border-[#d1d5db] rounded-md focus:ring-2 focus:ring-(--color1) focus:outline-none transition duration-300 text-[#1f2937]"
             oninput="checkChange(this)">
-              <!-- JS will populate -->
+            <!-- JS will populate -->
           </select>
         </div>
 
         <div id="titleField">
-          <label class="block font-semibold text-(--color3)"><span class="text-(--color1) text-sm mr-2" hidden id="changeDot">●</span>Post Title</label>
+          <label class="block font-semibold text-(--color3)"><span class="text-(--color1) text-sm mr-2" hidden
+              id="changeDot">●</span>Post Title</label>
           <p class="text-sm text-[#6b7280] my-1"></p>
           <input type="text" name="title" placeholder="Enter the post title" required
-          class="w-full px-4 py-2 border border-[#d1d5db] rounded-md focus:ring-2 focus:ring-(--color1) focus:outline-none transition duration-300"
-          oninput="checkChange(this)" />
+            class="w-full px-4 py-2 border border-[#d1d5db] rounded-md focus:ring-2 focus:ring-(--color1) focus:outline-none transition duration-300"
+            oninput="checkChange(this)" />
         </div>
 
         <div id="descriptionField">
-          <label class="block font-semibold text-(--color3)"><span class="text-(--color1) text-sm mr-2" hidden id="changeDot">●</span>Description</label>
+          <label class="block font-semibold text-(--color3)"><span class="text-(--color1) text-sm mr-2" hidden
+              id="changeDot">●</span>Description</label>
           <p class="text-sm text-[#6b7280] my-1"></p>
           <textarea name="description" rows="8" placeholder="Enter the description of the post"
             class="w-full px-4 py-2 resize-none overflow-hidden border border-[#d1d5db] rounded-md focus:ring-2 focus:ring-(--color1) focus:outline-none transition duration-300"
             oninput="this.style.height='auto'; this.style.height = this.scrollHeight + 'px'; checkChange(this);"></textarea>
         </div>
-        
+
         <div id="priceField">
-          <label class="block font-semibold text-(--color3)"><span class="text-(--color1) text-sm mr-2" hidden id="changeDot">●</span>Price</label>
+          <label class="block font-semibold text-(--color3)"><span class="text-(--color1) text-sm mr-2" hidden
+              id="changeDot">●</span>Price</label>
           <p class="text-sm text-[#6b7280] my-1"></p>
           <input type="number" name="price" id="priceField" step="0.01" placeholder="Enter the price of the item"
-          class="w-full px-4 py-2 border border-[#d1d5db] rounded-md focus:ring-2 focus:ring-(--color1) focus:outline-none transition duration-300"
-          oninput="checkChange(this)" />
+            class="w-full px-4 py-2 border border-[#d1d5db] rounded-md focus:ring-2 focus:ring-(--color1) focus:outline-none transition duration-300"
+            oninput="checkChange(this)" />
         </div>
-        
+
         <div>
-          <p class="font-semibold text-(--color3)">Type: <span id="type" class="font-medium text-(--color1) cursor-not-allowed">Sell</span></p>
+          <p class="font-semibold text-(--color3)">Type: <span id="type"
+              class="font-medium text-(--color1) cursor-not-allowed">Sell</span></p>
           <p class="text-sm text-[#6b7280] my-1">Type cannot be changed</p>
         </div>
-  
+
         <!-- Open / Closed Toggle -->
         <div id="closedField" class="flex items-center gap-5 mb-8">
-          <label class="block font-semibold text-(--color3)"><span class="text-(--color1) text-sm mr-2" hidden id="changeDot">●</span>Post Status:</label>
+          <label class="block font-semibold text-(--color3)"><span class="text-(--color1) text-sm mr-2" hidden
+              id="changeDot">●</span>Post Status:</label>
           <div class="flex items-center space-x-4">
             <label class="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" name="closed" id="statusToggle" class="sr-only peer" checked oninput="checkChange(this)">
+              <input type="checkbox" name="closed" id="statusToggle" class="sr-only peer" checked
+                oninput="checkChange(this)">
               <div
                 class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-[#00bfa6] transition-colors duration-300">
               </div>
@@ -205,18 +248,22 @@
 
       <div class="hidden md:block w-full h-full bg-(--color3) rounded"></div>
       <div class="md:hidden w-full h-[1px] bg-(--color3) rounded"></div>
-  
+
       <!-- Image Upload Section - Right -->
       <div id="imgSection" class="space-y-4">
-        <label class="cursor-pointer border border-[#d1d5db] text-[#6b7280] px-4 py-3 rounded-md flex items-center gap-2 transition-all duration-300 hover:bg-(--color3) hover:text-(--color5)">
+        <label
+          class="cursor-pointer border border-[#d1d5db] text-[#6b7280] px-4 py-3 rounded-md flex items-center gap-2 transition-all duration-300 hover:bg-(--color3) hover:text-(--color5)">
           <i class="fas fa-image text-xl"></i>
-          <input type="file" accept="image/png, image/jpeg, image/webp" multiple class="hidden" onchange="handleImageSelection(event)" />
+          <input type="file" accept="image/png, image/jpeg, image/webp" multiple class="hidden"
+            onchange="handleImageSelection(event)" />
           <span class="text-sm">Upload from gallery</span>
         </label>
-  
-        <label class="cursor-pointer border border-[#d1d5db] text-[#6b7280] px-4 py-3 rounded-md flex items-center gap-2 transition-all duration-300 hover:bg-(--color3) hover:text-(--color5)">
+
+        <label
+          class="cursor-pointer border border-[#d1d5db] text-[#6b7280] px-4 py-3 rounded-md flex items-center gap-2 transition-all duration-300 hover:bg-(--color3) hover:text-(--color5)">
           <i class="fas fa-camera text-xl"></i>
-          <input type="file" accept="image/png, image/jpeg, image/webp" capture="environment" class="hidden" onchange="handleImageSelection(event)">
+          <input type="file" accept="image/png, image/jpeg, image/webp" capture="environment" class="hidden"
+            onchange="handleImageSelection(event)">
           <span class="text-sm">Capture from camera</span>
         </label>
 
@@ -225,29 +272,42 @@
           <img id="modalImage"
             class="max-w-full max-h-full rounded shadow-lg transition-transform duration-200 ease-in-out" />
         </div>
-        
+
         <p id="imgHint" class="hidden text-sm text-[#4b5563]">Drag images to reorder. Click image to zoom.</p>
         <p id="noImg" class="text-sm text-[#4b5563]">No Images Selected.</p>
         <div id="previewContainer" class="flex justify-center flex-wrap gap-4 w-full"></div>
 
         <div id="imgDiv" draggable="true" class="hidden relative w-40 md:w-4/5 rounded overflow-hidden">
-          <img src="" class="w-full h-auto object-cover cursor-move transition duration-200 hover:brightness-75" onclick="" />
-          <button id="coverBtn" type="button" 
-            class="absolute bottom-1 left-1 text-xs bg-white/50 hover:bg-white px-1 rounded cursor-pointer"
-            onclick="">
+          <img src="" class="w-full h-auto object-cover cursor-move transition duration-200 hover:brightness-75"
+            onclick="" />
+          <button id="coverBtn" type="button"
+            class="absolute bottom-1 left-1 text-xs bg-white/50 hover:bg-white px-1 rounded cursor-pointer" onclick="">
           </button>
           <button id="delBtn" type="button"
             class="absolute top-1 right-1 bg-red-500 px-1 rounded-full w-5 h-5 flex justify-center items-center cursor-pointer hover:bg-red-400">
-            <svg class="text-white hover:text-(--color3) w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+            <svg class="text-white hover:text-(--color3) w-full h-full" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 384 512"
+              fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+              <path
+                d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+            </svg>
           </button>
           <div class="absolute bottom-1 right-1 space-y-0.5 w-5.5 md:w-6">
             <button id="upBtn" type="button"
               class=" bg-white/50 hover:bg-white rounded p-1 flex justify-center items-center cursor-pointer">
-              <svg class="text-(--color3) w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2 160 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-306.7L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg>
+              <svg class="text-(--color3) w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
+                fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                <path
+                  d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2 160 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-306.7L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z" />
+              </svg>
             </button>
             <button id="downBtn" type="button"
               class=" bg-white/50 hover:bg-white rounded p-1 flex justify-center items-center cursor-pointer">
-              <svg class="text-(--color3) w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+              <svg class="text-(--color3) w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
+                fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                <path
+                  d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" />
+              </svg>
             </button>
           </div>
         </div>
@@ -263,13 +323,15 @@
 
     <div class="flex justify-between items-center mt-2 md:w-[66%]">
       <!-- Update Post Button -->
-      <button id="updateItemBtn" type="submit" class="w-full bg-teal-600 text-white px-3 py-2 rounded-lg font-medium hover:bg-teal-700 transition-all disabled:cursor-not-allowed disabled:bg-teal-700"
+      <button id="updateItemBtn" type="submit"
+        class="w-full bg-teal-600 text-white px-3 py-2 rounded-lg font-medium hover:bg-teal-700 transition-all disabled:cursor-not-allowed disabled:bg-teal-700"
         disabled>
         Update Post
       </button>
-    
+
       <!-- Delete Post Button -->
-      <button type="button" onclick="confirmDelete()" class="text-nowrap ml-2 bg-red-600 text-white py-2 px-3 rounded-md font-medium hover:bg-red-700 transition-all">
+      <button type="button" onclick="confirmDelete()"
+        class="text-nowrap ml-2 bg-red-600 text-white py-2 px-3 rounded-md font-medium hover:bg-red-700 transition-all">
         Delete post
       </button>
     </div>
@@ -281,4 +343,5 @@
   <script src="./js/utility/infoErrorMsg.js"></script>
   <script src="./js/edit-post.js"></script>
 </body>
+
 </html>

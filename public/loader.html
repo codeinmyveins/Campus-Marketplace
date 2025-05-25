@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Campus Connect | Loading</title>
-  <link
-      rel="shortcut icon"
-      href="./assets/icons/Campus Marketplace Logo.svg"
-      type="image/x-icon"
-    />
+  <link rel="shortcut icon" href="./assets/icons/Campus Marketplace Logo.svg" type="image/x-icon" />
   <style>
     * {
       box-sizing: border-box;
@@ -19,7 +16,8 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #011627; /* dark teal */
+      background-color: #011627;
+      /* dark teal */
       height: 100vh;
       overflow: hidden;
       display: flex;
@@ -45,6 +43,7 @@
       0% {
         transform: rotate(0deg);
       }
+
       100% {
         transform: rotate(360deg);
       }
@@ -70,30 +69,31 @@
 
 
     .raindrop {
-  position: absolute;
-  top: -20px; /* keep them off screen initially */
-  width: 2px;
-  height: 15px;
-  background-color: #1db9c3;
-  opacity: 0;
-  animation: fall linear infinite;
-  transform: rotate(-20deg);
-}
+      position: absolute;
+      top: -20px;
+      /* keep them off screen initially */
+      width: 2px;
+      height: 15px;
+      background-color: #1db9c3;
+      opacity: 0;
+      animation: fall linear infinite;
+      transform: rotate(-20deg);
+    }
 
-@keyframes fall {
-  0% {
-    transform: translateY(0) rotate(-20deg);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(100vh) rotate(-20deg);
-    opacity: 0.6;
-  }
-}
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(-20deg);
+        opacity: 0;
+      }
 
-
+      100% {
+        transform: translateY(100vh) rotate(-20deg);
+        opacity: 0.6;
+      }
+    }
   </style>
 </head>
+
 <body>
 
   <!-- Rain effect -->
@@ -118,4 +118,5 @@
   </script>
 
 </body>
+
 </html>

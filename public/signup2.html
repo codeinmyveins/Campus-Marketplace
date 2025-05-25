@@ -1,391 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign Up - Step 2 | Campus Connect</title>
-    <link rel="stylesheet" href="./styles/tailwind.css" />
-    <link rel="stylesheet" href="./styles/signup2.css" />
-    <style>
-      @media (min-width: 450px){
-        #dob {
-          gap: calc(var(--spacing) * 4); flex-direction: row; align-items: center;
-        }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up - Step 2 | Campus Connect</title>
+  <link rel="stylesheet" href="./styles/tailwind.css" />
+  <link rel="stylesheet" href="./styles/signup2.css" />
+  <style>
+    @media (min-width: 450px) {
+      #dob {
+        gap: calc(var(--spacing) * 4);
+        flex-direction: row;
+        align-items: center;
       }
-    </style>
-  </head>
+    }
+  </style>
+</head>
 
-  <body class="bg-[var(--color2)] min-h-screen flex flex-col pt-20 md:pt-24">
-    <!-- Header & Navigation -->
-    <header>
-      <nav
-        class="fixed top-0 left-0 right-0 z-50 bg-[var(--color2)] text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md"
-      >
-        <!-- Logo -->
-        <div class="flex items-center logo-icon">
-          <a href="/" class="flex items-center space-x-3">
-            <img
-              src="./assets/icons/Campus Marketplace Logo.svg"
-              alt="Campus Logo"
-              class="w-10 h-10 object-contain mb-3.5"
-            />
-            <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
-              Campus Marketplace
-            </h1>
-          </a>
-        </div>
+<body class="bg-[var(--color2)] min-h-screen flex flex-col pt-20 md:pt-24">
+  <!-- Header & Navigation -->
+  <header>
+    <nav
+      class="fixed top-0 left-0 right-0 z-50 bg-[var(--color2)] text-[#152c2e] w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md">
+      <!-- Logo -->
+      <div class="flex items-center logo-icon">
+        <a href="/" class="flex items-center space-x-3">
+          <img src="./assets/icons/Campus Marketplace Logo.svg" alt="Campus Logo"
+            class="w-10 h-10 object-contain mb-3.5" />
+          <h1 class="font-bold font-serif text-2xl uppercase leading-tight">
+            Campus Marketplace
+          </h1>
+        </a>
+      </div>
 
-        <!-- Mobile Menu Button -->
-        <button
-          class="md:hidden text-3xl focus:outline-none"
-          onclick="toggleMenu()"
-        >
-          ☰
-        </button>
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden text-3xl focus:outline-none" onclick="toggleMenu()">
+        ☰
+      </button>
 
-        <!-- Navigation Links (Desktop) -->
-        <div
-          class="hidden md:flex flex-row items-center gap-10 capitalize font-semibold"
-        >
-          <ul class="flex gap-10">
-            <li>
-              <a
-                href="/"
-                class="inline-block py-2 hover:scale-110 duration-300"
-                >Home</a
-              >
-            </li>
-            <li>
-              <a
-                href="/#about"
-                class="inline-block py-2 hover:scale-110 duration-300"
-                >About</a
-              >
-            </li>
-            <li>
-              <a
-                href="./market.html"
-                class="inline-block py-2 hover:scale-110 duration-300"
-                >Market</a
-              >
-            </li>
-            <li>
-              <a
-                href="/#contact"
-                class="inline-block py-2 hover:scale-110 duration-300"
-                >Contact</a
-              >
-            </li>
-          </ul>
-
-          <!-- Login/Signup (Desktop) -->
-          <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
-            <li>
-              <a
-                href="./login.html"
-                class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
-                >Login</a
-              >
-            </li>
-            <li>
-              <a
-                href="./signup1.html"
-                class="bg-[#152c2e] text-[#f2f2f2] text-nowrap py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
-                >Sign Up</a
-              >
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      <!-- Mobile Navigation Menu -->
-      <div
-        id="mobileMenu"
-        class="select-none fixed top-[73px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl"
-      >
-        <ul class="space-y-3 text-center">
+      <!-- Navigation Links (Desktop) -->
+      <div class="hidden md:flex flex-row items-center gap-10 capitalize font-semibold">
+        <ul class="flex gap-10">
           <li>
-            <a
-              href="/"
-              class="block hover:scale-110 duration-300"
-              >Home</a
-            >
+            <a href="/" class="inline-block py-2 hover:scale-110 duration-300">Home</a>
           </li>
           <li>
-            <a
-              href="/#about"
-              class="block hover:scale-110 duration-300"
-              >About</a
-            >
+            <a href="/#about" class="inline-block py-2 hover:scale-110 duration-300">About</a>
           </li>
           <li>
-            <a
-              href="./market.html"
-              class="block hover:scale-110 duration-300"
-              >Market</a
-            >
+            <a href="./market.html" class="inline-block py-2 hover:scale-110 duration-300">Market</a>
           </li>
           <li>
-            <a
-              href="/#contact"
-              class="block hover:scale-110 duration-300"
-              >Contact</a
-            >
+            <a href="/#contact" class="inline-block py-2 hover:scale-110 duration-300">Contact</a>
           </li>
         </ul>
 
-        <ul class="flex flex-col space-y-7 mt-6 text-center">
+        <!-- Login/Signup (Desktop) -->
+        <ul class="flex gap-5 md:gap-8 capitalize font-semibold">
           <li>
-            <a
-              href="./login.html"
-              class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition"
-              >Login</a
-            >
+            <a href="./login.html"
+              class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition">Login</a>
           </li>
           <li>
-            <a
-              href="./signup1.html"
-              class="bg-[#152c2e] text-[#f2f2f2] py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition"
-              >Sign Up</a
-            >
+            <a href="./signup1.html"
+              class="bg-[#152c2e] text-[#f2f2f2] text-nowrap py-2.5 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign
+              Up</a>
           </li>
         </ul>
       </div>
-    </header>
+    </nav>
 
-    <!-- Sign-Up Form -->
-    <div class="flex flex-1 items-center justify-center px-4 relative">
-      <img
-        src="./assets/images/trumpet.png"
-        alt="Person Blowing Horn"
-        class="hidden md:block left-img absolute left-[2rem]"
-      />
+    <!-- Mobile Navigation Menu -->
+    <div id="mobileMenu"
+      class="select-none fixed top-[73px] left-0 right-0 z-40 md:hidden flex-col items-center bg-[var(--color2)] py-8 px-5 hidden shadow-md rounded-b-2xl">
+      <ul class="space-y-3 text-center">
+        <li>
+          <a href="/" class="block hover:scale-110 duration-300">Home</a>
+        </li>
+        <li>
+          <a href="/#about" class="block hover:scale-110 duration-300">About</a>
+        </li>
+        <li>
+          <a href="./market.html" class="block hover:scale-110 duration-300">Market</a>
+        </li>
+        <li>
+          <a href="/#contact" class="block hover:scale-110 duration-300">Contact</a>
+        </li>
+      </ul>
 
-      <div
-        class="bg-[var(--color3)] shadow-lg rounded-3xl p-8 w-full max-w-md mx-auto"
-      >
-        <h2 class="text-2xl font-bold text-[var(--color2)] text-center">
-          Complete Your Profile
-        </h2>
+      <ul class="flex flex-col space-y-7 mt-6 text-center">
+        <li>
+          <a href="./login.html"
+            class="border-2 border-[#152c2e] py-2 px-4 rounded-xl hover:bg-[#152c2e] hover:text-[#f2f2f2] transition">Login</a>
+        </li>
+        <li>
+          <a href="./signup1.html"
+            class="bg-[#152c2e] text-[#f2f2f2] py-2 px-4 rounded-xl hover:bg-[#0f1d1f] transition">Sign Up</a>
+        </li>
+      </ul>
+    </div>
+  </header>
 
-        <form id="signupForm" class="mt-6 space-y-4">
-          <!-- Full Name -->
-          <div>
-            <label class="block text-[var(--color2)] font-medium"
-              >Full Name</label
-            >
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              required
-              class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none"
-            />
-            <!-- <p class="text-red-500 text-sm hidden" id="fullNameError">
+  <!-- Sign-Up Form -->
+  <div class="flex flex-1 items-center justify-center px-4 relative">
+    <img src="./assets/images/trumpet.png" alt="Person Blowing Horn"
+      class="hidden md:block left-img absolute left-[2rem]" />
+
+    <div class="bg-[var(--color3)] shadow-lg rounded-3xl p-8 w-full max-w-md mx-auto">
+      <h2 class="text-2xl font-bold text-[var(--color2)] text-center">
+        Complete Your Profile
+      </h2>
+
+      <form id="signupForm" class="mt-6 space-y-4">
+        <!-- Full Name -->
+        <div>
+          <label class="block text-[var(--color2)] font-medium">Full Name</label>
+          <input type="text" id="fullName" name="fullName" required
+            class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none" />
+          <!-- <p class="text-red-500 text-sm hidden" id="fullNameError">
               Please enter a valid name.
             </p> -->
-          </div>
+        </div>
 
-          <!-- Date of Birth -->
-          <div class="w-full">
-            <label class="block text-[var(--color2)] font-medium mb-1"
-              >Date of Birth</label
-            >
-            <div
-              id="dob" class="flex flex-col gap-2 w-full"
-            >
-              <!-- Day -->
-              <div class="w-full md:w-1/3 relative">
-                <div class="relative">
-                  <select
-                    id="day"
-                    name="day"
-                    required
-                    class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 pr-10 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none appearance-none"
-                  >
-                    <option value="" class="bg-[var(--color3)]">Day</option>
-                    <!-- JS will populate -->
-                  </select>
-                  <span
-                    class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]"
-                    >▼</span
-                  >
-                </div>
-              </div>
-
-              <!-- Month -->
-              <div class="w-full md:w-1/3 relative">
-                <div class="relative">
-                  <select
-                    id="month"
-                    name="month"
-                    required
-                    class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 pr-10 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none appearance-none"
-                  >
-                    <option value="" class="bg-[var(--color3)]">Month</option>
-                    <!-- JS will populate -->
-                  </select>
-                  <span
-                    class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]"
-                    >▼</span
-                  >
-                </div>
-              </div>
-
-              <!-- Year -->
-              <div class="w-full md:w-1/3 relative">
-                <div class="relative">
-                  <select
-                    id="year"
-                    name="year"
-                    required
-                    class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 pr-10 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none appearance-none"
-                  >
-                    <option value="" class="bg-[var(--color3)]">Year</option>
-                    <!-- JS will populate -->
-                  </select>
-                  <span
-                    class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]"
-                    >▼</span
-                  >
-                </div>
+        <!-- Date of Birth -->
+        <div class="w-full">
+          <label class="block text-[var(--color2)] font-medium mb-1">Date of Birth</label>
+          <div id="dob" class="flex flex-col gap-2 w-full">
+            <!-- Day -->
+            <div class="w-full md:w-1/3 relative">
+              <div class="relative">
+                <select id="day" name="day" required
+                  class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 pr-10 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none appearance-none">
+                  <option value="" class="bg-[var(--color3)]">Day</option>
+                  <!-- JS will populate -->
+                </select>
+                <span
+                  class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]">▼</span>
               </div>
             </div>
 
-            <!-- DOB Error -->
-            <!-- <p id="dobError" class="text-sm hidden mt-1">
+            <!-- Month -->
+            <div class="w-full md:w-1/3 relative">
+              <div class="relative">
+                <select id="month" name="month" required
+                  class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 pr-10 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none appearance-none">
+                  <option value="" class="bg-[var(--color3)]">Month</option>
+                  <!-- JS will populate -->
+                </select>
+                <span
+                  class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]">▼</span>
+              </div>
+            </div>
+
+            <!-- Year -->
+            <div class="w-full md:w-1/3 relative">
+              <div class="relative">
+                <select id="year" name="year" required
+                  class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 pr-10 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none appearance-none">
+                  <option value="" class="bg-[var(--color3)]">Year</option>
+                  <!-- JS will populate -->
+                </select>
+                <span
+                  class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]">▼</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- DOB Error -->
+          <!-- <p id="dobError" class="text-sm hidden mt-1">
               You must be at least 16 years old.
             </p> -->
-          </div>
+        </div>
 
-          <!-- Gender -->
+        <!-- Gender -->
+        <div class="relative">
+          <label class="block text-[var(--color2)] font-medium">Gender</label>
           <div class="relative">
-            <label class="block text-[var(--color2)] font-medium">Gender</label>
-            <div class="relative">
-              <select
-                id="gender"
-                name="gender"
-                required
-                class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 pr-10 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none appearance-none"
-              >
-                <option value="" class="bg-[var(--color3)]">
-                  Select Gender
-                </option>
-                <option value="male" class="bg-[var(--color3)]">Male</option>
-                <option value="female" class="bg-[var(--color3)]">
-                  Female
-                </option>
-                <option value="other" class="bg-[var(--color3)]">Other</option>
-              </select>
-              <!-- Custom Dropdown Icon -->
-              <span
-                class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]"
-              >
-                ▼
-              </span>
-            </div>
-            <!-- <p class="text-red-500 text-sm hidden" id="genderError">
+            <select id="gender" name="gender" required
+              class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 pr-10 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none appearance-none">
+              <option value="" class="bg-[var(--color3)]">
+                Select Gender
+              </option>
+              <option value="male" class="bg-[var(--color3)]">Male</option>
+              <option value="female" class="bg-[var(--color3)]">
+                Female
+              </option>
+              <option value="other" class="bg-[var(--color3)]">Other</option>
+            </select>
+            <!-- Custom Dropdown Icon -->
+            <span class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]">
+              ▼
+            </span>
+          </div>
+          <!-- <p class="text-red-500 text-sm hidden" id="genderError">
               Please select a gender.
             </p> -->
-          </div>
+        </div>
 
-          <!-- Country -->
+        <!-- Country -->
+        <div class="relative">
+          <label class="block text-[var(--color2)] font-medium">Country</label>
           <div class="relative">
-            <label class="block text-[var(--color2)] font-medium"
-              >Country</label
-            >
-            <div class="relative">
-              <select
-                id="country"
-                name="country"
-                required
-                class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 pr-10 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none appearance-none"
-              >
-                <option value="">Select Country</option>
-                <!-- Dynamic country options will be injected here by JS -->
-              </select>
-              <!-- Custom Dropdown Icon -->
-              <span
-                class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]"
-              >
-                ▼
-              </span>
-            </div>
-            <!-- <p class="text-red-500 text-sm hidden" id="countryError">
+            <select id="country" name="country" required
+              class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 pr-10 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none appearance-none">
+              <option value="">Select Country</option>
+              <!-- Dynamic country options will be injected here by JS -->
+            </select>
+            <!-- Custom Dropdown Icon -->
+            <span class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]">
+              ▼
+            </span>
+          </div>
+          <!-- <p class="text-red-500 text-sm hidden" id="countryError">
               Please select a country.
             </p> -->
-          </div>
+        </div>
 
-          <!-- Phone Number -->
-          <div>
-            <label class="block text-[var(--color2)] font-medium"
-              >Phone Number</label
-            >
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              required
-              pattern="[0-9]{08,15}"
-              placeholder="Phone Number"
-              class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none"
-            />
-            <!-- <p class="text-sm hidden" id="phoneError">
+        <!-- Phone Number -->
+        <div>
+          <label class="block text-[var(--color2)] font-medium">Phone Number</label>
+          <input type="tel" id="phone" name="phone" required pattern="[0-9]{08,15}" placeholder="Phone Number"
+            class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none" />
+          <!-- <p class="text-sm hidden" id="phoneError">
               Please enter a valid phone number.
             </p> -->
-          </div>
+        </div>
 
-          <!-- College -->
+        <!-- College -->
+        <div class="relative">
+          <label class="block text-[var(--color2)] font-medium">College</label>
           <div class="relative">
-            <label class="block text-[var(--color2)] font-medium"
-              >College</label
-            >
-            <div class="relative">
-              <input
-                type="text"
-                id="college"
-                name="college"
-                autocomplete="off"
-                placeholder="Search college..."
-                class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none"
-              />
-              <ul
-                id="college-options"
-                class="absolute z-10 mt-1 w-full max-h-60 overflow-auto rounded-md bg-[var(--color3)] border border-[var(--color1)] text-[var(--color2)] shadow-lg hidden"
-              ></ul>
-              <span class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]">🔍</span>
-            </div>
-            <!-- <p class="text-red-500 text-sm hidden" id="collegeError">
+            <input type="text" id="college" name="college" autocomplete="off" placeholder="Search college..."
+              class="w-full border border-[var(--color1)] rounded-lg px-3 py-2 text-[var(--color2)] bg-[var(--color3)] focus:ring-1 focus:ring-[var(--color2)] focus:outline-none" />
+            <ul id="college-options"
+              class="absolute z-10 mt-1 w-full max-h-60 overflow-auto rounded-md bg-[var(--color3)] border border-[var(--color1)] text-[var(--color2)] shadow-lg hidden">
+            </ul>
+            <span
+              class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[var(--color2)]">🔍</span>
+          </div>
+          <!-- <p class="text-red-500 text-sm hidden" id="collegeError">
               Please select a college.
             </p> -->
-          </div>
+        </div>
 
-          <!-- Error message placeholder -->
-          <p
-            id="infoErrorMsg"
-            class="text-center font-medium hidden"
-          ></p>
+        <!-- Error message placeholder -->
+        <p id="infoErrorMsg" class="text-center font-medium hidden"></p>
 
-          <!-- Continue Button -->
-          <button
-            type="submit"
-            class="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition font-medium"
-          >
-            Sign - Up
-          </button>
-        </form>
-      </div>
-
-      <img
-        src="./assets/images/trumpet.png"
-        alt="Person Blowing Horn"
-        class="hidden md:block right-img absolute right-[2rem] transform scale-x-[-1]"
-      />
+        <!-- Continue Button -->
+        <button type="submit"
+          class="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition font-medium">
+          Sign - Up
+        </button>
+      </form>
     </div>
-    <!-- Validation Script -->
-    <script src="./js/lib/axios.min.js"></script>
-    <script src="./js/utility/infoErrorMsg.js"></script>
-    <script src="./js/utility/deviceFingerprintGen.js"></script>
-    <script src="./js/signup2.js"></script>
-  </body>
+
+    <img src="./assets/images/trumpet.png" alt="Person Blowing Horn"
+      class="hidden md:block right-img absolute right-[2rem] transform scale-x-[-1]" />
+  </div>
+  <!-- Validation Script -->
+  <script src="./js/lib/axios.min.js"></script>
+  <script src="./js/utility/infoErrorMsg.js"></script>
+  <script src="./js/utility/deviceFingerprintGen.js"></script>
+  <script src="./js/signup2.js"></script>
+</body>
+
 </html>

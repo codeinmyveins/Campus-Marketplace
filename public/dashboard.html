@@ -1,163 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard - My Listings</title>
-    <link rel="stylesheet" href="./styles/dashboard.css" />
-    <link rel="stylesheet" href="./styles/tailwind.css" />
-    <link
-      rel="shortcut icon"
-      href="./assets/icons/Campus Marketplace Logo.svg"
-      type="image/x-icon"
-    />
-  </head>
-  
 
-  <body class="box-border pt-20 md:pt-24 bg-(--color2)">
-    <!-- Header & Navigation -->
-    <header>
-      <nav
-        class="select-none fixed top-0 left-0 right-0 z-50 bg-(--color2) text-(--color3) w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md"
-      >
-        <!-- Logo -->
-        <div class="flex items-center logo-icon">
-          <a href="/" class="flex items-center space-x-3">
-            <img
-              src="./assets/icons/Campus Marketplace Logo.svg"
-              alt="Campus Logo"
-              class="w-10 h-10 object-contain mb-3.5"
-            />
-            <h1 class="font-bold font-serif text-2xl uppercase leading-tight ">
-              Campus Marketplace
-            </h1>
-          </a>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - My Listings</title>
+  <link rel="stylesheet" href="./styles/dashboard.css" />
+  <link rel="stylesheet" href="./styles/tailwind.css" />
+  <link rel="shortcut icon" href="./assets/icons/Campus Marketplace Logo.svg" type="image/x-icon" />
+</head>
 
-        <div
-        class="flex flex-row items-center gap-10 capitalize font-semibold"
-        >
-        <!-- Navigation Links (Desktop) -->
-          <div class="hidden md:flex flex-row items-center gap-10 capitalize font-semibold">
-            <ul class="flex gap-10">
-              <li>
-                <a
-                  href="/"
-                  class="inline-block py-2 hover:scale-110 duration-300"
-                  >Home</a
-                >
-              </li>
-              <li>
-                <a
-                  href="/#about"
-                  class="inline-block py-2 hover:scale-110 duration-300"
-                  >About</a
-                >
-              </li>
-              <li>
-                <a
-                  href="./market.html"
-                  class="inline-block py-2 hover:scale-110 duration-300"
-                  >Market</a
-                >
-              </li>
-              <li>
-                <a
-                  href="/#contact"
-                  class="inline-block py-2 hover:scale-110 duration-300"
-                  >Contact</a
-                >
-              </li>
-            </ul>
-          </div>
 
-          <!-- Mobile Menu Button -->
-          <button class="select-none md:hidden text-3xl focus:outline-none" onclick="toggleMenu()">
-            ☰
-          </button>
-          <!-- user drop down -->
-          <div id="user-dropdown" class="flex items-center space-x-1 cursor-pointer" onclick="toggleSidebar()">
-            <img id="user-dropdown-avatar1" src="./assets/images/default-user.jpg" alt="Profile"
-              class="w-12 h-12 aspect-square rounded-full object-cover border-2 border-teal-600" />
-            <image src="./assets/icons/chevron-down.svg" class="w-4 h-4 text-gray-600"></i>
-          </div>
-        </div>
-        </div>
-      </nav>
-
-      <div
-        id="mobileMenu"
-        class="select-none fixed top-[73px] left-0 right-0 z-40 md:hidden flex-col items-center bg-(--color2) py-8 px-5 shadow-md rounded-b-2xl -translate-y-full transition-transform"
-      >
-        <ul class="space-y-3 text-center">
-          <li>
-            <a
-              href="/"
-              class="block hover:scale-110 duration-300"
-              >Home</a
-            >
-          </li>
-          <li>
-            <a
-              href="/#about"
-              class="block hover:scale-110 duration-300"
-              >About</a
-            >
-          </li>
-          <li>
-            <a
-              href="./market.html"
-              class="block hover:scale-110 duration-300"
-              >Market</a
-            >
-          </li>
-          <li>
-            <a
-              href="/#contact"
-              class="block hover:scale-110 duration-300"
-              >Contact</a
-            >
-          </li>
-        </ul>
-
+<body class="box-border pt-20 md:pt-24 bg-(--color2)">
+  <!-- Header & Navigation -->
+  <header>
+    <nav
+      class="select-none fixed top-0 left-0 right-0 z-50 bg-(--color2) text-(--color3) w-full flex justify-between items-center px-4 py-4 md:px-8 lg:px-16 xl:px-24 shadow-md">
+      <!-- Logo -->
+      <div class="flex items-center logo-icon">
+        <a href="/" class="flex items-center space-x-3">
+          <img src="./assets/icons/Campus Marketplace Logo.svg" alt="Campus Logo"
+            class="w-10 h-10 object-contain mb-3.5" />
+          <h1 class="font-bold font-serif text-2xl uppercase leading-tight ">
+            Campus Marketplace
+          </h1>
+        </a>
       </div>
-    </header>
 
-    <div id="sidebar"
+      <div class="flex flex-row items-center gap-10 capitalize font-semibold">
+        <!-- Navigation Links (Desktop) -->
+        <div class="hidden md:flex flex-row items-center gap-10 capitalize font-semibold">
+          <ul class="flex gap-10">
+            <li>
+              <a href="/" class="inline-block py-2 hover:scale-110 duration-300">Home</a>
+            </li>
+            <li>
+              <a href="/#about" class="inline-block py-2 hover:scale-110 duration-300">About</a>
+            </li>
+            <li>
+              <a href="./market.html" class="inline-block py-2 hover:scale-110 duration-300">Market</a>
+            </li>
+            <li>
+              <a href="/#contact" class="inline-block py-2 hover:scale-110 duration-300">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button class="select-none md:hidden text-3xl focus:outline-none" onclick="toggleMenu()">
+          ☰
+        </button>
+        <!-- user drop down -->
+        <div id="user-dropdown" class="flex items-center space-x-1 cursor-pointer" onclick="toggleSidebar()">
+          <img id="user-dropdown-avatar1" src="./assets/images/default-user.jpg" alt="Profile"
+            class="w-12 h-12 aspect-square rounded-full object-cover border-2 border-teal-600" />
+          <image src="./assets/icons/chevron-down.svg" class="w-4 h-4 text-gray-600"></i>
+        </div>
+      </div>
+      </div>
+    </nav>
+
+    <div id="mobileMenu"
+      class="select-none fixed top-[73px] left-0 right-0 z-40 md:hidden flex-col items-center bg-(--color2) py-8 px-5 shadow-md rounded-b-2xl -translate-y-full transition-transform">
+      <ul class="space-y-3 text-center">
+        <li>
+          <a href="/" class="block hover:scale-110 duration-300">Home</a>
+        </li>
+        <li>
+          <a href="/#about" class="block hover:scale-110 duration-300">About</a>
+        </li>
+        <li>
+          <a href="./market.html" class="block hover:scale-110 duration-300">Market</a>
+        </li>
+        <li>
+          <a href="/#contact" class="block hover:scale-110 duration-300">Contact</a>
+        </li>
+      </ul>
+
+    </div>
+  </header>
+
+  <div id="sidebar"
     class="fixed top-0 right-0 h-full min-w-64 max-w-96 bg-(--color1) text-white shadow-lg transform translate-x-full transition-transform duration-300 z-50"
     role="menu" aria-label="User menu">
     <div class="flex flex-col h-full p-6 space-y-6">
       <div class="flex gap-1 items-center">
         <img id="user-dropdown-avatar2" src="./assets/images/default-user.jpg" alt="Profile"
-            class="aspect-square w-12 h-12 rounded-full object-cover border-2 border-teal-600" />
+          class="aspect-square w-12 h-12 rounded-full object-cover border-2 border-teal-600" />
 
         <div>
           <p id="user-dropdown-full_name" class="text-lg">Full Name</p>
-          <p>@<span id="user-dropdown-username" class="text-gray-300" >username</span></p>
+          <p>@<span id="user-dropdown-username" class="text-gray-300">username</span></p>
         </div>
         <!-- Close Button -->
-        <button onclick="toggleSidebar()" class="ml-auto text-white hover:text-teal-200 focus:outline-none cursor-pointer"
-          aria-label="Close sidebar">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x" class="lucide lucide-x w-6 h-6"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+        <button onclick="toggleSidebar()"
+          class="ml-auto text-white hover:text-teal-200 focus:outline-none cursor-pointer" aria-label="Close sidebar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x"
+            class="lucide lucide-x w-6 h-6">
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
         </button>
       </div>
 
       <!-- Menu Links -->
       <!-- Inside your Sidebar Links -->
       <a href="/me" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-200" role="menuitem">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user" class="lucide lucide-user w-5 h-5 text-teal-300"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user"
+          class="lucide lucide-user w-5 h-5 text-teal-300">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
         Profile
       </a>
-      <a href="./dashboard.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300" role="menuitem">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="layout-dashboard" class="lucide lucide-layout-dashboard w-5 h-5 text-blue-300"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
+      <a href="./dashboard.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300"
+        role="menuitem">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          data-lucide="layout-dashboard" class="lucide lucide-layout-dashboard w-5 h-5 text-blue-300">
+          <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+          <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+          <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+          <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+        </svg>
         Dashboard
       </a>
-      <a href="./edit-profile.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300" role="menuitem">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="settings" class="lucide lucide-settings w-5 h-5 text-yellow-300"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+      <a href="./edit-profile.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300"
+        role="menuitem">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="settings"
+          class="lucide lucide-settings w-5 h-5 text-yellow-300">
+          <path
+            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z">
+          </path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
         Manage Account
       </a>
-      <a href="./create-post.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300" role="menuitem">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="plus-circle" class="lucide lucide-plus-circle w-5 h-5 text-purple-300"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>
+      <a href="./create-post.html" class="sidebar-link flex items-center gap-3 text-lg hover:text-teal-300"
+        role="menuitem">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          data-lucide="plus-circle" class="lucide lucide-plus-circle w-5 h-5 text-purple-300">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M8 12h8"></path>
+          <path d="M12 8v8"></path>
+        </svg>
         Post Item
       </a>
 
@@ -165,110 +155,130 @@
       <button onclick="confirmLogout()"
         class="mt-auto flex items-center justify-center gap-3 bg-white text-(--color1) px-4 py-2 rounded hover:bg-red-100 hover:cursor-pointer transition text-base font-medium"
         role="menuitem">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="log-out" class="lucide lucide-log-out w-5 h-5 text-red-500"><path d="m16 17 5-5-5-5"></path><path d="M21 12H9"></path><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="log-out"
+          class="lucide lucide-log-out w-5 h-5 text-red-500">
+          <path d="m16 17 5-5-5-5"></path>
+          <path d="M21 12H9"></path>
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+        </svg>
         Logout
       </button>
     </div>
   </div>
 
-    <br><br>
-    <h1 class="text-3xl font-semibold text-[#0b2c2d] mb-8 ml-[5%]">My Listings Dashboard</h1>
+  <br><br>
+  <h1 class="text-3xl font-semibold text-[#0b2c2d] mb-8 ml-[5%]">My Listings Dashboard</h1>
 
-    <!-- Open Badge -->
-    <span id="open_badge_hidden" hidden class="relative top-[-10px] text-xs font-medium px-2 py-1 rounded-full bg-green-50 text-green-600 border border-green-200 flex items-center gap-1 z-10">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-      </svg>
-      Open
-    </span>
+  <!-- Open Badge -->
+  <span id="open_badge_hidden" hidden
+    class="relative top-[-10px] text-xs font-medium px-2 py-1 rounded-full bg-green-50 text-green-600 border border-green-200 flex items-center gap-1 z-10">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+    </svg>
+    Open
+  </span>
 
-    <!-- Closed Badge -->
-    <span id="closed_badge_hidden" hidden class="relative top-[-10px] text-xs font-medium px-2 py-1 rounded-full bg-red-50 text-red-600 border border-red-200 flex items-center gap-1 z-10">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-      Closed
-    </span>
+  <!-- Closed Badge -->
+  <span id="closed_badge_hidden" hidden
+    class="relative top-[-10px] text-xs font-medium px-2 py-1 rounded-full bg-red-50 text-red-600 border border-red-200 flex items-center gap-1 z-10">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+    Closed
+  </span>
 
-    <div id="defaultCard" hidden class="bg-(--color5) rounded-xl shadow-md hover:shadow-lg transition-shadow p-0 flex max-w-9/10 mx-auto relative overflow-hidden border border-gray-200">
-  
-      <!-- Image Section -->
-      <div class="min-w-48 max-w-48 h-48 flex-shrink-0 self-center">
-        <img id=coverImg src="./assets/images/no_image.webp" class="w-full h-full object-cover rounded-xl" />
-      </div>
-    
-      <!-- Content Section -->
-      <div class="flex flex-col justify-between w-full p-4">
-        <!-- Title & Name -->
-        <div class="mb-0">
-          <span class="flex justify-between">
-            <h2 id="title" class="text-2xl font-bold text-[#0b2c2d]">Title</h2>
-            <span id="badge_container">
-              <!-- Js will set -->
-            </span>
-          </span>
-          <h2 id="item_name" class="text-lg text-gray-600 mb-1">Item Name</h2>
-        </div>
-        <hr class="border-t border-gray-200 mb-2" />
-    
-        <!-- Details Section -->
-        <div class="text-sm text-gray-700 space-y-0">
-          <!-- Capsules & Price Highlight -->
-          <div class="flex flex-wrap items-center gap-2">
-            <span id="item_category" class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium border border-blue-200">
-              Item Category
-            </span>
-            <span id="type" class="inline-flex items-center gap-1 px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium border border-gray-200">
-              Type
-            </span>
-            <span id="price" class="ml-auto inline-flex items-center gap-1 text-emerald-600 text-xl font-semibold">
-              0.00
-            </span>
-          </div>
-        </div>
-    
-        <!-- Bottom Info & Button -->
-        <div class="flex justify-between items-center pt-2 flex-wrap gap-1 text-sm text-gray-700">
-          <div class="flex gap-3 flex-wrap">
-            <p class="flex items-center gap-1">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 4h10M5 11h14M5 19h14M5 15h14" />
-              </svg>
-              <span class="font-medium text-gray-800">Created:</span> <span id="created_at">Apr 10, 2025</span>
-            </p>
-            <p class="flex items-center gap-1">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span class="font-medium text-gray-800">Updated:</span> <span id="modified_at">Apr 12, 2025</span>
-            </p>
-          </div>
-          <a id="editBtn" class="bg-[#00bfa6] text-(--color5) px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 hover:bg-[#009e8c] transition">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-(--color5)" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v14l4-4h6a2 2 0 002-2v-1" />
-            </svg>
-            Edit Listing
-          </a>
-        </div>
-      </div>
+  <div id="defaultCard" hidden
+    class="bg-(--color5) rounded-xl shadow-md hover:shadow-lg transition-shadow p-0 flex max-w-9/10 mx-auto relative overflow-hidden border border-gray-200">
 
+    <!-- Image Section -->
+    <div class="min-w-48 max-w-48 h-48 flex-shrink-0 self-center">
+      <img id=coverImg src="./assets/images/no_image.webp" class="w-full h-full object-cover rounded-xl" />
     </div>
 
-    <p id="itemInfo" class="font-semibold text-[#0b2c2d] mb-8 ml-[5%]">No item posts created</p>
-    <div id="card_list" class="space-y-6"></div>
+    <!-- Content Section -->
+    <div class="flex flex-col justify-between w-full p-4">
+      <!-- Title & Name -->
+      <div class="mb-0">
+        <span class="flex justify-between">
+          <h2 id="title" class="text-2xl font-bold text-[#0b2c2d]">Title</h2>
+          <span id="badge_container">
+            <!-- Js will set -->
+          </span>
+        </span>
+        <h2 id="item_name" class="text-lg text-gray-600 mb-1">Item Name</h2>
+      </div>
+      <hr class="border-t border-gray-200 mb-2" />
 
-    <a href="./create-post.html" class="bg-(--color3) text-(--color5) my-6 mx-auto w-fit px-4 py-2 rounded-xl text-2xl font-medium flex justify-center items-center text-center gap-2 border-2 border-(--color3) hover:text-(--color3) hover:bg-(--color2) transition">
-      <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-(--color5)" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <!-- Details Section -->
+      <div class="text-sm text-gray-700 space-y-0">
+        <!-- Capsules & Price Highlight -->
+        <div class="flex flex-wrap items-center gap-2">
+          <span id="item_category"
+            class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium border border-blue-200">
+            Item Category
+          </span>
+          <span id="type"
+            class="inline-flex items-center gap-1 px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium border border-gray-200">
+            Type
+          </span>
+          <span id="price" class="ml-auto inline-flex items-center gap-1 text-emerald-600 text-xl font-semibold">
+            0.00
+          </span>
+        </div>
+      </div>
+
+      <!-- Bottom Info & Button -->
+      <div class="flex justify-between items-center pt-2 flex-wrap gap-1 text-sm text-gray-700">
+        <div class="flex gap-3 flex-wrap">
+          <p class="flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 7V3m8 4V3m-9 4h10M5 11h14M5 19h14M5 15h14" />
+            </svg>
+            <span class="font-medium text-gray-800">Created:</span> <span id="created_at">Apr 10, 2025</span>
+          </p>
+          <p class="flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="font-medium text-gray-800">Updated:</span> <span id="modified_at">Apr 12, 2025</span>
+          </p>
+        </div>
+        <a id="editBtn"
+          class="bg-[#00bfa6] text-(--color5) px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 hover:bg-[#009e8c] transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-(--color5)" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M11 5H6a2 2 0 00-2 2v14l4-4h6a2 2 0 002-2v-1" />
+          </svg>
+          Edit Listing
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <p id="itemInfo" class="font-semibold text-[#0b2c2d] mb-8 ml-[5%]">No item posts created</p>
+  <div id="card_list" class="space-y-6"></div>
+
+  <a href="./create-post.html"
+    class="bg-(--color3) text-(--color5) my-6 mx-auto w-fit px-4 py-2 rounded-xl text-2xl font-medium flex justify-center items-center text-center gap-2 border-2 border-(--color3) hover:text-(--color3) hover:bg-(--color2) transition">
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-(--color5)" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v14l4-4h6a2 2 0 002-2v-1" />
       </svg> -->
-      Create New Item
-    </a>
-    
-    <script src="./js/lib/axios.min.js"></script>
-    <script src="./js/utility/deviceFingerprintGen.js"></script>
-    <script src="./js/utility/refresh-token.js"></script>
-    <!-- <script src="./js/utility/infoErrorMsg.js"></script> -->
-    <script src="./js/utility/formatTimestamp.js"></script>
-    <script src="./js/dashboard.js"></script>
-  </body>
+    Create New Item
+  </a>
+
+  <script src="./js/lib/axios.min.js"></script>
+  <script src="./js/utility/deviceFingerprintGen.js"></script>
+  <script src="./js/utility/refresh-token.js"></script>
+  <!-- <script src="./js/utility/infoErrorMsg.js"></script> -->
+  <script src="./js/utility/formatTimestamp.js"></script>
+  <script src="./js/dashboard.js"></script>
+</body>
+
 </html>

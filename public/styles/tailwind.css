@@ -360,9 +360,6 @@
   .z-50 {
     z-index: 50;
   }
-  .z-\[999\] {
-    z-index: 999;
-  }
   .container {
     width: 100%;
     @media (width >= 40rem) {
@@ -516,9 +513,6 @@
   .h-8 {
     height: calc(var(--spacing) * 8);
   }
-  .h-9 {
-    height: calc(var(--spacing) * 9);
-  }
   .h-10 {
     height: calc(var(--spacing) * 10);
   }
@@ -536,9 +530,6 @@
   }
   .h-\[1px\] {
     height: 1px;
-  }
-  .h-\[70px\] {
-    height: 70px;
   }
   .h-auto {
     height: auto;
@@ -582,9 +573,6 @@
   .w-8 {
     width: calc(var(--spacing) * 8);
   }
-  .w-9 {
-    width: calc(var(--spacing) * 9);
-  }
   .w-9\/10 {
     width: calc(9/10 * 100%);
   }
@@ -611,9 +599,6 @@
   }
   .w-64 {
     width: calc(var(--spacing) * 64);
-  }
-  .w-96 {
-    width: calc(var(--spacing) * 96);
   }
   .w-\[80\%\] {
     width: 80%;
@@ -692,10 +677,6 @@
     --tw-translate-x: -100%;
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
-  .translate-x-0 {
-    --tw-translate-x: calc(var(--spacing) * 0);
-    translate: var(--tw-translate-x) var(--tw-translate-y);
-  }
   .translate-x-full {
     --tw-translate-x: 100%;
     translate: var(--tw-translate-x) var(--tw-translate-y);
@@ -714,10 +695,6 @@
   }
   .translate-y-10 {
     --tw-translate-y: calc(var(--spacing) * 10);
-    translate: var(--tw-translate-x) var(--tw-translate-y);
-  }
-  .translate-y-full {
-    --tw-translate-y: 100%;
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .scale-95 {
@@ -931,14 +908,8 @@
   .self-center {
     align-self: center;
   }
-  .self-end {
-    align-self: flex-end;
-  }
   .self-start {
     align-self: flex-start;
-  }
-  .justify-self-end {
-    justify-self: flex-end;
   }
   .justify-self-start {
     justify-self: flex-start;
@@ -1063,9 +1034,6 @@
   .bg-\[\#152c2e\] {
     background-color: #152c2e;
   }
-  .bg-\[\#f2f2f2\] {
-    background-color: #f2f2f2;
-  }
   .bg-\[var\(--color1\)\] {
     background-color: var(--color1);
   }
@@ -1077,9 +1045,6 @@
   }
   .bg-\[var\(--color5\)\] {
     background-color: var(--color5);
-  }
-  .bg-\[var\(--color6\)\] {
-    background-color: var(--color6);
   }
   .bg-black\/50 {
     background-color: color-mix(in srgb, #000 50%, transparent);
@@ -1334,9 +1299,6 @@
   .text-\[\#0b2c2d\] {
     color: #0b2c2d;
   }
-  .text-\[\#0f1d1f\] {
-    color: #0f1d1f;
-  }
   .text-\[\#1f1f1f\] {
     color: #1f1f1f;
   }
@@ -1354,9 +1316,6 @@
   }
   .text-\[\#f2f2f2\] {
     color: #f2f2f2;
-  }
-  .text-\[var\(--color1\)\] {
-    color: var(--color1);
   }
   .text-\[var\(--color2\)\] {
     color: var(--color2);
@@ -1629,24 +1588,10 @@
       }
     }
   }
-  .hover\:bg-\[var\(--color1\)\] {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color1);
-      }
-    }
-  }
   .hover\:bg-\[var\(--color2\)\] {
     &:hover {
       @media (hover: hover) {
         background-color: var(--color2);
-      }
-    }
-  }
-  .hover\:bg-\[var\(--color3\)\] {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color3);
       }
     }
   }
@@ -1706,13 +1651,6 @@
       }
     }
   }
-  .hover\:text-\(--color2\) {
-    &:hover {
-      @media (hover: hover) {
-        color: var(--color2);
-      }
-    }
-  }
   .hover\:text-\(--color3\) {
     &:hover {
       @media (hover: hover) {
@@ -1738,13 +1676,6 @@
     &:hover {
       @media (hover: hover) {
         color: var(--color3);
-      }
-    }
-  }
-  .hover\:text-\[var\(--color5\)\] {
-    &:hover {
-      @media (hover: hover) {
-        color: var(--color5);
       }
     }
   }
@@ -2119,11 +2050,6 @@
   .md\:items-start {
     @media (width >= 48rem) {
       align-items: flex-start;
-    }
-  }
-  .md\:gap-5 {
-    @media (width >= 48rem) {
-      gap: calc(var(--spacing) * 5);
     }
   }
   .md\:gap-6 {
