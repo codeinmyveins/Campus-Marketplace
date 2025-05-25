@@ -151,7 +151,7 @@ async function contactSeller() {
 
     try {
         const { data } = await apiAuth.get(`/api/users/${userId}/contact`);
-        const message = `Hello ${itemUser.full_name}, I am contacting about your listing: "${originalItem.title}"`;
+        const message = `Hello ${itemUser.full_name}, I am contacting about your listing on *Campus Marketplace:*\n\n${originalItem.title}\n(${originalItem.item_name})`;
         const encodedMessage = encodeURIComponent(message);
 
         const url = `https://api.whatsapp.com/send?phone=${data.user_phone}&text=${encodedMessage}`;
