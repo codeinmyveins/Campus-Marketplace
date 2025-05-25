@@ -34,7 +34,7 @@ const dob = Joi.date().less("now").iso().messages({"date.format": "\"dob\" must 
 const registerCompleteSchema = Joi.object({
     full_name: full_name.required(),
     dob: dob.required(),
-    gender: Joi.string().trim().lowercase().valid("male", "female").required(),
+    gender: Joi.string().trim().lowercase().valid("male", "female", "other").required(),
     country_code: Joi.string().trim().uppercase().length(2).pattern(/^[A-Z]+$/).required(),
     phone: Joi.string().trim().pattern(/^[0-9]+$/).required(),
     college_id: Joi.number().min(1).required(),
