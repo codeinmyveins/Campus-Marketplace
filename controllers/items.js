@@ -53,7 +53,7 @@ const getItem = async (req, res) => {
 
 const getItems = async (req, res) => {
 
-    const { page = "1", search, type = "sell", item_category, closed = "false",
+    const { page = "1", search, type = "sell,lend", item_category, closed = "false",
         price_min, price_max, user_id, sort,
         created_from, created_to, college_name } = req.query;
 
