@@ -3,11 +3,11 @@ const apiAuth = axios.create({
     baseURL: "/", // or your API base URL
     withCredentials: true, // if you're using cookies for refresh_token
 });
-  
+
 // Token store (adjust to your state/store pattern)
 let isRefreshing = false;
 let failedQueue = [];
-  
+
 const processQueue = (error, token = null) => {
     failedQueue.forEach(prom => {
         if (error) {
@@ -18,7 +18,7 @@ const processQueue = (error, token = null) => {
     });
     failedQueue = [];
 };
-  
+
 // Add a response interceptor
 apiAuth.interceptors.response.use(
     res => res,
@@ -39,7 +39,7 @@ apiAuth.interceptors.response.use(
             error.response?.data?.code === 69
         ) {
             originalRequest._retry = true;
-    
+
             if (isRefreshing) {
                 // Queue the failed request
                 return new Promise((resolve, reject) => {
@@ -51,18 +51,18 @@ apiAuth.interceptors.response.use(
                     });
                 });
             }
-    
+
             isRefreshing = true;
-    
+
             try {
                 const res = await apiAuth.post("/api/auth/refresh",
                     { device_fingerprint: await generateDeviceFingerprint() }
                 );
                 const newAccessToken = res.data.access_token;
                 console.log("Refreshed :)");
-        
+
                 processQueue(null, newAccessToken);
-        
+
                 // Retry original request with new token
                 return apiAuth(originalRequest);
             } catch (err) {
@@ -74,4 +74,4 @@ apiAuth.interceptors.response.use(
         }
         return Promise.reject(error);
     }
-  );
+);

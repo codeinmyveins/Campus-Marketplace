@@ -20,7 +20,7 @@ function getShowMsg(infoErrorMsg) {
         }
 
         infoErrorMsg.classList.remove("hidden", "text-green-500", "text-red-500", "text-teal-50", "text-teal-950");
-        
+
         if (type === SUCCESS) {
             infoErrorMsg.classList.add("text-green-500");
         } else if (type === INFO) {
@@ -32,7 +32,7 @@ function getShowMsg(infoErrorMsg) {
         }
         else throw new Error(`Invalid type: "${type}", can only be "success", "error", "info"`);
         infoErrorMsg.textContent = message;
-    
+
         // Auto-clears msg
         if (!timeout) return;
         timeoutId = setTimeout(() => {

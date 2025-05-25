@@ -107,7 +107,7 @@ form.addEventListener("submit", async function (event) {
             showMsg(error.response.data.msg, ERROR);
         else console.error(error);
     }
-    
+
     // Auto-clears error msg & Re-enable button after 7 seconds
     setTimeout(() => {
         submitBtn.disabled = false;

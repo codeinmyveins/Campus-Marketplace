@@ -28,59 +28,59 @@ const dropdown = document.getElementById('college-options');
 let selectedCollegeId = null;
 
 collegeInput.addEventListener('input', async () => {
-  const query = collegeInput.value.trim();
-  if (query.length < 2) {
-    dropdown.classList.add('hidden');
-    return;
-  }
-
-  try {
-    const { data: { nbHits, colleges } } = await axios.get(`/api/colleges?search=${encodeURIComponent(query)}`);
-
-    if (nbHits === 0) {
-        showMsg("No colleges matched", INFO);
+    const query = collegeInput.value.trim();
+    if (query.length < 2) {
+        dropdown.classList.add('hidden');
         return;
     }
 
-    dropdown.innerHTML = colleges.map(college => `
+    try {
+        const { data: { nbHits, colleges } } = await axios.get(`/api/colleges?search=${encodeURIComponent(query)}`);
+
+        if (nbHits === 0) {
+            showMsg("No colleges matched", INFO);
+            return;
+        }
+
+        dropdown.innerHTML = colleges.map(college => `
         <li class="cursor-pointer px-4 py-2 hover:bg-[var(--color2)] hover:text-[var(--color3)]" data-id="${college.id}">
           ${college.name}
         </li>
       `).join('');
-    
-      dropdown.classList.remove('hidden');
 
-  } catch(error) {
-    console.error(error);
-    showMsg("Server is Down", ERROR);
-  }
+        dropdown.classList.remove('hidden');
+
+    } catch (error) {
+        console.error(error);
+        showMsg("Server is Down", ERROR);
+    }
 
 });
 
 dropdown.addEventListener('click', e => {
-  const li = e.target.closest('li');
-  if (!li) return;
-  collegeInput.value = li.textContent.trim();
-  selectedCollegeId = li.dataset.id;
-  dropdown.classList.add('hidden');
+    const li = e.target.closest('li');
+    if (!li) return;
+    collegeInput.value = li.textContent.trim();
+    selectedCollegeId = li.dataset.id;
+    dropdown.classList.add('hidden');
 });
 
 // Optional: click outside to close dropdown
 document.addEventListener('click', (e) => {
-  if (!dropdown.contains(e.target) && e.target !== collegeInput) {
-    dropdown.classList.add('hidden');
-  }
+    if (!dropdown.contains(e.target) && e.target !== collegeInput) {
+        dropdown.classList.add('hidden');
+    }
 });
 
 // To access the selected college ID in form submission
 function getSelectedCollegeId() {
-  return selectedCollegeId;
+    return selectedCollegeId;
 }
 
 // ✅ Form Submission Handler
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    
+
     const full_name = form.fullName.value.trim();
     const gender = form.gender.value.trim();
     const day = form.day.value.trim();
@@ -92,31 +92,31 @@ form.addEventListener("submit", async (e) => {
     // const college_id = form.college.value.trim();
     const college_id = getSelectedCollegeId();
 
-    
-    
+
+
     // Full Name Validation
     // ✅ Validate full name (at least 3 characters, only alphabets and space)
     const isValidName = name => /^[A-Za-z\s]{3,}$/.test(name.trim());
     if (!isValidName(full_name)) {
-        showMsg("Full name must be at least 3 characters and only contain letters and spaces.",ERROR);
+        showMsg("Full name must be at least 3 characters and only contain letters and spaces.", ERROR);
         return;
     }
 
     // Gender Validation
     if (!gender) {
-        showMsg("Please select a gender.",ERROR);
+        showMsg("Please select a gender.", ERROR);
         return;
     }
-    
+
     // Country Code Validation
     if (!country_code) {
-    showMsg("Please select a country.",ERROR);
-    return;
+        showMsg("Please select a country.", ERROR);
+        return;
     };
 
     // college name Validation
     if (!college_id) {
-        showMsg("Please select a college.",ERROR);
+        showMsg("Please select a college.", ERROR);
         return;
     }
 
@@ -130,7 +130,7 @@ form.addEventListener("submit", async (e) => {
             country_code,
             phone,
             college_id,
-            device_fingerprint:await generateDeviceFingerprint(),
+            device_fingerprint: await generateDeviceFingerprint(),
         });
 
 
@@ -141,7 +141,8 @@ form.addEventListener("submit", async (e) => {
         if (error.response?.data?.msg)
             showMsg(error.response.data.msg, ERROR);
         else console.error(error);
-    }});
+    }
+});
 
 // ✅ Populate Day
 for (let d = 1; d <= 31; d++) {

@@ -50,7 +50,7 @@ form.addEventListener("submit", async function (e) {
 
   // Empty Fields Check
   if (!usernameOrEmail || !password) {
-    showMsg("Please fill in both fields.",ERROR);
+    showMsg("Please fill in both fields.", ERROR);
     return;
   }
 
@@ -62,17 +62,17 @@ form.addEventListener("submit", async function (e) {
   const isUsername = usernamePattern.test(usernameOrEmail);
 
   if (!isEmail && !isUsername) {
-    showMsg("Enter a valid email or a username (letters and numbers only).",ERROR);
+    showMsg("Enter a valid email or a username (letters and numbers only).", ERROR);
     return;
   }
-  
+
   // Check if usernameOrEmail is an email or username
-  let reqBody  = { password, device_fingerprint: await generateDeviceFingerprint() };
-  
+  let reqBody = { password, device_fingerprint: await generateDeviceFingerprint() };
+
   if (usernameOrEmail.includes("@")) {
     reqBody.email = usernameOrEmail;
   }
-  else{
+  else {
     reqBody.username = usernameOrEmail;
   }
 
@@ -93,6 +93,6 @@ form.addEventListener("submit", async function (e) {
   } catch (error) {
     if (error.response?.data?.msg)
       showMsg(error.response.data.msg, ERROR);
-  else console.error(error);
+    else console.error(error);
   }
 });

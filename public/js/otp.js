@@ -22,71 +22,71 @@ let messageTimeout = null;
 
 // 🔢 OTP Input Logic
 otpInputs.forEach((input, index) => {
-  input.addEventListener("input", () => {
-    input.value = input.value.replace(/\D/g, "");
-    if (input.value && index < otpInputs.length - 1) {
-      otpInputs[index + 1].focus();
-    }
-  });
+    input.addEventListener("input", () => {
+        input.value = input.value.replace(/\D/g, "");
+        if (input.value && index < otpInputs.length - 1) {
+            otpInputs[index + 1].focus();
+        }
+    });
 
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Backspace" && !input.value && index > 0) {
-      otpInputs[index - 1].focus();
-    }
-  });
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Backspace" && !input.value && index > 0) {
+            otpInputs[index - 1].focus();
+        }
+    });
 });
 
 // ⏳ OTP Expire Timer Logic
 function startOtpEpxTimer(duration) {
-  clearInterval(otpExpTimerInterval);
-
-  let timeLeft = parseInt(localStorage.getItem("otpTime")) + duration - Math.floor(Date.now() / 1000);
-
-  if (timeLeft <= 0 || isNaN(timeLeft)) {
     clearInterval(otpExpTimerInterval);
-    if (isNaN(timeLeft))
-      alert("Invalid session, please login or re-register.");
-    else
-      otpShowMsg("⏰ OTP has expired. Please request a new one.", ERROR, null);
 
-    otpInputs.forEach((input) => (input.value = ""));
-    timerEl.textContent = "00:00";
-    return;
-  }
+    let timeLeft = parseInt(localStorage.getItem("otpTime")) + duration - Math.floor(Date.now() / 1000);
 
-  otpExpTimerInterval = setInterval(() => {
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
-    timerEl.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    if (timeLeft <= 0 || isNaN(timeLeft)) {
+        clearInterval(otpExpTimerInterval);
+        if (isNaN(timeLeft))
+            alert("Invalid session, please login or re-register.");
+        else
+            otpShowMsg("⏰ OTP has expired. Please request a new one.", ERROR, null);
 
-    startOtpEpxTimer(duration);
-  }, 1000);
+        otpInputs.forEach((input) => (input.value = ""));
+        timerEl.textContent = "00:00";
+        return;
+    }
+
+    otpExpTimerInterval = setInterval(() => {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerEl.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+        startOtpEpxTimer(duration);
+    }, 1000);
 }
 
 function startOtpResndTimer(duration) {
-  clearInterval(otpResndInterval);
-
-  let timeLeft = parseInt(localStorage.getItem("otpResnd")) + duration - Math.floor(Date.now() / 1000);
-
-  if (timeLeft <= 0 || isNaN(timeLeft)) {
     clearInterval(otpResndInterval);
 
-    resendBtn.disabled = false;
-    resendBtn.classList.remove("opacity-50", "cursor-not-allowed");
-    timerReEl.textContent = "";
-    return;
-  } else {
-    resendBtn.disabled = true;
-    resendBtn.classList.add("opacity-50", "cursor-not-allowed");
-  }
+    let timeLeft = parseInt(localStorage.getItem("otpResnd")) + duration - Math.floor(Date.now() / 1000);
 
-  otpResndInterval = setInterval(() => {
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
-    timerReEl.textContent = ` in ${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    if (timeLeft <= 0 || isNaN(timeLeft)) {
+        clearInterval(otpResndInterval);
 
-    startOtpResndTimer(duration);
-  }, 1000);
+        resendBtn.disabled = false;
+        resendBtn.classList.remove("opacity-50", "cursor-not-allowed");
+        timerReEl.textContent = "";
+        return;
+    } else {
+        resendBtn.disabled = true;
+        resendBtn.classList.add("opacity-50", "cursor-not-allowed");
+    }
+
+    otpResndInterval = setInterval(() => {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerReEl.textContent = ` in ${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+        startOtpResndTimer(duration);
+    }, 1000);
 }
 
 startOtpEpxTimer(300);
@@ -95,44 +95,44 @@ startOtpResndTimer(60);
 // 🔁 Resend OTP
 resendBtn.addEventListener("click", async () => {
 
-  otpShowMsg("Loading...", INFO);
+    otpShowMsg("Loading...", INFO);
 
-  try {
-    const { data } = await axios.post("/api/auth/resend-otp/register");
+    try {
+        const { data } = await axios.post("/api/auth/resend-otp/register");
 
-    otpShowMsg(data.msg, SUCCESS);
-    localStorage.setItem("otpTime", Math.floor(Date.now() / 1000));
-    localStorage.setItem("otpResnd", Math.floor(Date.now() / 1000));
-    startOtpResndTimer(60);
-    startOtpEpxTimer(300);
+        otpShowMsg(data.msg, SUCCESS);
+        localStorage.setItem("otpTime", Math.floor(Date.now() / 1000));
+        localStorage.setItem("otpResnd", Math.floor(Date.now() / 1000));
+        startOtpResndTimer(60);
+        startOtpEpxTimer(300);
 
-  } catch (error) {
-    if (error.response?.data?.msg)
-      otpShowMsg(error.response.data.msg, ERROR);
-    else
-      console.error(error);
-  }
+    } catch (error) {
+        if (error.response?.data?.msg)
+            otpShowMsg(error.response.data.msg, ERROR);
+        else
+            console.error(error);
+    }
 });
 
 // ✉️ Open Email Modal
 changeEmailBtn.addEventListener("click", () => {
-  overlay.classList.remove("hidden");
-  emailPopup.classList.remove("hidden");
-  setTimeout(() => {
-    emailPopup.classList.add("scale-100");
-    newEmailInput.focus();
-  }, 10);
+    overlay.classList.remove("hidden");
+    emailPopup.classList.remove("hidden");
+    setTimeout(() => {
+        emailPopup.classList.add("scale-100");
+        newEmailInput.focus();
+    }, 10);
 });
 
 // ❌ Close Modal
 function closePopup() {
-  emailPopup.classList.remove("scale-100");
-  overlay.classList.add("hidden");
+    emailPopup.classList.remove("scale-100");
+    overlay.classList.add("hidden");
 
-  setTimeout(() => {
-    emailPopup.classList.add("hidden");
-    newEmailInput.value = "";
-  }, 300);
+    setTimeout(() => {
+        emailPopup.classList.add("hidden");
+        newEmailInput.value = "";
+    }, 300);
 }
 
 overlay.addEventListener("click", closePopup);
@@ -140,37 +140,37 @@ closePopupBtn.addEventListener("click", closePopup);
 
 // ✅ Update Email
 emailPopup.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const email = newEmailInput.value.trim();
+    e.preventDefault();
+    const email = newEmailInput.value.trim();
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    emailShowMsg("Please enter a valid email address.", ERROR);
-    return;
-  }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        emailShowMsg("Please enter a valid email address.", ERROR);
+        return;
+    }
 
-  emailShowMsg("Loading...", INFOD);
-  try {
-    const { data } = await axios.patch("/api/auth/email", { email });
+    emailShowMsg("Loading...", INFOD);
+    try {
+        const { data } = await axios.patch("/api/auth/email", { email });
 
-    currentEmail = email;
-    currentEmailEl.textContent = currentEmail;
-    localStorage.setItem("userEmail", currentEmail);
+        currentEmail = email;
+        currentEmailEl.textContent = currentEmail;
+        localStorage.setItem("userEmail", currentEmail);
 
-    localStorage.setItem("otpTime", Math.floor(Date.now() / 1000));
-    localStorage.setItem("otpResnd", Math.floor(Date.now() / 1000));
-    startOtpEpxTimer(300);
-    startOtpResndTimer(60);
-    
-    emailShowMsg(data.msg, SUCCESS);
-    otpShowMsg(data.msg, SUCCESS);
+        localStorage.setItem("otpTime", Math.floor(Date.now() / 1000));
+        localStorage.setItem("otpResnd", Math.floor(Date.now() / 1000));
+        startOtpEpxTimer(300);
+        startOtpResndTimer(60);
 
-    closePopup();
-  } catch (error) {
-    if (error.response?.data?.msg)
-      emailShowMsg(error.response.data.msg, ERROR);
-    else console.error(error);
-  }
+        emailShowMsg(data.msg, SUCCESS);
+        otpShowMsg(data.msg, SUCCESS);
+
+        closePopup();
+    } catch (error) {
+        if (error.response?.data?.msg)
+            emailShowMsg(error.response.data.msg, ERROR);
+        else console.error(error);
+    }
 });
 
 // 🧠 Autofocus first input
@@ -178,39 +178,39 @@ otpInputs[0].focus();
 
 // 🚀 OTP Form Submission
 otpForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  let otp = "";
-  for (let i = 0; i < 6; i++) {
-    otp += otpInputs[i].value;
-  }
-
-  if (!/^[0-9]{6}$/.test(otp)) {
-    otpShowMsg("Please enter a valid 6-digit OTP.", ERROR);
-    return;
-  }
-
-  otpShowMsg("Loading...", INFO);
-
-  try {
-    const { data } = await axios.post("/api/auth/verify-email", { otp });
-
-    otpShowMsg(data.msg, SUCCESS);
-    
-    setTimeout(() => {
-      window.location.href = "./signup2.html";
-      localStorage.removeItem("userEmail");
-      localStorage.removeItem("otpTime");
-    }, 1000);
-  } catch (error) {
-    
-    if (!error.response?.data?.msg)
-      return console.error(error);
-    
-    if (error.response?.status === 401){
-      alert("Authentication Invalid")
-      return window.location.href = "./signup1.html";
+    e.preventDefault();
+    let otp = "";
+    for (let i = 0; i < 6; i++) {
+        otp += otpInputs[i].value;
     }
-    else
-      otpShowMsg(error.response.data.msg, ERROR);
-  }
+
+    if (!/^[0-9]{6}$/.test(otp)) {
+        otpShowMsg("Please enter a valid 6-digit OTP.", ERROR);
+        return;
+    }
+
+    otpShowMsg("Loading...", INFO);
+
+    try {
+        const { data } = await axios.post("/api/auth/verify-email", { otp });
+
+        otpShowMsg(data.msg, SUCCESS);
+
+        setTimeout(() => {
+            window.location.href = "./signup2.html";
+            localStorage.removeItem("userEmail");
+            localStorage.removeItem("otpTime");
+        }, 1000);
+    } catch (error) {
+
+        if (!error.response?.data?.msg)
+            return console.error(error);
+
+        if (error.response?.status === 401) {
+            alert("Authentication Invalid")
+            return window.location.href = "./signup1.html";
+        }
+        else
+            otpShowMsg(error.response.data.msg, ERROR);
+    }
 });

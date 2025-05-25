@@ -52,7 +52,7 @@ async function getUserDropdown() {
 
         document.getElementById("user-dropdown-full_name").textContent = user.full_name;
         document.getElementById("user-dropdown-username").textContent = user.username;
-        
+
         // console.log(user);
         if (user.avatar_url) {
             document.getElementById("user-dropdown-avatar1").src = user.avatar_url;

@@ -45,6 +45,6 @@
     pointer-events: none;
 }
 
-.input_container .input:focus ~ .background {
+.input_container .input:focus~.background {
     border: 2px solid var(--color-teal-600);
 }

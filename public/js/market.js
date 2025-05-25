@@ -37,8 +37,7 @@ async function getUserDropdown() {
 
         document.getElementById("user-dropdown-full_name").textContent = user.full_name;
         document.getElementById("user-dropdown-username").textContent = user.username;
-        
-        // console.log(user);
+
         if (user.avatar_url) {
             document.getElementById("user-dropdown-avatar1").src = user.avatar_url;
             document.getElementById("user-dropdown-avatar2").src = user.avatar_url;
@@ -217,7 +216,7 @@ function attachFilterListeners() {
 applyFiltersFromURL();
 attachFilterListeners();
 
-function clearFilters(filtersOnly=false){
+function clearFilters(filtersOnly = false) {
     // Clear input values
     for (const input of Object.values(inputMap)) {
         if (filtersOnly && input.id === "search") continue;
@@ -242,7 +241,7 @@ async function fetchItems() {
 
     // itemList.innerHTML = "Loading...";
     try {
-        
+
         const { data: { itemCount, items } } = await axios.get(`/api/items/${window.location.search}`);
 
         itemList.innerHTML = "";
