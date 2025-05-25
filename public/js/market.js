@@ -3,12 +3,6 @@ function toggleSidebar() {
     sidebar.classList.toggle("translate-x-full");
 }
 
-// function toggleFilterSidebar() {
-// const sidebar = document.getElementById("filterSidebar");
-// sidebar.classList.toggle("translate-x-0");
-// sidebar.classList.toggle("-translate-x-full");
-// }
-
 function toggleFilterSidebar() {
     const sidebar = document.getElementById("filterSidebar");
 
@@ -29,10 +23,35 @@ function toggleFilterSidebar() {
 document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
         document.getElementById("sidebar").classList.add("translate-x-full");
-        // document.getElementById("filterSidebar").classList.add("-translate-x-full");
-        // document.getElementById("filterSidebar").classList.remove("translate-x-0");
     }
 });
+
+async function getUserDropdown() {
+
+    try {
+
+        const { data: { user } } = await apiAuth.get("/api/users", { skipRedirectOn401: true });
+
+        document.getElementById("login-signup").hidden = true;
+        document.getElementById("user-dropdown").hidden = false;
+
+        document.getElementById("user-dropdown-full_name").textContent = user.full_name;
+        document.getElementById("user-dropdown-username").textContent = user.username;
+        
+        // console.log(user);
+        if (user.avatar_url) {
+            document.getElementById("user-dropdown-avatar1").src = user.avatar_url;
+            document.getElementById("user-dropdown-avatar2").src = user.avatar_url;
+        }
+
+    } catch (error) {
+        console.error(error);
+        document.getElementById("user-dropdown").hidden = true;
+    }
+
+}
+
+getUserDropdown();
 
 
 async function confirmLogout() {
@@ -216,7 +235,7 @@ function clearFilters(filtersOnly=false){
     // history.replaceState(null, "", baseUrl);
 }
 
-const  itemList = document.getElementById("product-list");
+const itemList = document.getElementById("product-list");
 const defaultCard = document.getElementById("defaultCard");
 
 async function fetchItems() {

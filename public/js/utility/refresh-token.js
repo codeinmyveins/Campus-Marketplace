@@ -24,11 +24,12 @@ apiAuth.interceptors.response.use(
     res => res,
     async error => {
         const originalRequest = error.config;
-        
+        const shouldRedirect = !originalRequest.skipRedirectOn401;
         if (
             error.response?.status === 401 &&
             !originalRequest._retry &&
-            error.response?.data?.code !== 69
+            error.response?.data?.code !== 69 &&
+            shouldRedirect
         ) {
             window.location.href = "./login.html";
         }
