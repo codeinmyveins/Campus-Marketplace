@@ -137,3 +137,9 @@ function animateOnScroll() {
 
 window.addEventListener("scroll", animateOnScroll);
 window.addEventListener("load", animateOnScroll);
+
+const searchForm = document.getElementById("searchForm");
+searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    window.location.href = `./market.html?search=${searchForm.search.value.trim()}`;
+});
