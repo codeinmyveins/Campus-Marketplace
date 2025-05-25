@@ -221,7 +221,7 @@ const editItem = async (req, res) => {
         patched.description =description;
     if (location)
         patched.location = location;
-    if (price)
+    if (price !== undefined && price !== null)
         patched.price = price;
     if (closed !== undefined && closed !== null)
         patched.closed = closed;

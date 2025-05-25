@@ -64,7 +64,7 @@ const itemPostInfoObj = {
     description: Joi.string().trim().max(16384),
 };
 
-const price = Joi.number().greater(0).precision(2);
+const price = Joi.number().min(0).precision(2);
 
 const itemPostInfo = Joi.object({
     ...itemPostInfoObj,
