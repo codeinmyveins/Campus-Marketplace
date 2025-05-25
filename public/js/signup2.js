@@ -135,7 +135,7 @@ form.addEventListener("submit", async (e) => {
 
 
         showMsg(data.msg, SUCCESS);
-        window.location.href = "./loader.html";
+        window.location.href = "./dashboard.html";
 
     } catch (error) {
         if (error.response?.data?.msg)
