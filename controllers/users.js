@@ -2,11 +2,13 @@ require("dotenv").config();
 const CustomAPIError = require("../errors/custom-api");
 const { StatusCodes } = require("http-status-codes");
 const pool = require("../db/database");
+const supabase = require("../utils/supabase");
 const { getCountryCallingCode } = require("libphonenumber-js");
-const fs = require("fs");
+
 const path = require("path");
 
 const { validateUserInfo } = require("../validator");
+const { STATUS_CODES } = require("http");
 
 const getCurrentUser = async (req, res) => {
 
@@ -183,32 +185,74 @@ const editUser = async (req, res) => {
 }
 
 const putAvatarImage = async (req, res) => {
+    const client = await pool.connect();
 
-    if (!req.file) {
-        throw new CustomAPIError("No avatar image file uploaded", StatusCodes.BAD_REQUEST);
-    }
+    try {
+        if (!req.file) {
+            return res.status(StatusCodes.BAD_REQUEST).json({ msg: "No file uploaded" });
+        }
 
-    const { userId } = req.user;
+        const { userId } = req.user;
 
-    // await pool.query("UPDATE users SET avatar_url = $1 WHERE id = $2",
-    //     [null, userId]);
-    const {rows: users} = await pool.query("SELECT avatar_url FROM users WHERE id = $1",
-        [userId]);
-    const old_path = users[0].avatar_url;
-    
-    await pool.query("UPDATE users SET avatar_url = $1 WHERE id = $2",
-        [req.file.path, userId]);
-    
-    if (old_path !== null) {
-        fs.unlink(path.join(__dirname, "../", old_path), (err) => {
-            if (err) console.error(err);
+        const fileName = `${userId}-${Date.now()}`;
+
+        const { error: uploadError } = await supabase.storage
+            .from("avatars")
+            .upload(fileName, req.file.buffer, {
+                contentType: req.file.mimetype,
+                upsert: false,
+            });
+
+        if (uploadError) {
+            throw new CustomAPIError("Storage upload failed", StatusCodes.INTERNAL_SERVER_ERROR);
+        }
+
+        await client.query("BEGIN");
+
+        const oldAvatarResult = await client.query(
+            "SELECT avatar_url FROM users WHERE id = $1 FOR UPDATE",
+            [userId]
+        );
+
+        const oldAvatar = oldAvatarResult.rows[0]?.avatar_url;
+
+        const publicUrl = `${process.env.STORAGE_URL}/storage/v1/object/public/avatars/${fileName}`;
+
+        // Update DB
+        await client.query(
+            "UPDATE users SET avatar_url = $1 WHERE id = $2",
+            [publicUrl, userId]
+        );
+
+        await client.query("COMMIT");
+
+        if (oldAvatar) {
+            const oldFileName = oldAvatar.split("/").pop();
+            await supabase.storage.from("avatars").remove([oldFileName]);
+        }
+
+        return res.status(StatusCodes.CREATED).json({
+            msg: "Avatar updated successfully",
+            avatar_url: publicUrl,
         });
+
+    } catch (err) {
+        await client.query("ROLLBACK");
+
+        if (req.file) {
+            try {
+                const fileExt = path.extname(req.file.originalname);
+                const fileName = `${req.user.id}-${Date.now()}${fileExt}`;
+                await supabase.storage.from("avatars").remove([fileName]);
+            } catch (_) {}
+        }
+
+        console.log(err);
+        throw new CustomAPIError("Avatar update failed", StatusCodes.INTERNAL_SERVER_ERROR);
+
+    } finally {
+        client.release();
     }
-    
-    res.status(StatusCodes.CREATED).json({
-        msg: "Avatar image uploaded successfully",
-        url: req.file.path
-    });
 }
 
 

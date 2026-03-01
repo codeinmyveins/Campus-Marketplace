@@ -1,22 +1,20 @@
 const multer = require("multer");
-const { StatusCodes } = require("http-status-codes");
 const CustomAPIError = require("../../errors/custom-api");
-const fs = require("fs");
-const path = require('path');
-const { destination, fileImgFilter } = require("./default");
-
-const avatarDir = path.join(__dirname, "../../uploads/avatar");
-if (!fs.existsSync(avatarDir)) fs.mkdirSync(avatarDir);
+const { StatusCodes } = require("http-status-codes");
 
 const userAvatarUpload = multer({
-    storage: multer.diskStorage({
-        destination,
-        filename: function (req, file, cb) {
-            cb(null, Date.now() + "@" + req.user.userId);
-        }
-    }),
+    storage: multer.memoryStorage(),
     limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
-    fileFilter: fileImgFilter
+    fileFilter: (req, file, cb) => {
+        const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+        if (!allowedTypes.includes(file.mimetype)) {
+            return cb(new CustomAPIError(
+                "Only images are allowed (JPEG, PNG, WEBP)",
+                StatusCodes.BAD_REQUEST
+            ));
+        }
+        cb(null, true);
+    }
 });
 
 module.exports = userAvatarUpload;

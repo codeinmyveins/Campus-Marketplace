@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.route("/").get(auth, getCurrentUser).patch(auth, editUser);
 router.route("/:identfier").get(getUser);
-router.route("/avatar").put(auth, userAvatarUpload.single("avatar"), putAvatarImage);
+router.route("/avatar").put(auth, userAvatarUpload.single("avatars"), putAvatarImage);
 router.route("/:id/contact").get(auth, contactUser)
 
 module.exports = router;
