@@ -405,6 +405,7 @@ async function saveAvatar() {
         showMsgAvatar(data.msg, SUCCESS);
 
         avatarImgDOM.src = data.avatar_url;
+        document.getElementById("user-dropdown-avatar1").src = data.avatar_url;
 
     } catch (error) {
         if (error.response?.data?.msg)

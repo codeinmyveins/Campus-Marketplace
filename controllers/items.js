@@ -2,6 +2,7 @@
 const CustomAPIError = require("../errors/custom-api");
 const { StatusCodes } = require("http-status-codes");
 const pool = require("../db/database");
+const supabase = require("../utils/supabase");
 const fs = require("fs");
 const path = require("path");
 
@@ -244,119 +245,253 @@ const editItem = async (req, res) => {
 
 const uploadImages = async (req, res) => {
 
-    req.fileCount--;
     const item_id = req.params.id;
     const files = req.files;
-    const existingCount = req.currentItemImgCount;
-    if (!files) {
+
+    if (!files || files.length === 0) {
         throw new CustomAPIError("No item_images uploaded", StatusCodes.BAD_REQUEST);
     }
 
-    let imgIndex = []
-    for (let i = 0; i < files.length; i++) {
-        const { rows: img } = await pool.query(
-            "INSERT INTO item_images (item_id, name, url, order_idx) VALUES ($1, $2, $3, $4) RETURNING id",
-            [item_id, files[i].originalname, files[i].path, existingCount + i]
+    const client = await pool.connect();
+    const uploadedFiles = [];
+
+    try {
+        await client.query("BEGIN");
+
+        // Lock item row
+        const { rows: [item] } = await client.query(
+            "SELECT image_count FROM items WHERE id = $1 FOR UPDATE",
+            [item_id]
         );
-        imgIndex.push(img.id);
+
+        if (!item) {
+            throw new CustomAPIError("Item not found", StatusCodes.NOT_FOUND);
+        }
+
+        const maxAllowed = 5;
+
+        if (item.image_count + files.length > maxAllowed) {
+            throw new CustomAPIError("Image limit reached", StatusCodes.BAD_REQUEST);
+        }
+
+        for (let i = 0; i < files.length; i++) {
+
+            const fileName = `${item_id}-${Date.now()}-${i}`;
+
+            const { error } = await supabase.storage
+                .from("item_images")
+                .upload(fileName, files[i].buffer, {
+                    contentType: files[i].mimetype,
+                });
+
+            if (error) throw error;
+
+            const publicUrl = `${process.env.STORAGE_URL}/storage/v1/object/public/item_images/${fileName}`;
+
+            uploadedFiles.push(fileName);
+
+            await client.query(
+                `INSERT INTO item_images 
+                 (item_id, name, url, order_idx)
+                 VALUES ($1,$2,$3,$4)`,
+                [
+                    item_id,
+                    files[i].originalname,
+                    publicUrl,
+                    item.image_count + i
+                ]
+            );
+        }
+
+        await client.query(
+            "UPDATE items SET image_count = $1 WHERE id = $2",
+            [item.image_count + files.length, item_id]
+        );
+
+        await client.query("COMMIT");
+
+        res.status(StatusCodes.CREATED).json({
+            msg: "Images uploaded successfully",
+            count: files.length
+        });
+
+    } catch (err) {
+
+        await client.query("ROLLBACK");
+
+        if (uploadedFiles.length > 0) {
+            await supabase.storage
+                .from("item_images")
+                .remove(uploadedFiles);
+        }
+
+        throw err;
+
+    } finally {
+        client.release();
     }
-
-    await pool.query("UPDATE items SET image_count = $1 WHERE id = $2",
-        [existingCount + files.length, item_id]
-    );
-
-    res.status(StatusCodes.CREATED).json({
-        msg: `${req.fileCount} images uploaded`,
-        fileCount: req.fileCount,
-        fileNames: files.map((file) => file.originalname),
-        recentImgIndexes: imgIndex
-    });
 
 }
 
 const deleteImage = async (req, res) => {
-
     const { id: item_id, image_id } = req.params;
-    
-    const { rowCount, rows: del_imgs } = await pool.query("DELETE FROM item_images WHERE id = $1 AND item_id = $2 RETURNING url",
-        [image_id, item_id]
-    );
-    if (rowCount === 0) {
-        throw new CustomAPIError(`No image with id: ${image_id} found in item with id: ${item_id}`, StatusCodes.BAD_REQUEST);
-    }
-    fs.unlink(path.join(__dirname, "../", del_imgs[0].url), (err) => {
-        if (err) console.error(err);
-    });
 
-    const { rowCount: imgCount, rows: images } = await pool.query("SELECT id FROM item_images WHERE item_id = $1 ORDER BY order_idx",
-        [item_id]
-    );
+    const client = await pool.connect();
+    let deletedFileName = null;
 
-    for (let i = 0; i < imgCount; i++) {
-        await pool.query("UPDATE item_images SET order_idx = $1 WHERE id = $2",
-            [i, images[i].id]
+    try {
+        await client.query("BEGIN");
+
+        // Lock item row
+        const { rows: [item] } = await client.query(
+            "SELECT image_count FROM items WHERE id = $1 FOR UPDATE",
+            [item_id]
         );
+
+        if (!item) {
+            throw new CustomAPIError("Item not found", StatusCodes.NOT_FOUND);
+        }
+
+        // Delete image and get URL
+        const { rowCount, rows } = await client.query(
+            `DELETE FROM item_images 
+             WHERE id = $1 AND item_id = $2 
+             RETURNING url`,
+            [image_id, item_id]
+        );
+
+        if (rowCount === 0) {
+            throw new CustomAPIError(
+                `No image with id ${image_id} found`,
+                StatusCodes.NOT_FOUND
+            );
+        }
+
+        const deletedUrl = rows[0].url;
+        deletedFileName = deletedUrl.split("/").pop();
+
+        // Reorder remaining images (single query, no loop)
+        await client.query(
+            `
+            WITH reordered AS (
+                SELECT id, ROW_NUMBER() OVER (ORDER BY order_idx) - 1 AS new_idx
+                FROM item_images
+                WHERE item_id = $1
+            )
+            UPDATE item_images i
+            SET order_idx = r.new_idx
+            FROM reordered r
+            WHERE i.id = r.id
+            `,
+            [item_id]
+        );
+
+        // Update item image_count
+        await client.query(
+            "UPDATE items SET image_count = image_count - 1 WHERE id = $1",
+            [item_id]
+        );
+
+        await client.query("COMMIT");
+
+        // Delete from Supabase storage AFTER commit
+        if (deletedFileName) {
+            await supabase.storage
+                .from("item_images")
+                .remove([deletedFileName]);
+        }
+
+        res.status(StatusCodes.OK).json({
+            msg: "Item image deleted successfully"
+        });
+
+    } catch (err) {
+        await client.query("ROLLBACK");
+        throw err;
+    } finally {
+        client.release();
     }
-
-    await pool.query("UPDATE items SET image_count = $1 WHERE id = $2",
-        [imgCount, item_id]
-    );
-
-    res.status(StatusCodes.OK).json({ msg: "Item image deleted successfully" });
-}
+};
 
 const reorderImages = async (req, res) => {
-
+    
     const item_id = req.params.id;
-
     const newOrderArray = req.body.new_img_order;
 
-    const { rows: [ {image_count: imgCount} ] } = await pool.query(
-        "SELECT image_count FROM items WHERE id = $1",
-        [item_id]
-    );
-
-    if (!newOrderArray) {
-        throw new CustomAPIError("\"new_img_order\" field missing", StatusCodes.BAD_REQUEST);
-    }
-    const { error } = itemImageReorderSchema.length(imgCount).validate(newOrderArray);
-    if (error) {
-        throw new CustomAPIError(error.details[0].message, StatusCodes.BAD_REQUEST);
+    if (!Array.isArray(newOrderArray)) {
+        throw new CustomAPIError(
+            `"new_img_order" must be an array`,
+            StatusCodes.BAD_REQUEST
+        );
     }
 
     const client = await pool.connect();
 
     try {
         await client.query("BEGIN");
-        
-        await client.query(
-            "UPDATE item_images SET order_idx = ~order_idx WHERE item_id = $1 RETURNING id",
+
+        // Lock item row
+        const { rows: [item] } = await client.query(
+            "SELECT image_count FROM items WHERE id = $1 FOR UPDATE",
             [item_id]
         );
-        
-        for (let i = 0; i < newOrderArray.length; i++) {
-            const { rowCount } = await client.query(
-                "UPDATE item_images SET order_idx = $1 WHERE item_id = $2 AND id = $3",
-                [i, item_id, newOrderArray[i]]
+
+        if (!item) {
+            throw new CustomAPIError("Item not found", StatusCodes.NOT_FOUND);
+        }
+
+        if (newOrderArray.length !== item.image_count) {
+            throw new CustomAPIError(
+                "Invalid reorder array length",
+                StatusCodes.BAD_REQUEST
             );
-            if (rowCount === 0) {
+        }
+
+        // Validate all IDs belong to item
+        const { rows: existingImages } = await client.query(
+            "SELECT id FROM item_images WHERE item_id = $1",
+            [item_id]
+        );
+
+        const existingIds = new Set(existingImages.map(i => i.id));
+
+        for (const id of newOrderArray) {
+            if (!existingIds.has(id)) {
                 throw new CustomAPIError(
-                    `No image found with id: ${newOrderArray[i]} in item with id: ${item_id}`,
-                    StatusCodes.NOT_FOUND);
+                    `Image ${id} does not belong to item`,
+                    StatusCodes.BAD_REQUEST
+                );
             }
         }
 
+        // Temporary negative shift to avoid unique conflicts
+        await client.query(
+            "UPDATE item_images SET order_idx = -order_idx - 1 WHERE item_id = $1",
+            [item_id]
+        );
+
+        for (let i = 0; i < newOrderArray.length; i++) {
+            await client.query(
+                `UPDATE item_images 
+                 SET order_idx = $1 
+                 WHERE id = $2 AND item_id = $3`,
+                [i, newOrderArray[i], item_id]
+            );
+        }
+
         await client.query("COMMIT");
-    } catch (error) {
+
+        res.status(StatusCodes.OK).json({
+            msg: "Item images reordered successfully"
+        });
+
+    } catch (err) {
         await client.query("ROLLBACK");
-        throw error;
+        throw err;
     } finally {
         client.release();
     }
-
-    res.status(StatusCodes.OK).json({ msg: "Item images re-ordered successfully" });
-
-}
+};
 
 module.exports = {
     getItem, getItems, postItem, deleteItem, editItem,

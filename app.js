@@ -2,11 +2,11 @@
 require("dotenv").config(); // Load environment variables from .env file
 require('express-async-errors');
 const express = require('express');
-const path = require('path');
-const fs = require("fs");
 const pool = require("./db/database");
 const loadCSVData = require("./db/loadCSVData");
 const cookieParser = require('cookie-parser');
+const fs = require("fs");
+const path = require("path");
 
 // security 
 // const helmet = require("helmet");
@@ -36,9 +36,6 @@ app.use(cors());
 app.use(xss());
 
 // Public frontend
-const uploadDir = path.join(__dirname, "./uploads");
-app.use("/uploads", express.static(uploadDir));
-
 app.use(express.static(path.join(__dirname, "./public")));
 app.use(express.json());
 app.use(cookieParser());
