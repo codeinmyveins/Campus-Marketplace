@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken")
 const redis = require("../utils/redis");
 const crypto = require("crypto");
-const emailTransporter = require("../utils/mailer/transporter");
+const { sendOTP } = require("../utils/mailer");
 const { getCountryCallingCode } = require("libphonenumber-js");
 const UAParser = require('ua-parser-js');
 const axios = require("axios");
@@ -19,6 +19,7 @@ const {
     validateDeviceFingerprint
 } = require("../validator");
 const { STATUS } = require("../db/enums");
+const { send } = require("process");
 
 function generateOTP() {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
@@ -75,21 +76,7 @@ const registerInitial = async (req, res) => {
     console.log(`OTP to ${email}`, otp);
 
     // send OTP through email
-    emailTransporter.sendMail(
-        {
-            to: email,
-            subject: "Confirmation code for Campus Marketplace",
-            text: `Hello ${username}, ${otp} is your confirmation code for registering to Campus Marketplace`
-        },
-        (error, info) => {
-            if (error) {
-                console.error("Error sending email:\n", error);
-            }
-            // else {
-            //     console.error("Email sent:\n", info);
-            // }
-        }
-    );
+    sendOTP(email, username, otp);
 
     // access_token signing
     const access_token = jwt.sign(
@@ -209,21 +196,7 @@ const changeEmailInitial = async (req, res) => {
     console.log(`OTP to ${email}`, otp);
 
     // send OTP through email
-    emailTransporter.sendMail(
-        {
-            to: email,
-            subject: "Confirmation code for Campus Marketplace",
-            text: `Hello ${preUsers[0].username}, ${otp} is your confirmation code for registering to Campus Marketplace`
-        },
-        (error, info) => {
-            if (error) {
-                console.error("Error sending email:\n", error);
-            }
-            // else {
-            //     console.error("Email sent:\n", info);
-            // }
-        }
-    );
+    sendOTP(email, preUsers[0].username, otp);
 
     // access_token signing
     const access_token = jwt.sign(
@@ -279,21 +252,7 @@ const resendOTPInitial = async (req, res) => {
     console.log(`OTP to ${preUsers[0].email}`, otp);
     
     // send OTP through email
-    emailTransporter.sendMail(
-        {
-            to: preUsers[0].email,
-            subject: "Confirmation code for Campus Marketplace",
-            text: `Hello ${preUsers[0].username}, ${otp} is your confirmation code for registering to Campus Marketplace`
-        },
-        (error, info) => {
-            if (error) {
-                console.error("Error sending email:\n", error);
-            }
-            // else {
-            //         console.error("Email sent:\n", info);
-            // }
-        }
-    );
+    sendOTP(preUsers[0].email, preUsers[0].username, otp);
         
     // access_token signing
     const access_token = jwt.sign(
