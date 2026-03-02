@@ -1,43 +1,46 @@
 require("dotenv").config();
-const nodemailer = require("nodemailer");
+const SibApiV3Sdk = require('sib-api-v3-sdk');
 
-const transporter = nodemailer.createTransport({
-    host: "smtp-relay.brevo.com",
-    port: 587,
-    auth: {
-        user: process.env.BREVO_LOGIN,
-        pass: process.env.BREVO_SMTP_KEY
-    }
-});
+const defaultClient = SibApiV3Sdk.ApiClient.instance;
+
+const apiKey = defaultClient.authentications['api-key'];
+apiKey.apiKey = process.env.BREVO_API_KEY;
+
+const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
 const sendMail = async (email, subject, text, html) => {
 
-    transporter.sendMail({
-        from: `"Campus Marketplace" <${process.env.EMAIL_USER}>`,
-        to:email,
-        subject,
-        text,
-        html
-    },
-    (error, info) => {
-            if (error) {
-                console.error("Error sending email:\n", error);
-            }
-        }
-    );
+    try {
+        await apiInstance.sendTransacEmail({
+            sender: {
+                name: "Campus Marketplace",
+                email: process.env.EMAIL_USER
+            },
+            to: [{ email }],
+            subject,
+            textContent: text,
+            htmlContent: html
+        });
+    } catch (error) {
+        console.error("Email error:", error);
+    }
 }
 
 const sendOTP = async (email, username, otp) => {
 
     const formattedOTP = otp.slice(0, 3) + " " + otp.slice(3, 6);
 
-    transporter.sendMail({
-        from: `"Campus Marketplace" <${process.env.EMAIL_USER}>`,
-        to:email,
-        subject: "Confirmation code for Campus Marketplace",
-        text: `Hello ${username}, ${formattedOTP} is your confirmation code for registering to Campus Marketplace`,
-        html: `
-        <div style="font-family: Arial, sans-serif; background-color: #f4f4f7; padding: 40px 20px;">
+    try {
+        await apiInstance.sendTransacEmail({
+            sender: {
+                name: "Campus Marketplace",
+                email: process.env.EMAIL_USER
+            },
+            to: [{ email }],
+            subject: "Confirmation code for Campus Marketplace",
+            textContent: `Hello ${username}, ${formattedOTP} is your confirmation code for registering to Campus Marketplace`,
+            htmlContent: `
+            <div style="font-family: Arial, sans-serif; background-color: #f4f4f7; padding: 40px 20px;">
             <div style="max-width: 500px; margin: auto; background: #ffffff; padding: 30px; border-radius: 8px; text-align: center;">
                 
                 <h2 style="margin-bottom: 10px; color: #111827;">
@@ -71,13 +74,10 @@ const sendOTP = async (email, username, otp) => {
             </div>
         </div>
         `
-    },
-    (error, info) => {
-            if (error) {
-                console.error("Error sending email:\n", error);
-            }
-        }
-    );
+        });
+    } catch (error) {
+        console.error("Email error:", error);
+    }
 
 }
 
